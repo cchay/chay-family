@@ -128,10 +128,10 @@ class GameEngine:
          return Shop().armourShop()
 
       elif navigation == '2':
+         return Shop().forest()
          
-
       elif navigation == '3':
-      
+         return Shop().inn()
 
       
 
