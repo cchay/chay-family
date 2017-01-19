@@ -115,6 +115,10 @@ class Shop:
       print('How can I help you? I\'m Jonbam.')
 
 
+class Shop:
+   def armourShop()
+
+
 class GameEngine:
    def signPost(self):
       print('You, {}, find yourself at a sign post.' .format(Hero.name))
