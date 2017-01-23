@@ -12,10 +12,6 @@ pants = { 'boxers': {'name': 'boxers', 'armour': 1, 'Buy': 25, 'Sell': 10, 'loca
            'shorts': {'name': 'shorts', 'armour': 8, 'Buy': 175, 'Sell': 80, 'location': 'legs'}
            }
 
-trinkets = {'necklace': {'armour': 10, 'Buy': 200, 'Sell': 90},
-            'head band': {'armour': 10, 'Buy': 200, 'Sell': 90},
-            'wrist band': {'armour': 10, 'Buy': 200, 'Sell': 90},
-            'eye patch': {'armour': 10, 'Buy': 200, 'Sell': 90}}
 
 profiles = {}
 
@@ -108,15 +104,16 @@ class Shop:
       for p in pants:
          print('{}:\t Price: {}@, \tArmour: {}' .format(p, pants[p]['Buy'], pants[p]['armour']))
 
-      
-      
+      item = input('What would you like to buy? ')
    
-   def trinketShop(self):
-      print('How can I help you? I\'m Jonbam.')
+   
+   def forest(self):
+      print('You enter the dark and imposing forest.')
+   
+   def inn(self):
+      print('You enter the old inn, and hear the sound of jolly and lively music.')
 
-
-class Shop:
-   def armourShop()
+      
 
 
 class GameEngine:
