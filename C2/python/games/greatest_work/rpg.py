@@ -1,21 +1,17 @@
 import random, pickle
 
 armour = { 'robe': {'name': 'robe', 'armour': 2, 'Buy': 35, 'Sell': 15, 'location': 'torso'},
-           'T-shirt': {'name': 'T-shirt', 'armour': 5, 'Buy': 80, 'Sell': 40, 'location': 'torso'},
+           'T-shirt': {'name': 'jeans', 'armour': 5, 'Buy': 80, 'Sell': 40, 'location': 'torso'},
            'jacket': {'name': 'jacket', 'armour': 20, 'Buy': 500, 'Sell': 200, 'location': 'torso'},
            'vest': {'name': 'vest', 'armour': 10, 'Buy': 200, 'Sell': 90, 'location': 'torso'}
            }
 
 pants = { 'boxers': {'name': 'boxers', 'armour': 1, 'Buy': 25, 'Sell': 10, 'location': 'legs'},
            'tunic': {'name': 'tunic', 'armour': 3, 'Buy': 65, 'Sell': 30, 'location': 'legs'},
-           'leggings': {'name': 'leggings', 'armour': 17, 'Buy': 450, 'Sell': 180, 'location': 'legs'},
+           'leggings': {'name': 'jeans', 'armour': 17, 'Buy': 450, 'Sell': 180, 'location': 'legs'},
            'shorts': {'name': 'shorts', 'armour': 8, 'Buy': 175, 'Sell': 80, 'location': 'legs'}
            }
 
-trinkets = {'necklace': {'armour': 10, 'Buy': 200, 'Sell': 90},
-            'head band': {'armour': 10, 'Buy': 200, 'Sell': 90},
-            'wrist band': {'armour': 10, 'Buy': 200, 'Sell': 90},
-            'eye patch': {'armour': 10, 'Buy': 200, 'Sell': 90}}
 
 profiles = {}
 
@@ -29,12 +25,13 @@ class player:
 
       self.gear = {'legs': {'name': 'empty', 'armour': 0}, 'torso': {'name': 'empty', 'armour': 0}}
       self.armour = 10
+      self.storage = []
       
       self.exp = 0
       self.level = 1
       self.n_level = 100
       
-      self.gold = 10
+      self.gold = 10000
 
    def __str__(self):
       return '''{}:
@@ -108,11 +105,34 @@ class Shop:
       for p in pants:
          print('{}:\t Price: {}@, \tArmour: {}' .format(p, pants[p]['Buy'], pants[p]['armour']))
 
+      item = input('What would you like to buy (or type \'back\' to go back to the sign post)? ')
+
+      if item == 'back':
+         return GameEngine().signPost()
       
-      
+      for armours in armour:
+         if item == armours:
+            if Hero.gold >= armour[item]['Buy']:
+               Hero.gold -= armour[item]['Buy']
+               Hero.storage.append(item)
+               print('You buy the {} for {}@.' .format(item, armour[item]['Buy']))
+            else:
+               print('You don\'t have enough coins(@).')
+         else:
+            pass
+            #print('I\'m sorry but I don\'t have that in my shop.')
+
+      return Shop().armourShop()
+                  
    
-   def trinketShop(self):
-      print('How can I help you? I\'m Jonbam.')
+   
+   def forest(self):
+      print('You enter the dark and imposing forest.')
+   
+   def inn(self):
+      print('You enter the old inn, and hear the sound of jolly and lively music.')
+
+      
 
 
 class GameEngine:
@@ -128,17 +148,17 @@ class GameEngine:
          return Shop().armourShop()
 
       elif navigation == '2':
+         return Shop().forest()
          
-
       elif navigation == '3':
-      
+         return Shop().inn()
 
       
 
 
 
 
-
+GameEngine().signPost()
 
 
 
