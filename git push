@@ -1,0 +1,62 @@
+[33mcommit 8c429f2ab7221a4e31f695418143659b79a9533b[m
+Author: Emmanuel Chay <chay.c4.emmanuel@gmail.com>
+Date:   Sat Jan 14 19:15:09 2017 -0500
+
+    c4:work
+
+[33mcommit 9f3e2170f47fac0f133af6f099d51051e1aff71c[m
+Merge: df732c3 81c889c
+Author: Caleb Chay <chay.c3.caleb@gmail.com>
+Date:   Sat Jan 14 19:04:27 2017 -0500
+
+    Merge branch 'master' of https://github.com/cchay/chay-family
+
+[33mcommit 81c889c2137e67ac5b5391824b5c4997c3861f5d[m
+Merge: a6a2116 a947400
+Author: Emmanuel Chay <chay.c4.emmanuel@gmail.com>
+Date:   Sat Jan 14 18:48:19 2017 -0500
+
+    Merge branch 'master' of https://github.com/cchay/chay-family
+
+[33mcommit a947400dd43051dad8f56dfdf30494ba16353c44[m
+Merge: 43a2274 fb8c0d0
+Author: christopherchay <chay.c2.christopher@gmail.com>
+Date:   Sat Jan 14 18:38:24 2017 -0500
+
+    Merge branch 'master' of https://github.com/cchay/chay-family
+
+[33mcommit 43a2274817398dee3c7d0f13648cb85399dc7376[m
+Author: christopherchay <chay.c2.christopher@gmail.com>
+Date:   Sat Jan 14 18:36:22 2017 -0500
+
+    C2: Committed python/games (finally)
+
+[33mcommit fb8c0d008ed81202cb755eb63e2d5c8d4712657f[m
+Author: Chris Chay <chay.c0.chris@gmail.com>
+Date:   Sat Jan 14 18:15:20 2017 -0500
+
+    c0: init
+
+[33mcommit a6a2116a336269f2fcb2b59e7dc689f473ac79fd[m
+Author: Emmanuel Chay <chay.c4.emmanuel@gmail.com>
+Date:   Sat Jan 14 17:26:04 2017 -0500
+
+    c4:my work
+
+[33mcommit 1b5fd3cdcabbeae375323622f22289ee80ac4d20[m
+Author: Christopher Chay <chay.c2.christopher@gmail.com>
+Date:   Sat Jan 14 17:24:29 2017 -0500
+
+    c2: my initial commit
+
+[33mcommit df732c393e603c4b1ea0abce765c607ffd9a87a8[m
+Author: Caleb Chay <chay.c3.caleb@gmail.com>
+Date:   Sat Jan 14 17:24:27 2017 -0500
+
+    C3: My initial commit.
+
+[33mcommit 9bbaff68efe48f258bb4c685b4ca57121df691ce[m
+Author: cchay <madah.c.chay@uscis.dhs.gov>
+Date:   Sat Jan 14 12:02:57 2017 -0500
+
+    Initial commit
