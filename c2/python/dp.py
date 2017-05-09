@@ -368,6 +368,29 @@ class technovillage:
                continue
             print('{}: Cost: {}, Armour: {}' .format(armour[i][x]['name'], armour[i][x]['bprice'], armour[i][x]['armour']))
 
+      action = input('What would you like to buy? ')
+      for i in armour:
+         for x in armour[i]:
+               if action in armour[i][x]['name']:
+                  print('Would you like to buy the {}? ("yes" or "no")' .format(action))
+                  answer = input('Answer: ')
+
+                  if answer == 'yes':
+                     if dp.bit >= armour[i][x]['bprice']:
+                        print('Sold!')
+                        dp.inventory.append(armour[i][x]['name'])
+                     else:
+                        print('I\'m sorry but you do not have enough money')
+
+                  elif answer == 'no':
+                     return technovillage().downloadstore()
+               else:
+                  print('We don\'t have {} here.' .format(action))
+                  return technovillage().downloadstore()
+
+            
+      
+
    def trashbin(self):
       #Fighting area
       print('Welcome to the trashbin. It\'s endless and you can fight virtually anything.')
