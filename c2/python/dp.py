@@ -181,7 +181,7 @@ class player:
                          + self.armour['feet']['armour'] + self.armour['hands']['armour']
 
       
-      self.inventory = {}
+      self.inventory = []
 
       self.weapon = 'technoblade'
 
@@ -230,7 +230,7 @@ class player:
 
    def displayInv(self):
       for i in self.inventory:
-         print(i['name'])
+         print(i)
       
 
    def __str__(self):
@@ -312,6 +312,8 @@ class battle:
             print('{} has been killed.' .format(d.name))
             a.bit += d.bit
             a.xp += d.xp
+
+         return technovillage().signpost()
             
       
 
@@ -338,7 +340,23 @@ class battle:
 
 class technovillage:
    def signpost(self):
+      print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       print('You find yourself at a sign post at the center of Technovillage. Where\'d you like to go?')
+      print('Places to go: "s"tore, "f"ileinn, "t"rashbin')
+
+      nav = input('^&: ')
+      if nav == "s":
+         return technovillage().downloadstore()
+
+      elif nav == "f":
+         return technovillage().fileinn()
+
+      elif nav == "t":
+         return technovillage().trashbin()
+
+      else:
+         return technovillage().signpost()
+         
    
    def fileinn(self):
       # You can rest and restore your hp here
@@ -352,10 +370,19 @@ class technovillage:
          if dp.bit >= price:
             print('You sleep in an extremely comfortable bed and wake up bright and early the next day.')
             print('"Good reboot! Hope you slept well."')
+            input('<*Press ENTER to continue*>')
+            technovillage().signpost()
+            
          else:
             print('Uhoh, looks like you don\'t have enough bits. Talk to Lena and she will heal you for half price.')
+            print('But only if you\'re level is lower than 5.')
+            input('<*Press ENTER to continue*>')
+            technovillage().signpost()
+            
       elif action == "no":
          print('Aww-right, come again soon!!')
+         technovillage().signpost()
+         
       else:
          return technovillage().fileinn()
 
@@ -369,24 +396,42 @@ class technovillage:
             print('{}: Cost: {}, Armour: {}' .format(armour[i][x]['name'], armour[i][x]['bprice'], armour[i][x]['armour']))
 
       action = input('What would you like to buy? ')
+      print(action)
       for i in armour:
          for x in armour[i]:
-               if action in armour[i][x]['name']:
-                  print('Would you like to buy the {}? ("yes" or "no")' .format(action))
-                  answer = input('Answer: ')
+            if action == armour[i][x]['name']:
+               print('Would you like to buy the {}? ("yes" or "no")' .format(action))
+               answer = input('Answer: ')
 
-                  if answer == 'yes':
-                     if dp.bit >= armour[i][x]['bprice']:
-                        print('Sold!')
-                        dp.inventory.append(armour[i][x]['name'])
-                     else:
-                        print('I\'m sorry but you do not have enough money')
-
-                  elif answer == 'no':
+               if answer == 'yes':
+                  if dp.bit >= armour[i][x]['bprice']:
+                     print('Sold!')
+                     dp.inventory.append(armour[i][x]['name'])
                      return technovillage().downloadstore()
-               else:
-                  print('We don\'t have {} here.' .format(action))
+                     print('Item purchased successfully!')
+                     input('<*Press ENTER to continue*>')
+                  else:
+                     print('I\'m sorry but you do not have enough money')
+                     return technovillage().downloadstore()
+                     input('<*Press ENTER to continue*>')
+
+               elif answer == 'no':
                   return technovillage().downloadstore()
+                  input('<*Press ENTER to continue*>')
+
+               elif answer == "leave":
+                  return technovillage().signpost()
+                  input('<*Press ENTER to continue*>')
+                  
+            if action == 'leave':
+               print('Have a good day!!')
+               return technovillage().downloadstore()
+               
+            #elif not action in armour[i][x]['name']:
+               #print('We don\'t have {} here.' .format(action))
+               #return technovillage().downloadstore()
+
+      
 
             
       
@@ -394,6 +439,21 @@ class technovillage:
    def trashbin(self):
       #Fighting area
       print('Welcome to the trashbin. It\'s endless and you can fight virtually anything.')
+      print('We only have viruses here. Do you want to fight the virus?')
+      answer = input('Answer: ')
 
+      if answer == 'yes':
+         bug = virus()
+         battle().fight(dp, bug)
+         return technovillage().trashbin
+
+
+      elif answer == "no":
+         return technovillage().signpost()
+      
+      else:
+         return technovillage().trashbin()
+      
+      
 
 technovillage().signpost()
