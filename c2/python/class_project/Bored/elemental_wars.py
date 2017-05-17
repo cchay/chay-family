@@ -17,15 +17,15 @@ class attack:
       self.defence = element['defence']
 
 class player:
-   def __init__(self, name, attack):
+   def __init__(self, name, element):
       self.name = name
       
-      self.attack = attack
-      self.defence = self.attack.defence
-      self.aftershock = self.attack.aftershock
+      self.attack = attack(element).name
+      self.defence = attack(element).defence
+      self.aftershock = attack(element).aftershock
 
-   def adjust():
-      if self.attack == :
+   #def adjust():
+   #   if self.attack == :
          
       
 
@@ -40,4 +40,4 @@ player(f2, e2)
 player.adjust()
       
 def game():
-   print('Hi, Welcome to the Elemental Wars!! YAY!!!!')
+   print('Hi, Welcome to the Elemental Wars!!')
