@@ -7,7 +7,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                   'byte cap': {'name': 'byte cap',
+                   'bitnbyte cap': {'name': 'bitnbyte helmet',
                             'armour': 2,
                             'bprice': 10,
                             'sprice': 8},
@@ -23,7 +23,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 16,
                             'bprice': 1250,
                             'sprice': 1000},
-                   'terrabyte coif': {'name': 'terrabyte coif',
+                   'terrabyte coif': {'name': 'terrabyte helmet',
                             'armour': 32,
                             'bprice': 6250,
                             'sprice': 5000},
@@ -36,15 +36,15 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 2,
                             'bprice': 25,
                             'sprice': 20},
-                    'byte shirt': {'name': 'byte shirt',
+                    'bitnbyte shirt': {'name': 'bitnbyte platemail',
                             'armour': 4,
                             'bprice': 125,
                             'sprice': 100},
-                    'kilobyte vest': {'name': 'kilobyte vest',
+                    'kilobyte vest': {'name': 'kilobyte platemail',
                             'armour': 8,
                             'bprice': 625,
                             'sprice': 500},
-                    'megabyte chest plate': {'name': 'megabyte shirt',
+                    'megabyte chest plate': {'name': 'megabyte platemail',
                             'armour': 16,
                             'bprice': 3125,
                             'sprice': 2500},
@@ -52,11 +52,11 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 32,
                             'bprice': 15625,
                             'sprice': 12500},
-                    'terrabyte shirt': {'name': 'terrabyte shirt',
+                    'terrabyte shirt': {'name': 'terrabyte platemail',
                             'armour': 64,
                             'bprice': 78125,
                             'sprice': 62500},
-                    'technobyte ringmail': {'name': 'technobyte ringmail',
+                    'technobyte ringmail': {'name': 'technobyte platemail',
                             'armour': 128,
                             'bprice': 390620,
                             'sprice': 312500}},
@@ -65,7 +65,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                    'byte pants': {'name': 'byte pants',
+                    'bitnbyte pants': {'name': 'bitnbyte pants',
                             'armour': 3,
                             'bprice': 15,
                             'sprice': 12},
@@ -73,7 +73,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 6,
                             'bprice': 75,
                             'sprice': 60},
-                    'megabyte greaves': {'name': 'megabyte greaves',
+                    'megabyte greaves': {'name': 'megabyte pants',
                             'armour': 12,
                             'bprice': 375,
                             'sprice': 300},
@@ -94,11 +94,11 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                    'byte shoes': {'name': 'byte shoes',
+                    'bitnbyte shoes': {'name': 'bitnbyte boots',
                             'armour': 1,
                             'bprice': 5,
                             'sprice': 4},
-                    'kilobyte moccasins': {'name': 'kilobyte moccasins',
+                    'kilobyte moccasins': {'name': 'kilobyte boots',
                             'armour': 2,
                             'bprice': 25,
                             'sprice': 10},
@@ -110,7 +110,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 8,
                             'bprice': 625,
                             'sprice': 500},
-                    'terrabyte socks': {'name': 'terrabyte socks',
+                    'terrabyte socks': {'name': 'terrabyte boots',
                             'armour': 16,
                             'bprice': 3125,
                             'sprice': 2500},
@@ -123,7 +123,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                    'byte gloves': {'name': 'byte gloves',
+                    'bitnbyte gloves': {'name': 'bitnbyte gloves',
                             'armour': 1,
                             'bprice': 5,
                             'sprice': 4},
@@ -173,8 +173,8 @@ class player:
       self.atttype = 'slashed'
 
       self.armour = {'head': armour['head']['none'],
-                     'torso': armour['torso']['byte shirt'],
-                     'legs': armour['legs']['byte pants'],
+                     'torso': armour['torso']['bitnbyte shirt'],
+                     'legs': armour['legs']['bitnbyte pants'],
                      'feet': armour['feet']['none'],
                      'hands': armour['hands']['none']}
 
@@ -372,7 +372,7 @@ class technovillage:
    def signpost(self):
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       print('You find yourself at a sign post at the center of Technovillage. Where\'d you like to go?')
-      print('Places to go: "s"tore, "f"ileinn, "t"rashbin')
+      print('Places to go: "s"tore, "f"ileinn, "t"rashbin, "h"ome')
 
       nav = input('^&: ')
       if nav == "s":
@@ -388,6 +388,9 @@ class technovillage:
          print(dp)
          input('<*Press ENTER to continue*>')
          return technovillage().signpost()
+
+      elif nav == "h":
+         return technovillage().home()
 
       else:
          return technovillage().signpost()
@@ -424,49 +427,53 @@ class technovillage:
          return technovillage().fileinn()
 
    def downloadstore(self):
+      armourlist = []
       #This is where you buy and sell items
       print('Hey, welcome to the download store! download any armour you like!')
       for i in armour:
          for x in armour[i]:
             if x == 'none':
                continue
-            print('{}: Cost: {}, Armour: {}' .format(armour[i][x]['name'], armour[i][x]['bprice'], armour[i][x]['armour']))
+            print('{}: \tCost: {}, \tArmour: {}' .format(armour[i][x]['name'], armour[i][x]['bprice'], armour[i][x]['armour']))
 
       action = input('What would you like to buy? ')
-      print(action)
       for i in armour:
          for x in armour[i]:
-            if action == armour[i][x]['name']:
-               print('Would you like to buy the {}? ("yes" or "no")' .format(action))
-               answer = input('Answer: ')
+            armourlist.append(armour[i][x]['name'])
 
-               if answer == 'yes':
-                  if dp.bit >= armour[i][x]['bprice']:
-                     print('Sold!')
-                     dp.inventory.append(armour[i][x]['name'])
-                     return technovillage().downloadstore()
-                     print('Item purchased successfully!')
-                     input('<*Press ENTER to continue*>')
-                  else:
-                     print('I\'m sorry but you do not have enough money')
-                     return technovillage().downloadstore()
-                     input('<*Press ENTER to continue*>')
+      if action in armourlist:
+         print('Would you like to buy the {}? ("yes" or "no")' .format(action))
+         answer = input('Answer: ')
 
-               elif answer == 'no':
-                  return technovillage().downloadstore()
-                  input('<*Press ENTER to continue*>')
-
-               elif answer == "leave":
-                  return technovillage().signpost()
-                  input('<*Press ENTER to continue*>')
-                  
-            if action == 'leave':
-               print('Have a good day!!')
+         if answer == 'yes':
+            if dp.bit >= armour[i][x]['bprice']:
+               dp.inventory.append(armour[i][x]['name'])
+               print('Item purchased successfully!')
+               input('<*Press ENTER to continue*>')
                return technovillage().downloadstore()
+            else:
+               print('I\'m sorry but you do not have enough money')
+               input('<*Press ENTER to continue*>')
+               return technovillage().downloadstore()
+                     
+
+         elif answer == 'no':
+            return technovillage().downloadstore()
+            input('<*Press ENTER to continue*>')
+
+         elif answer == "leave":
+            print('You leave the armour shop')
+            input('<*Press ENTER to continue*>')
+            return technovillage().signpost()
+                  
+      if action == 'leave':
+         print('You leave the armour shop')
+         input('<*Press ENTER to continue*>')
+         return technovillage().signpost()
                
-            #elif not action in armour[i][x]['name']:
-               #print('We don\'t have {} here.' .format(action))
-               #return technovillage().downloadstore()
+      if not action in armourlist:
+         print('We don\'t have {} here.' .format(action))
+         return technovillage().downloadstore()
 
       
 
@@ -495,6 +502,23 @@ class technovillage:
       
       else:
          return technovillage().trashbin()
+
+
+   def home(self):
+
+      print('You go to your simple hut just outside town.')
+      print('here you can equip and unequip armour and later, weapons.')
+      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage')
+
+      if action == "u":
+         print('Which armour do you want to unequip?')
+
+      elif action == "e":
+         
+
+      elif action == "v":
+         
+      
       
       
 
