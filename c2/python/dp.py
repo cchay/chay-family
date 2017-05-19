@@ -151,6 +151,7 @@ armour = {'head': {'none': {'name': 'none',
 class player:
    def __init__(self):
       self.name = 'DiamondPython'
+      self.maxhp = 75
       self.hp = 75
       self.level = 1
       self.xp = 0
@@ -183,7 +184,8 @@ class player:
       
       self.inventory = []
 
-      self.weapon = 'technoblade'
+      self.weapon = 'byteblade'
+      self.totdamage = 0
 
       
    def getHurt(self, damage):
@@ -194,10 +196,10 @@ class player:
          return '{} received {} crushing damage!' .format(self.name, damage)
    
 
-   def winBattle(self):
-      xpGain = random.randint(100, 300)
-      self.xp += xpGain
-      print( '{} won the battle and gained {} experience!' .format(self.name, xpGain))
+   def winBattle(self, xp, bit):
+      self.xp += xp
+      self.bit += bit
+      print( '{} received {} exp and {} bits. Good work!' .format(self.name, xp, bit))
       if self.xp >= self.level_cost[self.level+1]:
          return player().levelUp()
 
@@ -235,6 +237,8 @@ class player:
 
    def __str__(self):
       return '''
+STATS:
+
 Name: {}
    HP: {}
    Level: {}
@@ -283,23 +287,44 @@ class virus():
                      'smash': {'damage': 7, 'level': 1}}
       self.atttype = 'smashed'
 
-      self.xp = 10
+      self.xp = 100
       self.bit = random.randint(5, 20)
+      self.totdamage = 0
 
 
+
+class hacker():
+   def __init__(self):
+      #level 100 or so
+      self.hp = 1000
+      self.name = 'hacker'
+      self.damage = 1000
+      self.strength = 100
+      self.agility = 100
+
+      self.resistance = 100
+
+      self.skills = {'dodge': {'level': 10},
+                     'smash': {'damage': 700, 'level': 100}}
+      self.atttype = 'smashed'
+
+      self.xp = 100000
+      self.bit = random.randint(5000, 200000)
+      self.totdamage = 0
 
 
 
 class battle:
    def fight(self, a, d):
+      a.totdamage = 0
+      print('{}: {}' .format(a.name, a.hp))
+      print('{}: {}' .format(d.name, d.hp))
       while a.hp > 0 and d.hp > 0:
-         print('{}: {}' .format(a.name, a.hp))
-         print('{}: {}' .format(d.name, d.hp))
          
          battle().turn(a, d, 'slash')
          battle().turn(d, a, 'smash')
-         print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-         input('<press enter to continue>')
+         #print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+         #input('<press enter to continue>')
 
       else:
          if a.hp <= 0 and d.hp <= 0:
@@ -310,9 +335,12 @@ class battle:
 
          elif d.hp <= 0:
             print('{} has been killed.' .format(d.name))
-            a.bit += d.bit
-            a.xp += d.xp
+            a.winBattle(d.xp, d.bit)
 
+         print('{}: {}' .format(a.name, a.hp))
+         print('{}: {}' .format(d.name, d.hp))
+         print('{} received {} damage and dealt {} damage.' .format(a.name, a.totdamage, d.totdamage))
+         input('<*Press ENTER to continue*>')
          return technovillage().signpost()
             
       
@@ -331,11 +359,13 @@ class battle:
          damagedealt -= d.resistance
          if damagedealt <= 0:
             damagedealt = 0
-         print('{} {} {} for {} {} damage!!!!' .format(a.name, a.atttype, d.name, damagetype, damagedealt))
+         d.totdamage += damagedealt
+         #print('{} {} {} for {} {} damage!!!!' .format(a.name, a.atttype, d.name, damagetype, damagedealt))
          d.hp -= damagedealt
 
       else:
-         print('{} missed!' .format(a.name))
+         pass
+         #print('{} missed!' .format(a.name))
 
 
 class technovillage:
@@ -354,13 +384,18 @@ class technovillage:
       elif nav == "t":
          return technovillage().trashbin()
 
+      elif nav == "stats":
+         print(dp)
+         input('<*Press ENTER to continue*>')
+         return technovillage().signpost()
+
       else:
          return technovillage().signpost()
          
    
    def fileinn(self):
       # You can rest and restore your hp here
-      price = 10 + 0.1*dp.level
+      price = int(round(10 + 0.1*dp.level))
       print('"Good reboot to you! Fileinn at your service! We\'ve got the most comfortable beds in all Computa!"')
       print('"Would you like a room? It only costs {} bits and all your hp gets recovered."' .format(price))
       print('You can type "yes" to sleep or "no" to leave.')
@@ -371,6 +406,8 @@ class technovillage:
             print('You sleep in an extremely comfortable bed and wake up bright and early the next day.')
             print('"Good reboot! Hope you slept well."')
             input('<*Press ENTER to continue*>')
+            dp.bit -= price
+            dp.hp = dp.maxhp
             technovillage().signpost()
             
          else:
@@ -444,6 +481,11 @@ class technovillage:
 
       if answer == 'yes':
          bug = virus()
+         battle().fight(dp, bug)
+         return technovillage().trashbin
+
+      elif answer == 'maybe':
+         bug = hacker()
          battle().fight(dp, bug)
          return technovillage().trashbin
 
