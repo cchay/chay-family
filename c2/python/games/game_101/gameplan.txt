@@ -1,0 +1,9 @@
+We will want to create a game where we have 1 object:
+	-> 1 Hero object
+	
+	Functions for the Hero object
+	For now, let's just have him equip and unequip armour
+	
+		-> Equip armour
+		-> Unequip armour
+		
