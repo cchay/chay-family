@@ -155,7 +155,7 @@ class player:
       self.hp = 75
       self.level = 1
       self.xp = 0
-      self.bit = 100
+      self.bit = 1000000000000
 
       self.level_cost = {2: 10000,
                          3: 50000,
@@ -182,7 +182,7 @@ class player:
                          + self.armour['feet']['armour'] + self.armour['hands']['armour']
 
       
-      self.inventory = []
+      self.inventory = ['bitnbyte helmet']
 
       self.weapon = 'byteblade'
       self.totdamage = 0
@@ -455,7 +455,7 @@ class technovillage:
                print('I\'m sorry but you do not have enough money')
                input('<*Press ENTER to continue*>')
                return technovillage().downloadstore()
-                     
+                           
 
          elif answer == 'no':
             return technovillage().downloadstore()
@@ -465,16 +465,17 @@ class technovillage:
             print('You leave the armour shop')
             input('<*Press ENTER to continue*>')
             return technovillage().signpost()
-                  
+                     
       if action == 'leave':
          print('You leave the armour shop')
          input('<*Press ENTER to continue*>')
          return technovillage().signpost()
-               
+                     
       if not action in armourlist:
          print('We don\'t have {} here.' .format(action))
          return technovillage().downloadstore()
 
+      return technovillage().downloadstore()
       
 
             
@@ -505,19 +506,22 @@ class technovillage:
 
 
    def home(self):
-
       print('You go to your simple hut just outside town.')
       print('here you can equip and unequip armour and later, weapons.')
-      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage')
+      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear')
 
       if action == "u":
          print('Which armour do you want to unequip?')
 
       elif action == "e":
-         
+         armour = input('What would you like to equip?')
+         local = input('Where? ')
+         dp.equipArmour(local, armour)
 
       elif action == "v":
-         
+         print(dp.inventory)
+         print()
+         print(dp.armour)
       
       
       
