@@ -7,7 +7,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                   'bitnbyte cap': {'name': 'bitnbyte helmet',
+                   'bitnbyte helmet': {'name': 'bitnbyte helmet',
                             'armour': 2,
                             'bprice': 10,
                             'sprice': 8},
@@ -508,20 +508,45 @@ class technovillage:
    def home(self):
       print('You go to your simple hut just outside town.')
       print('here you can equip and unequip armour and later, weapons.')
-      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear')
+      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear, "b"ack to town')
 
       if action == "u":
          print('Which armour do you want to unequip?')
+         unequip = input()
+         local = input('Where?')
+
+         dp.unequipArmour(local, unequip)
+         print('You equip the {} on your {}' .format(item, local))
+         input('<Press enter to continue>')
+         return technovillage().home()
 
       elif action == "e":
          armour = input('What would you like to equip?')
          local = input('Where? ')
          dp.equipArmour(local, armour)
+         print('You equip the {} on your {}' .format(item, local))
+         input('<Press enter to continue>')
+         return technovillage().home()
 
       elif action == "v":
-         print(dp.inventory)
-         print()
-         print(dp.armour)
+         #print(dp.inventory)
+         #print()
+         #print(dp.armour)
+
+         print('\nInventory:\n')
+
+         for i in dp.inventory:
+            print(i)#['name'])
+         input('<Press enter to continue>')
+
+         return technovillage().home()
+
+      elif action == "b":
+         return technovillage().signpost()
+
+      else:
+         input('<Press enter to continue>')
+         return technovillage().home()
       
       
       
