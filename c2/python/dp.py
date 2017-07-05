@@ -7,7 +7,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                   'bitnbyte cap': {'name': 'bitnbyte helmet',
+                   'bitnbyte helmet': {'name': 'bitnbyte helmet',
                             'armour': 2,
                             'bprice': 10,
                             'sprice': 8},
@@ -512,6 +512,10 @@ class technovillage:
 
       if action == "u":
          print('Which armour do you want to unequip?')
+         unequip = input()
+         local = input('Where?')
+
+         dp.unequipArmour(local, unequip)
 
       elif action == "e":
          armour = input('What would you like to equip?')
@@ -519,9 +523,14 @@ class technovillage:
          dp.equipArmour(local, armour)
 
       elif action == "v":
-         print(dp.inventory)
-         print()
-         print(dp.armour)
+         #print(dp.inventory)
+         #print()
+         #print(dp.armour)
+
+         for i in dp.inventory:
+            print(i)#['name'])
+
+         return technovillage().home()
       
       
       
