@@ -36,15 +36,15 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 2,
                             'bprice': 25,
                             'sprice': 20},
-                    'bitnbyte shirt': {'name': 'bitnbyte platemail',
+                    'bitnbyte platemail': {'name': 'bitnbyte platemail',
                             'armour': 4,
                             'bprice': 125,
                             'sprice': 100},
-                    'kilobyte vest': {'name': 'kilobyte platemail',
+                    'kilobyte platemail': {'name': 'kilobyte platemail',
                             'armour': 8,
                             'bprice': 625,
                             'sprice': 500},
-                    'megabyte chest plate': {'name': 'megabyte platemail',
+                    'megabyte platemail': {'name': 'megabyte platemail',
                             'armour': 16,
                             'bprice': 3125,
                             'sprice': 2500},
@@ -52,11 +52,11 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 32,
                             'bprice': 15625,
                             'sprice': 12500},
-                    'terrabyte shirt': {'name': 'terrabyte platemail',
+                    'terrabyte platemail': {'name': 'terrabyte platemail',
                             'armour': 64,
                             'bprice': 78125,
                             'sprice': 62500},
-                    'technobyte ringmail': {'name': 'technobyte platemail',
+                    'technobyte platemail': {'name': 'technobyte platemail',
                             'armour': 128,
                             'bprice': 390620,
                             'sprice': 312500}},
@@ -73,7 +73,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 6,
                             'bprice': 75,
                             'sprice': 60},
-                    'megabyte greaves': {'name': 'megabyte pants',
+                    'megabyte pants': {'name': 'megabyte pants',
                             'armour': 12,
                             'bprice': 375,
                             'sprice': 300},
@@ -94,11 +94,11 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
-                    'bitnbyte shoes': {'name': 'bitnbyte boots',
+                    'bitnbyte boots': {'name': 'bitnbyte boots',
                             'armour': 1,
                             'bprice': 5,
                             'sprice': 4},
-                    'kilobyte moccasins': {'name': 'kilobyte boots',
+                    'kilobyte boots': {'name': 'kilobyte boots',
                             'armour': 2,
                             'bprice': 25,
                             'sprice': 10},
@@ -110,7 +110,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 8,
                             'bprice': 625,
                             'sprice': 500},
-                    'terrabyte socks': {'name': 'terrabyte boots',
+                    'terrabyte boots': {'name': 'terrabyte boots',
                             'armour': 16,
                             'bprice': 3125,
                             'sprice': 2500},
@@ -154,7 +154,7 @@ class player:
       self.maxhp = 75
       self.hp = 75
       self.level = 1
-      self.xp = 0
+      self.xp = 9900
       self.bit = 1000000000000
 
       self.level_cost = {2: 10000,
@@ -169,14 +169,14 @@ class player:
       self.skills = {'dodge': {'level': 1, 'cost': 5},
                      'slash': {'damage': 10, 'level': 1, 'cost': 5}}
                      #Slash skill damage increases by 50% every level
-                     #Dodge and slash skill cost increases 
+                     #Dodge and slash skill cost increases by 75%
       self.atttype = 'slashed'
 
-      self.armour = {'head': armour['head']['none'],
-                     'torso': armour['torso']['bitnbyte shirt'],
-                     'legs': armour['legs']['bitnbyte pants'],
-                     'feet': armour['feet']['none'],
-                     'hands': armour['hands']['none']}
+      self.armour = {'head': armour['head']['none'], #armour['head']['technobyte helmet'],
+                     'torso': armour['torso']['bitnbyte platemail'],#armour['torso']['technobyte platemail'],
+                     'legs': armour['legs']['bitnbyte pants'],#armour['legs']['technobyte pants'],
+                     'feet': armour['feet']['none'], #armour['feet']['technobyte boots'],
+                     'hands': armour['hands']['none']} #armour['hands']['technobyte gloves']}
 
       self.resistance  = self.armour['head']['armour'] + self.armour['torso']['armour'] + self.armour['legs']['armour']\
                          + self.armour['feet']['armour'] + self.armour['hands']['armour']
@@ -194,14 +194,6 @@ class player:
          return '{} received {} crushing damage and has died!! But fortunately you were dragged to safety.' .format(self.name, damage)
       else:
          return '{} received {} crushing damage!' .format(self.name, damage)
-   
-
-   def winBattle(self, xp, bit):
-      self.xp += xp
-      self.bit += bit
-      print( '{} received {} exp and {} bits. Good work!' .format(self.name, xp, bit))
-      if self.xp >= self.level_cost[self.level+1]:
-         return player().levelUp()
 
 
    def loseBattle(self):
@@ -227,7 +219,7 @@ class player:
       if self.xp < 0:
          self.xp = 0
       self.level += 1
-      return 'Congradulations!! {} has just leveled up!! Good work.' .format(self.name)
+      print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
 
 
    def displayInv(self):
@@ -270,8 +262,20 @@ Armour:
 
 
 
+
+
 dp = player()
 print(dp)
+
+
+def winBattle(xp, bit):
+   dp.xp += xp
+   dp.bit += bit
+   print( '{} received {} exp and {} bits. Good work!' .format(dp.name, xp, bit))
+   if dp.xp >= dp.level_cost[dp.level+1]:
+      return dp.levelUp()
+
+
 
 class virus():
    def __init__(self):
@@ -305,7 +309,7 @@ class hacker():
       self.resistance = 100
 
       self.skills = {'dodge': {'level': 10},
-                     'smash': {'damage': 700, 'level': 100}}
+                     'smash': {'level': 100, 'damage': 700}}
       self.atttype = 'smashed'
 
       self.xp = 100000
@@ -335,7 +339,7 @@ class battle:
 
          elif d.hp <= 0:
             print('{} has been killed.' .format(d.name))
-            a.winBattle(d.xp, d.bit)
+            winBattle(d.xp, d.bit)
 
          print('{}: {}' .format(a.name, a.hp))
          print('{}: {}' .format(d.name, d.hp))
@@ -508,7 +512,7 @@ class technovillage:
    def home(self):
       print('You go to your simple hut just outside town.')
       print('here you can equip and unequip armour and later, weapons.')
-      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear')
+      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear, "c"heck stats, "b"ack to town')
 
       if action == "u":
          print('Which armour do you want to unequip?')
@@ -516,20 +520,50 @@ class technovillage:
          local = input('Where?')
 
          dp.unequipArmour(local, unequip)
+<<<<<<< HEAD
+=======
+         print('You equip the {} on your {}' .format(unequip, local))
+         input('<Press enter to continue>')
+         return technovillage().home()
+>>>>>>> c2
 
       elif action == "e":
          armour = input('What would you like to equip?')
          local = input('Where? ')
          dp.equipArmour(local, armour)
+         print('You equip the {} on your {}' .format(armour, local))
+         input('<Press enter to continue>')
+         return technovillage().home()
 
       elif action == "v":
          #print(dp.inventory)
          #print()
          #print(dp.armour)
 
+<<<<<<< HEAD
          for i in dp.inventory:
             print(i)#['name'])
 
+=======
+         print('\nInventory:\n')
+
+         for i in dp.inventory:
+            print(i)#['name'])
+         input('<Press enter to continue>')
+
+         return technovillage().home()
+
+      elif action == "b":
+         return technovillage().signpost()
+
+      elif action == "c":
+         print(dp)
+         input('<Press enter to continue>')
+         return technovillage().home()
+
+      else:
+         input('<Press enter to continue>')
+>>>>>>> c2
          return technovillage().home()
       
       
