@@ -1,7 +1,8 @@
 import random, time, sys
 
 
-## Changing things: grub -> virus
+## raising skill levels next on list
+## 
 
 armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
@@ -165,11 +166,13 @@ class player:
 
       self.attributes = {'strength': 1,
                          'agility': 1}
+                        # Player gets 2 skill points per level maybe 1
 
       self.skills = {'dodge': {'level': 1, 'cost': 5},
                      'slash': {'damage': 10, 'level': 1, 'cost': 5}}
                      #Slash skill damage increases by 50% every level
                      #Dodge and slash skill cost increases by 75%
+      
       self.atttype = 'slashed'
 
       self.armour = {'head': armour['head']['none'], #armour['head']['technobyte helmet'],
@@ -203,9 +206,9 @@ class player:
 
 
    def equipArmour(self, local, item):
-      self.resistance -= self.armour[local]['armour']
-      self.armour[local] = armour[local][item]
-      self.resistance += armour[local][item]['armour']
+      self.resistance -= self.armour[local]['armour'] #This adjusts the armour bonus before equiping the new armour
+      self.armour[local] = armour[local][item]# Equips the new armour and discards the old
+      self.resistance += armour[local][item]['armour']# Readjusts the new armour stats
 
 
    def unequipArmour(self, local, item):
@@ -216,7 +219,7 @@ class player:
 
    def levelUp(self):
       self.xp -= self.level_cost[self.level+1]
-      if self.xp < 0:
+      if self.xp < 0: # making sure there are no errors in the code, Will have to take this out alter 
          self.xp = 0
       self.level += 1
       print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
@@ -520,12 +523,9 @@ class technovillage:
          local = input('Where?')
 
          dp.unequipArmour(local, unequip)
-<<<<<<< HEAD
-=======
          print('You equip the {} on your {}' .format(unequip, local))
          input('<Press enter to continue>')
          return technovillage().home()
->>>>>>> c2
 
       elif action == "e":
          armour = input('What would you like to equip?')
@@ -540,11 +540,6 @@ class technovillage:
          #print()
          #print(dp.armour)
 
-<<<<<<< HEAD
-         for i in dp.inventory:
-            print(i)#['name'])
-
-=======
          print('\nInventory:\n')
 
          for i in dp.inventory:
@@ -563,7 +558,6 @@ class technovillage:
 
       else:
          input('<Press enter to continue>')
->>>>>>> c2
          return technovillage().home()
       
       
