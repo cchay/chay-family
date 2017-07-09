@@ -163,8 +163,8 @@ class player:
                          5: 200000,
                          6: 500000}
 
-      self.attributes = {'strength': 50#1,
-                         'agility': 50#1}
+      self.attributes = {'strength': 50,#1,
+                         'agility': 50}#1}
 
       self.skills = {'dodge': {'level': 1, 'cost': 5},#{'level': 1, 'cost': 5},
                      'slash': {'damage': 10, 'level': 1, 'cost': 5}}#{'damage': 10, 'level': 1, 'cost': 5}}
