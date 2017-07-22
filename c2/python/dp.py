@@ -24,7 +24,7 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 16,
                             'bprice': 1250,
                             'sprice': 1000},
-                   'terrabyte coif': {'name': 'terrabyte helmet',
+                   'terrabyte helmet': {'name': 'terrabyte helmet',
                             'armour': 32,
                             'bprice': 6250,
                             'sprice': 5000},
@@ -149,6 +149,9 @@ armour = {'head': {'none': {'name': 'none',
                             'bprice': 78125,
                             'sprice': 62500}}}
 
+weapons = {}
+
+
 class player:
    def __init__(self):
       self.name = 'DiamondPython'
@@ -174,6 +177,10 @@ class player:
                      #Dodge and slash skill cost increases by 75%
       
       self.atttype = 'slashed'
+
+      self.weapons = {'bothhands':0, #nothing yetttt
+                      'lefthand':0,  #not yet
+                      'right hand':0}
 
       self.armour = {'head': armour['head']['none'], #armour['head']['technobyte helmet'],
                      'torso': armour['torso']['bitnbyte platemail'],#armour['torso']['technobyte platemail'],
