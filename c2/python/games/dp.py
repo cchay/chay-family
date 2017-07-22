@@ -171,8 +171,9 @@ class player:
                          'agility': 1}
                         # Player gets 2 skill points per level maybe 1
 
-      self.skills = {'dodge': {'level': 1, 'cost': 5},
-                     'slash': {'damage': 10, 'level': 1, 'cost': 5}}
+
+      self.skills = {'dodge': {'level': 1, 'cost': 5},#{'level': 1, 'cost': 5},
+                     'slash': {'damage': 10, 'level': 1, 'cost': 5}}#{'damage': 10, 'level': 1, 'cost': 5}}
                      #Slash skill damage increases by 50% every level
                      #Dodge and slash skill cost increases by 75%
       
@@ -429,7 +430,7 @@ class technovillage:
             
          else:
             print('Uhoh, looks like you don\'t have enough bits. Talk to Lena and she will heal you for half price.')
-            print('But only if you\'re level is lower than 5.')
+            print('But only if your level is lower than 5.')
             input('<*Press ENTER to continue*>')
             technovillage().signpost()
             
@@ -443,7 +444,8 @@ class technovillage:
    def downloadstore(self):
       armourlist = []
       #This is where you buy and sell items
-      print('Hey, welcome to the download store! download any armour you like!')
+      print('Hey, welcome to the download store! Download any armour you like!')
+      print('Or type "leave" to leave')
       for i in armour:
          for x in armour[i]:
             if x == 'none':
