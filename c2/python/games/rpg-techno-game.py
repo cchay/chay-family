@@ -1,33 +1,48 @@
-import random, time, sys
+import random, time, sys, pickle
 
 
-## raising skill levels next on list
-## 
+##                                           Game goals:
+## raising skill levels next on list ****
+## !Merge pickel with this to start having savesss *****!
+## Create a weapon dictionary: spears, maces, swords, axes, bows **
+
+
+
+#profiles = pickle.dump(, open('rpg-techno-game-data.pickle', 'wb'))
+
+
+
 
 armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
+                   
                    'bitnbyte helmet': {'name': 'bitnbyte helmet',
                             'armour': 2,
                             'bprice': 10,
                             'sprice': 8},
+                   
                    'kilobyte helmet': {'name': 'kilobyte helmet',
                             'armour': 4,
                             'bprice': 50,
                             'sprice': 40},
+                   
                    'megabyte helmet': {'name': 'megabyte helmet',
                             'armour': 8,
                             'bprice': 250,
                             'sprice': 200},
+                   
                    'gigabyte helmet': {'name': 'gigabyte helmet',
                             'armour': 16,
                             'bprice': 1250,
                             'sprice': 1000},
+                   
                    'terrabyte helmet': {'name': 'terrabyte helmet',
                             'armour': 32,
                             'bprice': 6250,
                             'sprice': 5000},
+                   
                    'technobyte helmet': {'name': 'technobyte helmet',
                             'armour': 64,
                             'bprice': 31250,
@@ -37,26 +52,32 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 2,
                             'bprice': 25,
                             'sprice': 20},
+                    
                     'bitnbyte platemail': {'name': 'bitnbyte platemail',
                             'armour': 4,
                             'bprice': 125,
                             'sprice': 100},
+                    
                     'kilobyte platemail': {'name': 'kilobyte platemail',
                             'armour': 8,
                             'bprice': 625,
                             'sprice': 500},
+                    
                     'megabyte platemail': {'name': 'megabyte platemail',
                             'armour': 16,
                             'bprice': 3125,
                             'sprice': 2500},
+                    
                     'gigabyte platemail': {'name': 'gigabyte platemail',
                             'armour': 32,
                             'bprice': 15625,
                             'sprice': 12500},
+                    
                     'terrabyte platemail': {'name': 'terrabyte platemail',
                             'armour': 64,
                             'bprice': 78125,
                             'sprice': 62500},
+                    
                     'technobyte platemail': {'name': 'technobyte platemail',
                             'armour': 128,
                             'bprice': 390620,
@@ -66,26 +87,32 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
+                    
                     'bitnbyte pants': {'name': 'bitnbyte pants',
                             'armour': 3,
                             'bprice': 15,
                             'sprice': 12},
+                    
                     'kilobyte pants': {'name': 'kilobyte pants',
                             'armour': 6,
                             'bprice': 75,
                             'sprice': 60},
+                    
                     'megabyte pants': {'name': 'megabyte pants',
                             'armour': 12,
                             'bprice': 375,
                             'sprice': 300},
+                    
                     'gigabyte pants': {'name': 'gigabyte pants',
                             'armour': 24,
                             'bprice': 1875,
                             'sprice': 1500},
+                    
                     'terrabyte pants': {'name': 'terrabyte pants',
                             'armour': 48,
                             'bprice': 9375,
                             'sprice': 7500},
+                    
                     'technobyte pants': {'name': 'technobyte pants',
                             'armour': 96,
                             'bprice': 46875,
@@ -95,26 +122,32 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
+                    
                     'bitnbyte boots': {'name': 'bitnbyte boots',
                             'armour': 1,
                             'bprice': 5,
                             'sprice': 4},
+                    
                     'kilobyte boots': {'name': 'kilobyte boots',
                             'armour': 2,
                             'bprice': 25,
                             'sprice': 10},
+                    
                     'megabyte boots': {'name': 'megabyte boots',
                             'armour': 4,
                             'bprice': 125,
                             'sprice': 100},
+                    
                     'gigabyte boots': {'name': 'gigabyte boots',
                             'armour': 8,
                             'bprice': 625,
                             'sprice': 500},
+                    
                     'terrabyte boots': {'name': 'terrabyte boots',
                             'armour': 16,
                             'bprice': 3125,
                             'sprice': 2500},
+                    
                     'technobyte boots': {'name': 'technobyte boots',
                             'armour': 32,
                             'bprice': 15625,
@@ -124,26 +157,32 @@ armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
                             'sprice': 0},
+                    
                     'bitnbyte gloves': {'name': 'bitnbyte gloves',
                             'armour': 1,
                             'bprice': 5,
                             'sprice': 4},
+                    
                     'kilobyte gloves': {'name': 'kilobyte gloves',
                             'armour': 2,
                             'bprice': 125,
                             'sprice': 100},
+                    
                     'megabyte gloves': {'name': 'megabyte gloves',
                             'armour': 4,
                             'bprice': 625,
                             'sprice': 500},
+                    
                     'gigabyte gloves': {'name': 'gigabyte gloves',
                             'armour': 8,
                             'bprice': 3125,
                             'sprice': 2500},
+                    
                     'terrabyte gloves': {'name': 'terrabyte gloves',
                             'armour': 16,
                             'bprice': 15625,
                             'sprice': 12500},
+                    
                     'technobyte gloves': {'name': 'technobyte gloves',
                             'armour': 32,
                             'bprice': 78125,
@@ -151,7 +190,7 @@ armour = {'head': {'none': {'name': 'none',
 
 weapons = {}
 
-
+'''
 class player:
    def __init__(self):
       self.name = 'DiamondPython'
@@ -188,6 +227,11 @@ class player:
                      'legs': armour['legs']['bitnbyte pants'],#armour['legs']['technobyte pants'],
                      'feet': armour['feet']['none'], #armour['feet']['technobyte boots'],
                      'hands': armour['hands']['none']} #armour['hands']['technobyte gloves']}
+      self.armour = {'head': armour['head']['technobyte helmet'],
+                     'torso': armour['torso']['technobyte platemail'],
+                     'legs': armour['legs']['technobyte pants'],
+                     'feet': armour['feet']['technobyte boots'],
+                     'hands': armour['hands']['technobyte gloves']}
 
       self.resistance  = self.armour['head']['armour'] + self.armour['torso']['armour'] + self.armour['legs']['armour']\
                          + self.armour['feet']['armour'] + self.armour['hands']['armour']
@@ -196,6 +240,152 @@ class player:
       self.inventory = ['bitnbyte helmet']
 
       self.weapon = 'byteblade'
+      self.totdamage = 0
+
+      
+   def getHurt(self, damage):
+      self.hp -= damage
+      if self.hp <= 0:
+         return '{} received {} crushing damage and has died!! But fortunately you were dragged to safety.' .format(self.name, damage)
+      else:
+         return '{} received {} crushing damage!' .format(self.name, damage)
+
+
+   def loseBattle(self):
+      xpGain = random.randint(50, 100)
+      self.xp += xpGain
+      return '{} lost and gained {} experience...' .format(self.name, xpGain)
+
+
+   def equipArmour(self, local, item):
+      self.resistance -= self.armour[local]['armour'] #This adjusts the armour bonus before equiping the new armour
+      self.armour[local] = armour[local][item]# Equips the new armour and discards the old
+      self.resistance += armour[local][item]['armour']# Readjusts the new armour stats
+
+
+   def unequipArmour(self, local, item):
+      self.resistance -= self.armour[local]['armour']
+      self.inventory = (self.armour[local]['name'])
+      self.armour[local] = armour[local]['none']
+
+
+   def levelUp(self):
+      self.xp -= self.level_cost[self.level+1]
+      if self.xp < 0: # making sure there are no errors in the code, Will have to take this out alter 
+         self.xp = 0
+      self.level += 1
+      print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
+
+
+   def displayInv(self):
+      for i in self.inventory:
+         print(i)
+      
+
+   def __str__(self):
+      return ''' '''
+STATS:
+
+Name: {}
+   HP: {}
+   Level: {}
+   XP: {}/{}
+   Bits: {}
+
+Attributes:
+   Strength: {}
+   Agility:  {}
+
+Skills:
+   Dodge: level: {}
+   Slash: level: {}
+
+Weapon: {}
+   Damage: {}
+
+Armour:
+   Resistance: {}
+      Head: {}
+      Torso: {}
+      Legs: {}
+      Feet: {}
+      Hands: {}
+''' '''.format(self.name, self.hp, self.level, self.xp, self.level_cost[self.level+1], self.bit, self.attributes['strength'],
+            self.attributes['agility'], self.skills['dodge']['level'], self.skills['slash']['level'], self.weapon,
+            self.skills['slash']['damage'], self.resistance, self.armour['head']['name'], self.armour['torso']['name'],
+            self.armour['legs']['name'], self.armour['feet']['name'], self.armour['hands']['name'])
+
+'''
+
+player_profile = {'name': 'Super tester DiamondPython',
+						'maxhp': 75,
+						'hp': 75,
+						'level': 1,
+						'xp': 9900,
+						'bits': 1000000000000,
+						'attributes': {'strength': 1,
+                         			'agility': 1},
+						'skills': {'dodge': {'level': 1, 'cost': 5},
+                     			'slash': {'damage': 10, 'level': 1, 'cost': 5}},
+						'weapons': {'bothhands': 0, #nothing yetttt
+                      			'lefthand': 0,  #not yet
+                      			'right hand': 0},
+						'armour': {'head': armour['head']['technobyte helmet'],
+                     			'torso': armour['torso']['technobyte platemail'],
+                     			'legs': armour['legs']['technobyte pants'],
+                    				 'feet': armour['feet']['technobyte boots'],
+                    				 'hands': armour['hands']['technobyte gloves']},
+						'inventory': ['bitnbyte helmet'],
+						'weapon': 'bitnbyte sword'}
+
+with open('rpg-techno-game-data.pickle', 'wb') as h:
+            pickle.dump(player_profile, h)
+
+
+class player:
+   def __init__(self, player_profile):
+      self.name = player_profile['name']
+      self.maxhp = player_profile['maxhp']
+      self.hp = player_profile['hp']
+      self.level = player_profile['level']
+      self.xp = player_profile['xp']
+      self.bit = player_profile['bits']
+      self.inventory = player_profile['inventory']
+
+      self.weapon = player_profile['weapon']
+
+      self.level_cost = {2: 10000,
+                         3: 50000,
+                         4: 100000,
+                         5: 200000,
+                         6: 500000}
+
+      self.attributes = player_profile['attributes']
+                        # Player gets 2 skill points per level maybe 1
+
+
+      self.skills = {'dodge': {'level': 1, 'cost': 5},#{'level': 1, 'cost': 5},
+                     'slash': {'damage': 10, 'level': 1, 'cost': 5}}#{'damage': 10, 'level': 1, 'cost': 5}}
+                     #Slash skill damage increases by 50% every level
+                     #Dodge and slash skill cost increases by 75%
+      
+      self.atttype = 'slashed'
+
+      self.weapons = {'bothhands': 0, #nothing yetttt
+                      'lefthand': 0,  #not yet
+                      'right hand': 0}
+
+      '''self.armour = {'head': armour['head']['none'], #armour['head']['technobyte helmet'],
+                     'torso': armour['torso']['bitnbyte platemail'],#armour['torso']['technobyte platemail'],
+                     'legs': armour['legs']['bitnbyte pants'],#armour['legs']['technobyte pants'],
+                     'feet': armour['feet']['none'], #armour['feet']['technobyte boots'],
+                     'hands': armour['hands']['none']} #armour['hands']['technobyte gloves']}'''
+
+      self.armour = player_profile['armour']
+
+      self.resistance  = self.armour['head']['armour'] + self.armour['torso']['armour'] + self.armour['legs']['armour']\
+                         + self.armour['feet']['armour'] + self.armour['hands']['armour']
+   
       self.totdamage = 0
 
       
@@ -275,7 +465,9 @@ Armour:
 
 
 
-dp = player()
+
+
+dp = player(player_profile)
 print(dp)
 
 

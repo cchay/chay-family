@@ -307,7 +307,7 @@ Other Options:
       return editProfile()
 
 
-   elif action == "l":
+   elif action == "l": # Log out and switch to another Profile
       with open('profiles.pickle', 'wb') as h:
             pickle.dump(profiles, h)
       return login().opening()
