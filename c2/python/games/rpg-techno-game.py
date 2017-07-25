@@ -2,9 +2,15 @@ import random, time, sys, pickle
 
 
 ##                                           Game goals:
+
 ## raising skill levels next on list ****
 ## !Merge pickel with this to start having savesss *****!
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
+
+##															Game EM. Todos:
+
+## Fix KeyError in technobyte_village().home(). equip gear
+## @!DONE!@ Fix inventory append stuff  
 
 
 
@@ -411,7 +417,7 @@ class player:
 
    def unequipArmour(self, local, item):
       self.resistance -= self.armour[local]['armour']
-      self.inventory = (self.armour[local]['name'])
+      self.inventory.append(self.armour[local]['name'])
       self.armour[local] = armour[local]['none']
 
 
@@ -714,53 +720,58 @@ class technovillage:
 
 
    def home(self):
-      print('You go to your simple hut just outside town.')
-      print('here you can equip and unequip armour and later, weapons.')
-      action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear, "c"heck stats, "b"ack to town')
+      try:
+         print('You go to your simple hut just outside town.')
+         print('here you can equip and unequip armour and later, weapons.')
+         action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear, "c"heck stats, "b"ack to town')
 
-      if action == "u":
-         print('Which armour do you want to unequip?')
-         unequip = input()
-         local = input('Where?')
+         if action == "u":
+            print('Which armour do you want to unequip?')
+            unequip = input()
+            local = input('Where?')
 
-         dp.unequipArmour(local, unequip)
-         print('You equip the {} on your {}' .format(unequip, local))
-         input('<Press enter to continue>')
+            dp.unequipArmour(local, unequip)
+            print('You unequip the {} on your {}' .format(unequip, local))
+            input('<Press enter to continue>')
+            return technovillage().home()
+
+         elif action == "e":
+            armour = input('What would you like to equip?')
+            local = input('Where? ')
+            dp.equipArmour(local, armour)
+            print('You equip the {} on your {}' .format(armour, local))
+            input('<Press enter to continue>')
+            return technovillage().home()
+
+         elif action == "v":
+		      #print(dp.inventory)
+		      #print()
+		      #print(dp.armour)
+
+            print('\nInventory:\n')
+
+            for i in dp.inventory:
+               print(i)#['name'])
+            input('<Press enter to continue>')
+
+            return technovillage().home()
+
+         elif action == "b":
+            return technovillage().signpost()
+
+         elif action == "c":
+            print(dp)
+            input('<Press enter to continue>')
+            return technovillage().home()
+
+         else:
+            input('<Press enter to continue>')
+            return technovillage().home()
+		
+      except KeyError as e:
+         print('There was a key error, try to type the item or location properly next time.. :(')
          return technovillage().home()
-
-      elif action == "e":
-         armour = input('What would you like to equip?')
-         local = input('Where? ')
-         dp.equipArmour(local, armour)
-         print('You equip the {} on your {}' .format(armour, local))
-         input('<Press enter to continue>')
-         return technovillage().home()
-
-      elif action == "v":
-         #print(dp.inventory)
-         #print()
-         #print(dp.armour)
-
-         print('\nInventory:\n')
-
-         for i in dp.inventory:
-            print(i)#['name'])
-         input('<Press enter to continue>')
-
-         return technovillage().home()
-
-      elif action == "b":
-         return technovillage().signpost()
-
-      elif action == "c":
-         print(dp)
-         input('<Press enter to continue>')
-         return technovillage().home()
-
-      else:
-         input('<Press enter to continue>')
-         return technovillage().home()
-      
+		   
       
       
 
