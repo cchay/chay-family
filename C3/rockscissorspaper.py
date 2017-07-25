@@ -6,7 +6,7 @@ import random
 
 
 
-player = input( 'Enter your choice  (rock sciccors paper): ' )
+player = input( 'Enter your choice  (rock/paper/scissors): ' )
 player = player.lower()
 while( player != "rock" and player != "paper" and  player != "scissors"):
     print( player )
