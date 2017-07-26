@@ -24,6 +24,8 @@ import random, time, sys, pickle
 
 player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 
+armour_data = pickle.load(open('armourdata.pickle', 'rb'))
+
 armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
                             'bprice': 0,
