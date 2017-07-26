@@ -60,15 +60,15 @@ class login:
     
    def login(self):
       print('Login Page')
-      profile_name = input('Name: ')
-      if profile_name == 'b':
+      profile_name = input('Name: ') # Get the name the user types in
+      if profile_name == 'b': # Checks to see if the user wants to go back
          return login().opening()
          
-      password = input('Password: ')
-      if password == 'b':
+      password = input('Password: ')# Get the name the user types in
+      if password == 'b': # Checks to see if the user wants to go back
          return login().opening()
 
-      for i in profiles:
+      for i in profiles: # Goes through data to confirm user name
          if profile_name in profiles:
             if password == profiles[profile_name]['Password']:
                time.sleep(0.5)

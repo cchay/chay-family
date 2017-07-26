@@ -9,15 +9,16 @@ import random, time, sys, pickle
 
 ##															Game EM. Todos:
 
-## Fix KeyError in technobyte_village().home(). equip gear
-## @!DONE!@ Fix inventory append stuff  
+## @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
+## @!DONE!@ Fix inventory append stuff 
+## Fix hp increase when level up (It dosen't do that right now)
 
 
 
 #profiles = pickle.dump(, open('rpg-techno-game-data.pickle', 'wb'))
 
 
-
+player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 
 armour = {'head': {'none': {'name': 'none',
                             'armour': 0,
@@ -196,133 +197,8 @@ armour = {'head': {'none': {'name': 'none',
 
 weapons = {}
 
-'''
-class player:
-   def __init__(self):
-      self.name = 'DiamondPython'
-      self.maxhp = 75
-      self.hp = 75
-      self.level = 1
-      self.xp = 9900
-      self.bit = 1000000000000
-
-      self.level_cost = {2: 10000,
-                         3: 50000,
-                         4: 100000,
-                         5: 200000,
-                         6: 500000}
-
-      self.attributes = {'strength': 1,
-                         'agility': 1}
-                        # Player gets 2 skill points per level maybe 1
-
-
-      self.skills = {'dodge': {'level': 1, 'cost': 5},#{'level': 1, 'cost': 5},
-                     'slash': {'damage': 10, 'level': 1, 'cost': 5}}#{'damage': 10, 'level': 1, 'cost': 5}}
-                     #Slash skill damage increases by 50% every level
-                     #Dodge and slash skill cost increases by 75%
-      
-      self.atttype = 'slashed'
-
-      self.weapons = {'bothhands':0, #nothing yetttt
-                      'lefthand':0,  #not yet
-                      'right hand':0}
-
-      self.armour = {'head': armour['head']['none'], #armour['head']['technobyte helmet'],
-                     'torso': armour['torso']['bitnbyte platemail'],#armour['torso']['technobyte platemail'],
-                     'legs': armour['legs']['bitnbyte pants'],#armour['legs']['technobyte pants'],
-                     'feet': armour['feet']['none'], #armour['feet']['technobyte boots'],
-                     'hands': armour['hands']['none']} #armour['hands']['technobyte gloves']}
-      self.armour = {'head': armour['head']['technobyte helmet'],
-                     'torso': armour['torso']['technobyte platemail'],
-                     'legs': armour['legs']['technobyte pants'],
-                     'feet': armour['feet']['technobyte boots'],
-                     'hands': armour['hands']['technobyte gloves']}
-
-      self.resistance  = self.armour['head']['armour'] + self.armour['torso']['armour'] + self.armour['legs']['armour']\
-                         + self.armour['feet']['armour'] + self.armour['hands']['armour']
-
-      
-      self.inventory = ['bitnbyte helmet']
-
-      self.weapon = 'byteblade'
-      self.totdamage = 0
-
-      
-   def getHurt(self, damage):
-      self.hp -= damage
-      if self.hp <= 0:
-         return '{} received {} crushing damage and has died!! But fortunately you were dragged to safety.' .format(self.name, damage)
-      else:
-         return '{} received {} crushing damage!' .format(self.name, damage)
-
-
-   def loseBattle(self):
-      xpGain = random.randint(50, 100)
-      self.xp += xpGain
-      return '{} lost and gained {} experience...' .format(self.name, xpGain)
-
-
-   def equipArmour(self, local, item):
-      self.resistance -= self.armour[local]['armour'] #This adjusts the armour bonus before equiping the new armour
-      self.armour[local] = armour[local][item]# Equips the new armour and discards the old
-      self.resistance += armour[local][item]['armour']# Readjusts the new armour stats
-
-
-   def unequipArmour(self, local, item):
-      self.resistance -= self.armour[local]['armour']
-      self.inventory = (self.armour[local]['name'])
-      self.armour[local] = armour[local]['none']
-
-
-   def levelUp(self):
-      self.xp -= self.level_cost[self.level+1]
-      if self.xp < 0: # making sure there are no errors in the code, Will have to take this out alter 
-         self.xp = 0
-      self.level += 1
-      print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
-
-
-   def displayInv(self):
-      for i in self.inventory:
-         print(i)
-      
-
-   def __str__(self):
-      return ''' '''
-STATS:
-
-Name: {}
-   HP: {}
-   Level: {}
-   XP: {}/{}
-   Bits: {}
-
-Attributes:
-   Strength: {}
-   Agility:  {}
-
-Skills:
-   Dodge: level: {}
-   Slash: level: {}
-
-Weapon: {}
-   Damage: {}
-
-Armour:
-   Resistance: {}
-      Head: {}
-      Torso: {}
-      Legs: {}
-      Feet: {}
-      Hands: {}
-''' '''.format(self.name, self.hp, self.level, self.xp, self.level_cost[self.level+1], self.bit, self.attributes['strength'],
-            self.attributes['agility'], self.skills['dodge']['level'], self.skills['slash']['level'], self.weapon,
-            self.skills['slash']['damage'], self.resistance, self.armour['head']['name'], self.armour['torso']['name'],
-            self.armour['legs']['name'], self.armour['feet']['name'], self.armour['hands']['name'])
 
 '''
-
 player_profile = {'name': 'Super tester DiamondPython',
 						'maxhp': 75,
 						'hp': 75,
@@ -343,9 +219,8 @@ player_profile = {'name': 'Super tester DiamondPython',
                     				 'hands': armour['hands']['technobyte gloves']},
 						'inventory': ['bitnbyte helmet'],
 						'weapon': 'bitnbyte sword'}
+'''
 
-with open('rpg-techno-game-data.pickle', 'wb') as h:
-            pickle.dump(player_profile, h)
 
 
 class player:
@@ -406,6 +281,7 @@ class player:
    def loseBattle(self):
       xpGain = random.randint(50, 100)
       self.xp += xpGain
+      player_profile['exp'] += xpGain
       return '{} lost and gained {} experience...' .format(self.name, xpGain)
 
 
@@ -413,12 +289,18 @@ class player:
       self.resistance -= self.armour[local]['armour'] #This adjusts the armour bonus before equiping the new armour
       self.armour[local] = armour[local][item]# Equips the new armour and discards the old
       self.resistance += armour[local][item]['armour']# Readjusts the new armour stats
+      player_profile['resistance'] += armour[local][item]['armour']
+      player_profile['armour'][local] = armour[local][item]
+      
 
 
    def unequipArmour(self, local, item):
       self.resistance -= self.armour[local]['armour']
       self.inventory.append(self.armour[local]['name'])
       self.armour[local] = armour[local]['none']
+      player_profile['resistance'] -= self.armour[local][item]['armour']
+      player_profile['armour'][local] = armour[local]['none']
+      player_profile['inventory'].append(self.armour[local]['name'])
 
 
    def levelUp(self):
@@ -427,6 +309,9 @@ class player:
          self.xp = 0
       self.level += 1
       print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
+      
+      player_profile['xp'] = self.xp
+      player_profile['level'] = self.level
 
 
    def displayInv(self):
@@ -483,6 +368,10 @@ def winBattle(xp, bit):
    print( '{} received {} exp and {} bits. Good work!' .format(dp.name, xp, bit))
    if dp.xp >= dp.level_cost[dp.level+1]:
       return dp.levelUp()
+   
+   player_profile['xp'] = dp.xp
+   player_profile['bits'] = dp.bit
+   
 
 
 
@@ -554,6 +443,7 @@ class battle:
          print('{}: {}' .format(d.name, d.hp))
          print('{} received {} damage and dealt {} damage.' .format(a.name, a.totdamage, d.totdamage))
          input('<*Press ENTER to continue*>')
+         player_profile['hp'] = a.hp
          return technovillage().signpost()
             
       
@@ -585,7 +475,7 @@ class technovillage:
    def signpost(self):
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       print('You find yourself at a sign post at the center of Technovillage. Where\'d you like to go?')
-      print('Places to go: "s"tore, "f"ileinn, "t"rashbin, "h"ome')
+      print('Places to go: "s"tore, "f"ileinn, "t"rashbin, "h"ome, or "quit" to exit the game')
 
       nav = input('^&: ')
       if nav == "s":
@@ -604,6 +494,12 @@ class technovillage:
 
       elif nav == "h":
          return technovillage().home()
+      
+      elif nav == "quit":
+         with open('rpg-techno-game-data.pickle', 'wb') as h:
+            pickle.dump(player_profile, h) 
+         print('Saving and quitting...')
+         sys.exit()
 
       else:
          return technovillage().signpost()
@@ -625,6 +521,9 @@ class technovillage:
             dp.bit -= price
             dp.hp = dp.maxhp
             technovillage().signpost()
+            
+            player_profile['bits'] = dp.bit
+            player_profile['hp'] = dp.hp
             
          else:
             print('Uhoh, looks like you don\'t have enough bits. Talk to Lena and she will heal you for half price.')
@@ -661,7 +560,10 @@ class technovillage:
 
          if answer == 'yes':
             if dp.bit >= armour[i][x]['bprice']:
+               dp.bit -= armour[i][x]['bprice']
                dp.inventory.append(armour[i][x]['name'])
+               player_profile['inventory'].append(armour[i][x]['name'])
+               player_profile['bits'] = dp.bit
                print('Item purchased successfully!')
                input('<*Press ENTER to continue*>')
                return technovillage().downloadstore()
@@ -772,7 +674,6 @@ class technovillage:
          print('There was a key error, try to type the item or location properly next time.. :(')
          return technovillage().home()
 		   
-      
-      
+   
 
 technovillage().signpost()
