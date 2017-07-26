@@ -4,7 +4,8 @@ import random, time, sys, pickle
 ##                                           Game goals:
 
 ## raising skill levels next on list ****
-## !Merge pickel with this to start having savesss *****!
+## @!DONE!@!Merge pickel with this to start having savesss *****!
+## Create login and signup page for multiple accounts so many people can play the game
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
 
 ##															Game EM. Todos:
@@ -359,7 +360,6 @@ Armour:
 
 
 dp = player(player_profile)
-print(dp)
 
 
 def winBattle(xp, bit):
@@ -673,7 +673,39 @@ class technovillage:
       except KeyError as e:
          print('There was a key error, try to type the item or location properly next time.. :(')
          return technovillage().home()
-		   
-   
+	
+def updates():   
+   print('UPDATES!!!')
+   look = input('type "look" to see the new updates and game goals or type "skip" to skip')
+   if look == "look":
+      print('''                                    
+**************************************************************************************************************
+                                                   Game goals:
 
+ raising skill levels next on list ****
+ Create login and signup page for multiple accounts so many people can play the game
+ Create a weapon dictionary: spears, maces, swords, axes, bows **
+
+ @!DONE!@!Merge pickel with this to start having savesss *****!
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+														         Game bugs and todos:
+
+ Fix hp increase when level up (It dosen't do that right now)
+
+ @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
+ @!DONE!@ Fix inventory append stuff 
+
+***************************************************************************************************************
+''')
+      
+   elif look == "skip":
+      pass
+   
+   else:
+      return updates()
+
+updates()
+input('Press <enter> to advance to the game!!')
+print(dp)
 technovillage().signpost()
