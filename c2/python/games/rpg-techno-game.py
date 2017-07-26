@@ -7,12 +7,15 @@ import random, time, sys, pickle
 ## @!DONE!@!Merge pickel with this to start having savesss *****!
 ## Create login and signup page for multiple accounts so many people can play the game
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
+## Create a pickle data file for armour dictionary ****
+## Create a pickle data file for weapon dictionary 
 
 ##															Game EM. Todos:
 
 ## @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
 ## @!DONE!@ Fix inventory append stuff 
 ## Fix hp increase when level up (It dosen't do that right now)
+## Fix buy items and inventory glitch
 
 
 
