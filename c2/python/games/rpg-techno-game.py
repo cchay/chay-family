@@ -8,13 +8,14 @@ import random, time, sys, pickle
 ## Create login and signup page for multiple accounts so many people can play the game
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
 ## @!DONE!@Create a pickle data file for armour dictionary ****
-## Create a pickle data file for weapon dictionary 
+## Create a pickle data file for weapon dictionary
+## Create a function to delete things in inventory or create a sell option in the store
 
 ##															Game EM. Todos:
 
 ## @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
 ## @!DONE!@ Fix inventory append stuff 
-## Fix hp increase when level up (It dosen't do that right now)
+## @!DONE!@Fix hp increase when level up (It dosen't do that right now)
 ## @!DONE!@Fix buy items and inventory glitch
 ## Fix Armour disappearance when armour is equipped
 
@@ -73,6 +74,12 @@ class player:
                          4: 100000,
                          5: 200000,
                          6: 500000}
+      
+      self.hpinc = {2: 131,
+                    3: 229,
+                    4: 401,
+                    5: 702,
+                    6: 1228}
 
       self.attributes = player_profile['attributes']
                         # Player gets 2 skill points per level maybe 1
@@ -141,6 +148,7 @@ class player:
       if self.xp < 0: # making sure there are no errors in the code, Will have to take this out alter 
          self.xp = 0
       self.level += 1
+      self.maxhp = self.hpinc[self.level]
       print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
       
       player_profile['xp'] = self.xp
@@ -520,16 +528,19 @@ def updates():
  Create login and signup page for multiple accounts so many people can play the game
  Create a weapon dictionary: spears, maces, swords, axes, bows **
 
-2017.7.25
- Merged pickel with this to start having saves
- 
 2017.7.26
  Created a pickle data file for armour dictionary 
+
+2017.7.25
+ Merged pickel with this to start having saves
+
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 														         Game bugs and todos:
 
- Fix hp increase when level up (It dosen't do that right now)
+2107.1.26
+ Fixed hp increase when level up (It dosen't do that right now)
+ Fixed buy items and inventory glitch
 
 2017.7.25
  Fixed KeyError in technobyte_village().home(). equip gear
