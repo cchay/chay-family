@@ -17,7 +17,8 @@ import random, time, sys, pickle
 ## @!DONE!@ Fix inventory append stuff 
 ## @!DONE!@Fix hp increase when level up (It dosen't do that right now)
 ## @!DONE!@Fix buy items and inventory glitch
-## Fix Armour disappearance when armour is equipped
+## @!DONE!@Fix Armour disappearance when armour is equipped
+## Alerts a keyError when there isn't one.
 
 
 
@@ -126,11 +127,15 @@ class player:
 
 
    def equipArmour(self, local, item):
+      player_profile['inventory'].append(self.armour[local]['name'])
       self.resistance -= self.armour[local]['armour'] #This adjusts the armour bonus before equiping the new armour
       self.armour[local] = armourdata[local][item]# Equips the new armour and discards the old
       self.resistance += armourdata[local][item]['armour']# Readjusts the new armour stats
       player_profile['resistance'] += armourdata[local][item]['armour']
       player_profile['armour'][local] = armourdata[local][item]
+      player_profile['inventory'].remove(self.armour[local]['name'])
+      if 'none' in player_profile['inventory']:
+         player_profile['inventory'].remove('none')
       
 
 
