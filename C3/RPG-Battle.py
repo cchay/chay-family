@@ -5,8 +5,14 @@ import time, sys, random
 
 
 playerHp = 50
-playerWeapon = "(none)"
+weapon = "(fists)"
 gold = random.randint( 0, 20 )
+
+
+###############################################################################
+
+monsterHp = 0
+
 
 
 ###############################################################################
@@ -23,7 +29,7 @@ choice = input()
 print( '''
 Name:''',name,'''
 Health:''',playerHp,'''
-Weapon:''',playerWeapon,'''
+Weapon:''',weapon,'''
 Gold:''',gold,'''
 
 
@@ -35,7 +41,7 @@ input()
 
 
 if choice == "yes":
-    playerWeapon = "long sword"
+    weapon = "long sword"
     gold = gold + 50
     print( 'Doctor Taydo: Excellent! Here, you\'ll need this.' )
     print( 'You are handed a long sword and a bag of gold.' )
@@ -79,7 +85,65 @@ print( 'You find yourself in a large field, surrounded by the lush green grass a
 print( '''
 Name:''',name,'''
 Health:''',playerHp,'''
-Weapon:''',playerWeapon,'''
+Weapon:''',weapon,'''
 Gold:''',gold,'''
 
 ''' )
+
+
+
+
+print( 'While you are busy enjoying the fresh air of the outside, you hear a twig snap.  <Press "enter" to continue>' )
+input()
+print( 'You whip around and a small fox comes into view. You can attack, or flee.' )
+print( '(attack/flee)' )
+
+battle1 = input()
+
+
+while True:
+    if battle1 == "attack":
+        print( 'You: Down with you, you pesky little fox!' )
+        print( 'You ready your',weapon,'and prepare yourself for battle.' )
+
+            while playerHp > 0 and monsterHp > 0:
+                if weapon == "fists":
+                            p1Damage = random.randint(0, 10)
+                if weapon != "fists":
+                            p1Damage = random.randint(0, 50)
+                monsterHp = monsterHp - p1Damage
+                p1Health = p1Health - monDamage
+                print( 'You swing your',weapon,'at the fox, causing',p1Damage,'damage!' )
+                print( 'Fox bites you, causing',monDamage,'damage!' )
+                print( name,'   Health:',playerHp, '    Weapon:',weapon )
+                print( 'Fox   Health:',monsterHp, '    Weapon: teeth ' )
+                input( '<Press "enter" to continue.>' )
+                print( '=========================================' )
+
+                if p1Health <= 0:
+                    print( 'Too bad, you died.' )
+                    sys.exit()
+
+                if p2Health <= 0:
+                    gold = gold + gold
+                    print( 'Congratulations! you have won against the fox! you recieve',gold,'gold!!' )
+                    print( '''
+Name:''',name,'''
+Health:''',playerHp,'''
+Weapon:''',weapon,'''
+Gold:''',gold,'''
+
+''' )
+                    break
+
+
+    if battle1 == "flee":
+        print( 'You run from the animal, scared to your bones. That was close!' )
+        break
+
+
+
+print( '''You arrive at a small village. You can visit one place for now. Please choose:
+Weapons Shop
+Armour Shop
+Healing''' )
