@@ -15,7 +15,8 @@ import random, time, sys, pickle
 ## @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
 ## @!DONE!@ Fix inventory append stuff 
 ## Fix hp increase when level up (It dosen't do that right now)
-## Fix buy items and inventory glitch
+## @!DONE!@Fix buy items and inventory glitch
+## Fix Armour disappearance when armour is equipped
 
 
 
@@ -119,19 +120,19 @@ class player:
 
    def equipArmour(self, local, item):
       self.resistance -= self.armour[local]['armour'] #This adjusts the armour bonus before equiping the new armour
-      self.armour[local] = armour[local][item]# Equips the new armour and discards the old
-      self.resistance += armour[local][item]['armour']# Readjusts the new armour stats
-      player_profile['resistance'] += armour[local][item]['armour']
-      player_profile['armour'][local] = armour[local][item]
+      self.armour[local] = armourdata[local][item]# Equips the new armour and discards the old
+      self.resistance += armourdata[local][item]['armour']# Readjusts the new armour stats
+      player_profile['resistance'] += armourdata[local][item]['armour']
+      player_profile['armour'][local] = armourdata[local][item]
       
 
 
    def unequipArmour(self, local, item):
       self.resistance -= self.armour[local]['armour']
       self.inventory.append(self.armour[local]['name'])
-      self.armour[local] = armour[local]['none']
+      self.armour[local] = armourdata[local]['none']
       player_profile['resistance'] -= self.armour[local][item]['armour']
-      player_profile['armour'][local] = armour[local]['none']
+      player_profile['armour'][local] = armourdata[local]['none']
       player_profile['inventory'].append(self.armour[local]['name'])
 
 
@@ -374,26 +375,27 @@ class technovillage:
       #This is where you buy and sell items
       print('Hey, welcome to the download store! Download any armour you like!')
       print('Or type "leave" to leave')
-      for i in armour:
-         for x in armour[i]:
+      for i in armourdata:
+         for x in armourdata[i]:
             if x == 'none':
                continue
-            print('{}: \tCost: {}, \tArmour: {}' .format(armour[i][x]['name'], armour[i][x]['bprice'], armour[i][x]['armour']))
+            print('{}: \tCost: {}, \tArmour: {}' .format(armourdata[i][x]['name'], armourdata[i][x]['bprice'], armourdata[i][x]['armour']))
 
       action = input('What would you like to buy? ')
-      for i in armour:
-         for x in armour[i]:
-            armourlist.append(armour[i][x]['name'])
+      for i in armourdata:
+         for x in armourdata[i]:
+            armourlist.append(armourdata[i][x]['name'])
 
       if action in armourlist:
          print('Would you like to buy the {}? ("yes" or "no")' .format(action))
          answer = input('Answer: ')
+         item = action
 
          if answer == 'yes':
-            if dp.bit >= armour[i][x]['bprice']:
-               dp.bit -= armour[i][x]['bprice']
-               dp.inventory.append(armour[i][x]['name'])
-               player_profile['inventory'].append(armour[i][x]['name'])
+            if dp.bit >= armourdata[i][x]['bprice']:
+               dp.bit -= armourdata[i][x]['bprice']
+               #dp.inventory.append(item) Doubled the items I bought for the price of 1
+               player_profile['inventory'].append(item)
                player_profile['bits'] = dp.bit
                print('Item purchased successfully!')
                input('<*Press ENTER to continue*>')
@@ -419,7 +421,8 @@ class technovillage:
          return technovillage().signpost()
                      
       if not action in armourlist:
-         print('We don\'t have {} here.' .format(action))
+         item = action
+         print('We don\'t have {} here.' .format(item))
          return technovillage().downloadstore()
 
       return technovillage().downloadstore()
