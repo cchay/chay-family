@@ -147,3 +147,4 @@ print( '''You arrive at a small village. You can visit one place for now. Please
 Weapons Shop
 Armour Shop
 Healing''' )
+print( 'This is still work in progress. Stay tuned for more.!' )
