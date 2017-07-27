@@ -7,7 +7,7 @@ import random, time, sys, pickle
 ## @!DONE!@!Merge pickel with this to start having savesss *****!
 ## Create login and signup page for multiple accounts so many people can play the game
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
-## Create a pickle data file for armour dictionary ****
+## @!DONE!@Create a pickle data file for armour dictionary ****
 ## Create a pickle data file for weapon dictionary 
 
 ##															Game EM. Todos:
@@ -23,186 +23,11 @@ import random, time, sys, pickle
 
 
 player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
+armourdata = pickle.load(open('armourdata.pickle', 'rb'))
 
-armour_data = pickle.load(open('armourdata.pickle', 'rb'))
-
-armour = {'head': {'none': {'name': 'none',
-                            'armour': 0,
-                            'bprice': 0,
-                            'sprice': 0},
-                   
-                   'bitnbyte helmet': {'name': 'bitnbyte helmet',
-                            'armour': 2,
-                            'bprice': 10,
-                            'sprice': 8},
-                   
-                   'kilobyte helmet': {'name': 'kilobyte helmet',
-                            'armour': 4,
-                            'bprice': 50,
-                            'sprice': 40},
-                   
-                   'megabyte helmet': {'name': 'megabyte helmet',
-                            'armour': 8,
-                            'bprice': 250,
-                            'sprice': 200},
-                   
-                   'gigabyte helmet': {'name': 'gigabyte helmet',
-                            'armour': 16,
-                            'bprice': 1250,
-                            'sprice': 1000},
-                   
-                   'terrabyte helmet': {'name': 'terrabyte helmet',
-                            'armour': 32,
-                            'bprice': 6250,
-                            'sprice': 5000},
-                   
-                   'technobyte helmet': {'name': 'technobyte helmet',
-                            'armour': 64,
-                            'bprice': 31250,
-                            'sprice': 25000}},
-          
-          'torso': {'none': {'name': 'none',
-                            'armour': 2,
-                            'bprice': 25,
-                            'sprice': 20},
-                    
-                    'bitnbyte platemail': {'name': 'bitnbyte platemail',
-                            'armour': 4,
-                            'bprice': 125,
-                            'sprice': 100},
-                    
-                    'kilobyte platemail': {'name': 'kilobyte platemail',
-                            'armour': 8,
-                            'bprice': 625,
-                            'sprice': 500},
-                    
-                    'megabyte platemail': {'name': 'megabyte platemail',
-                            'armour': 16,
-                            'bprice': 3125,
-                            'sprice': 2500},
-                    
-                    'gigabyte platemail': {'name': 'gigabyte platemail',
-                            'armour': 32,
-                            'bprice': 15625,
-                            'sprice': 12500},
-                    
-                    'terrabyte platemail': {'name': 'terrabyte platemail',
-                            'armour': 64,
-                            'bprice': 78125,
-                            'sprice': 62500},
-                    
-                    'technobyte platemail': {'name': 'technobyte platemail',
-                            'armour': 128,
-                            'bprice': 390620,
-                            'sprice': 312500}},
-          
-          'legs': { 'none': {'name': 'none',
-                            'armour': 0,
-                            'bprice': 0,
-                            'sprice': 0},
-                    
-                    'bitnbyte pants': {'name': 'bitnbyte pants',
-                            'armour': 3,
-                            'bprice': 15,
-                            'sprice': 12},
-                    
-                    'kilobyte pants': {'name': 'kilobyte pants',
-                            'armour': 6,
-                            'bprice': 75,
-                            'sprice': 60},
-                    
-                    'megabyte pants': {'name': 'megabyte pants',
-                            'armour': 12,
-                            'bprice': 375,
-                            'sprice': 300},
-                    
-                    'gigabyte pants': {'name': 'gigabyte pants',
-                            'armour': 24,
-                            'bprice': 1875,
-                            'sprice': 1500},
-                    
-                    'terrabyte pants': {'name': 'terrabyte pants',
-                            'armour': 48,
-                            'bprice': 9375,
-                            'sprice': 7500},
-                    
-                    'technobyte pants': {'name': 'technobyte pants',
-                            'armour': 96,
-                            'bprice': 46875,
-                            'sprice': 37500}},
-          
-          'feet': { 'none': {'name': 'none',
-                            'armour': 0,
-                            'bprice': 0,
-                            'sprice': 0},
-                    
-                    'bitnbyte boots': {'name': 'bitnbyte boots',
-                            'armour': 1,
-                            'bprice': 5,
-                            'sprice': 4},
-                    
-                    'kilobyte boots': {'name': 'kilobyte boots',
-                            'armour': 2,
-                            'bprice': 25,
-                            'sprice': 10},
-                    
-                    'megabyte boots': {'name': 'megabyte boots',
-                            'armour': 4,
-                            'bprice': 125,
-                            'sprice': 100},
-                    
-                    'gigabyte boots': {'name': 'gigabyte boots',
-                            'armour': 8,
-                            'bprice': 625,
-                            'sprice': 500},
-                    
-                    'terrabyte boots': {'name': 'terrabyte boots',
-                            'armour': 16,
-                            'bprice': 3125,
-                            'sprice': 2500},
-                    
-                    'technobyte boots': {'name': 'technobyte boots',
-                            'armour': 32,
-                            'bprice': 15625,
-                            'sprice': 12500}},
-          
-          'hands': {'none': {'name': 'none',
-                            'armour': 0,
-                            'bprice': 0,
-                            'sprice': 0},
-                    
-                    'bitnbyte gloves': {'name': 'bitnbyte gloves',
-                            'armour': 1,
-                            'bprice': 5,
-                            'sprice': 4},
-                    
-                    'kilobyte gloves': {'name': 'kilobyte gloves',
-                            'armour': 2,
-                            'bprice': 125,
-                            'sprice': 100},
-                    
-                    'megabyte gloves': {'name': 'megabyte gloves',
-                            'armour': 4,
-                            'bprice': 625,
-                            'sprice': 500},
-                    
-                    'gigabyte gloves': {'name': 'gigabyte gloves',
-                            'armour': 8,
-                            'bprice': 3125,
-                            'sprice': 2500},
-                    
-                    'terrabyte gloves': {'name': 'terrabyte gloves',
-                            'armour': 16,
-                            'bprice': 15625,
-                            'sprice': 12500},
-                    
-                    'technobyte gloves': {'name': 'technobyte gloves',
-                            'armour': 32,
-                            'bprice': 78125,
-                            'sprice': 62500}}}
 
 weapons = {}
-
+#armourdata = pickle.dump(armour, open('armourdata.pickle', 'wb'))
 
 '''
 player_profile = {'name': 'Super tester DiamondPython',
@@ -218,15 +43,16 @@ player_profile = {'name': 'Super tester DiamondPython',
 						'weapons': {'bothhands': 0, #nothing yetttt
                       			'lefthand': 0,  #not yet
                       			'right hand': 0},
-						'armour': {'head': armour['head']['technobyte helmet'],
-                     			'torso': armour['torso']['technobyte platemail'],
-                     			'legs': armour['legs']['technobyte pants'],
-                    				 'feet': armour['feet']['technobyte boots'],
-                    				 'hands': armour['hands']['technobyte gloves']},
+						'armour': {'head': armourdata['head']['technobyte helmet'],
+                     			'torso': armourdata['torso']['technobyte platemail'],
+                     			'legs': armourdata['legs']['technobyte pants'],
+                    				 'feet': armourdata['feet']['technobyte boots'],
+                    				 'hands': armourdata['hands']['technobyte gloves']},
 						'inventory': ['bitnbyte helmet'],
 						'weapon': 'bitnbyte sword'}
-'''
 
+'''
+#player_profile = pickle.dump(player_profile, open('rpg-techno-game-data.pickle', 'wb'))
 
 
 class player:
@@ -691,15 +517,20 @@ def updates():
  Create login and signup page for multiple accounts so many people can play the game
  Create a weapon dictionary: spears, maces, swords, axes, bows **
 
- @!DONE!@!Merge pickel with this to start having savesss *****!
+2017.7.25
+ Merged pickel with this to start having saves
+ 
+2017.7.26
+ Created a pickle data file for armour dictionary 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 														         Game bugs and todos:
 
  Fix hp increase when level up (It dosen't do that right now)
 
- @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
- @!DONE!@ Fix inventory append stuff 
+2017.7.25
+ Fixed KeyError in technobyte_village().home(). equip gear
+ Fixed inventory append stuff 
 
 ***************************************************************************************************************
 ''')
