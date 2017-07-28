@@ -9,16 +9,16 @@ import random, time, sys, pickle
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
 ## @!DONE!@Create a pickle data file for armour dictionary ****
 ## Create a pickle data file for weapon dictionary
-## Create a function to delete things in inventory or create a sell option in the store
+## @!DONE!@Create a function to delete things in inventory or create a sell option in the store
 
 ##															Game EM. Todos:
 
-## @!DONE!@ Fix KeyError in technobyte_village().home(). equip gear
-## @!DONE!@ Fix inventory append stuff 
-## @!DONE!@Fix hp increase when level up (It dosen't do that right now)
-## @!DONE!@Fix buy items and inventory glitch
-## @!DONE!@Fix Armour disappearance when armour is equipped
-## Alerts a keyError when there isn't one.
+## @!FIXED!@ Fix KeyError in technobyte_village().home(). equip gear
+## @!FIXED!@ Fix inventory append stuff 
+## @!FIXED!@Fix hp increase when level up (It dosen't do that right now)
+## @!FIXED!@Fix buy items and inventory glitch
+## @!FIXED!@Fix Armour disappearance when armour is equipped
+## @!FIXED!@Alerts a keyError when there isn't one.
 
 
 
@@ -320,17 +320,20 @@ class technovillage:
    def signpost(self):
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       print('You find yourself at a sign post at the center of Technovillage. Where\'d you like to go?')
-      print('Places to go: "s"tore, "f"ileinn, "t"rashbin, "h"ome, or "quit" to exit the game')
+      print('Places to go: "s"tore(buy stuff), "m"arket(sell stuff), "f"ileinn, "t"rashbin, "h"ome, or "quit" to exit the game')
 
       nav = input('^&: ')
       if nav == "s":
-         return technovillage().downloadstore()
+         return technovillage().downloadstore_buy()
 
       elif nav == "f":
          return technovillage().fileinn()
 
       elif nav == "t":
          return technovillage().trashbin()
+      
+      elif nav == "m":
+         return technovillage().downloadstore_sell()
 
       elif nav == "stats":
          print(dp)
@@ -383,7 +386,7 @@ class technovillage:
       else:
          return technovillage().fileinn()
 
-   def downloadstore(self):
+   def downloadstore_buy(self):
       armourlist = []
       #This is where you buy and sell items
       print('Hey, welcome to the download store! Download any armour you like!')
@@ -412,15 +415,15 @@ class technovillage:
                player_profile['bits'] = dp.bit
                print('Item purchased successfully!')
                input('<*Press ENTER to continue*>')
-               return technovillage().downloadstore()
+               return technovillage().downloadstore_buy()
             else:
                print('I\'m sorry but you do not have enough money')
                input('<*Press ENTER to continue*>')
-               return technovillage().downloadstore()
+               return technovillage().downloadstore_buy()
                            
 
          elif answer == 'no':
-            return technovillage().downloadstore()
+            return technovillage().downloadstore_buy()
             input('<*Press ENTER to continue*>')
 
          elif answer == "leave":
@@ -436,11 +439,37 @@ class technovillage:
       if not action in armourlist:
          item = action
          print('We don\'t have {} here.' .format(item))
-         return technovillage().downloadstore()
+         return technovillage().downloadstore_buy()
 
-      return technovillage().downloadstore()
+      return technovillage().downloadstore_buy()
+   
+   
+   
+   def downloadstore_sell(self):
+      print('Please select an item in your inventory you would like to sell:')
+      for i in dp.inventory:
+         print(i)
+      item = input('ITEM^^): ')
+      if item == "leave":
+         return technovillage().signpost()
       
-
+      local = input('Location^^): ')
+      
+      if item in dp.inventory:
+         print('you sell the {} for {} bits.' .format(item, armourdata[local][item]['sprice']))
+         dp.bit += armourdata[local][item]['sprice']
+         player_profile['inventory'].remove(item)
+         #dp.inventory.remove(item)
+         return technovillage().downloadstore_sell()
+      
+      elif not item in dp.inventory:
+         print('I\'m sorry, but you don\'t have {} in your inventory.' .format(item))
+         return technovillage().downloadstore_sell()
+      
+      else:
+         return technovillage().downloadstore_sell()
+      
+      print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
             
       
 
@@ -518,7 +547,7 @@ class technovillage:
             return technovillage().home()
 		
       except KeyError as e:
-         print('There was a key error, try to type the item or location properly next time.. :(')
+         #print('There was a key error, try to type the item or location properly next time.. :(')
          return technovillage().home()
 	
 def updates():   
@@ -543,7 +572,11 @@ def updates():
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 														         Game bugs and todos:
 
-2107.1.26
+2017.7.27
+ Fixed a keyError alert that goe
+ 
+
+2107.7.26
  Fixed hp increase when level up (It dosen't do that right now)
  Fixed buy items and inventory glitch
 
