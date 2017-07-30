@@ -29,7 +29,14 @@ player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 armourdata = pickle.load(open('armourdata.pickle', 'rb'))
 
 
-weapons = {}
+weapons = {'bitnbyte sword': {'name': 'bitnbyte sword', 'damage': 10},
+           'kilobyte sword': {'name': 'kilobyte sword', 'damage': 25},
+           'megabyte sword': {'name': 'megabyte sword', 'damage': 63},
+           'gigabyte sword': {'name': 'gigabyte sword', 'damage': 156},
+           'terrabyte sword': {'name': 'terrabyte sword', 'damage': 391},
+           'technobyte sword': {'name': 'technobyte sword', 'damage': 977}}
+
+
 #armourdata = pickle.dump(armour, open('armourdata.pickle', 'wb'))
 
 '''
@@ -67,6 +74,7 @@ class player:
       self.xp = player_profile['xp']
       self.bit = player_profile['bits']
       self.inventory = player_profile['inventory']
+      self.wdamage = player_profile['wdamage']
 
       self.weapon = player_profile['weapon']
 
@@ -154,10 +162,15 @@ class player:
          self.xp = 0
       self.level += 1
       self.maxhp = self.hpinc[self.level]
+      player_profile['maxhp'] = self.hpinc[self.level]
       print('Congradulations!! {} has just leveled up!! Good work.' .format(self.name))
       
       player_profile['xp'] = self.xp
       player_profile['level'] = self.level
+      player_profile['attributes']['strength'] += 1
+      player_profile['attributes']['agility'] += 1
+      dp.attributes['strength'] += 1
+      dp.attributes['agility'] += 1
 
 
    def displayInv(self):
@@ -597,7 +610,10 @@ def updates():
    else:
       return updates()
 
-updates()
-input('Press <enter> to advance to the game!!')
-print(dp)
-technovillage().signpost()
+#updates()
+#input('Press <enter> to advance to the game!!')
+#print(dp)
+#technovillage().signpost()
+
+player_profile['weapon'] = weapons['technobyte sword']['name']
+player_profile['wdamage'] = weapons[player_profile['weapon']]['damage']
