@@ -4,7 +4,7 @@ import random, time, sys, pickle
 ##                                           Game goals:
 
 ## raising skill levels next on list ****
-## @!DONE!@!Merge pickel with this to start having savesss *****!
+## @!DONE!@!Merge pickle with this to start having savesss *****!
 ## Create login and signup page for multiple accounts so many people can play the game
 ## Create a weapon dictionary: spears, maces, swords, axes, bows **
 ## @!DONE!@Create a pickle data file for armour dictionary ****
@@ -15,10 +15,10 @@ import random, time, sys, pickle
 
 ## @!FIXED!@ Fix KeyError in technobyte_village().home(). equip gear
 ## @!FIXED!@ Fix inventory append stuff 
-## @!FIXED!@Fix hp increase when level up (It dosen't do that right now)
-## @!FIXED!@Fix buy items and inventory glitch
-## @!FIXED!@Fix Armour disappearance when armour is equipped
-## @!FIXED!@Alerts a keyError when there isn't one.
+## @!FIXED!@ Fix hp increase when level up (It dosen't do that right now)
+## @!FIXED!@ Fix buy items and inventory glitch
+## @!FIXED!@ Fix Armour disappearance when armour is equipped
+## @!FIXED!@ Alerts a keyError when there isn't one.
 
 
 
@@ -458,6 +458,7 @@ class technovillage:
       if item in dp.inventory:
          print('you sell the {} for {} bits.' .format(item, armourdata[local][item]['sprice']))
          dp.bit += armourdata[local][item]['sprice']
+         player_profile['bits'] += armourdata[local][item]['sprice']
          player_profile['inventory'].remove(item)
          #dp.inventory.remove(item)
          return technovillage().downloadstore_sell()
@@ -558,9 +559,12 @@ def updates():
 **************************************************************************************************************
                                                    Game goals:
 
- raising skill levels next on list ****
+ raising skill levels next on list
  Create login and signup page for multiple accounts so many people can play the game
  Create a weapon dictionary: spears, maces, swords, axes, bows **
+
+2017.7.27
+ 
 
 2017.7.26
  Created a pickle data file for armour dictionary 
@@ -573,7 +577,7 @@ def updates():
 														         Game bugs and todos:
 
 2017.7.27
- Fixed a keyError alert that goe
+ Fixed a keyError alert bug in technovillage().home()
  
 
 2107.7.26
