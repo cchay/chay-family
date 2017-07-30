@@ -112,7 +112,7 @@ while True:
                 if weapon != "fists":
                             p1Damage = random.randint(0, 50)
                 monsterHp = monsterHp - p1Damage
-                p1Health = p1Health - monDamage
+                playerHp = playerHp - monDamage
                 print( 'You swing your',weapon,'at the fox, causing',p1Damage,'damage!' )
                 print( 'Fox bites you, causing',monDamage,'damage!' )
                 print( name,'   Health:',playerHp, '    Weapon:',weapon )
@@ -120,11 +120,11 @@ while True:
                 input( '<Press "enter" to continue.>' )
                 print( '=========================================' )
 
-                if p1Health <= 0:
+                if playerHp <= 0:
                     print( 'Too bad, you died.' )
                     sys.exit()
 
-                if p2Health <= 0:
+                if monsterHp <= 0:
                     gold = gold + gold
                     print( 'Congratulations! you have won against the fox! you recieve',gold,'gold!!' )
                     print( '''
@@ -147,4 +147,20 @@ print( '''You arrive at a small village. You can visit one place for now. Please
 Weapons Shop
 Armour Shop
 Healing''' )
+
+
+if dest == "Healing":
+    print( '"Welcome to the Healing house. A drink from our fountain will restore your health, but at a cost. It is 5 gold. Would you like a drink?"' )
+    heal = input()
+    if heal == "yes":
+        playerHp = 50
+        gold = gold - 5
+        print( 'Health restored.' )
+        print( gold )
+
+
+if dest == "Weapons Shop":
+    print( '' )
+
+
 print( 'This is still work in progress. Stay tuned for more.!' )
