@@ -356,14 +356,14 @@ class technovillage:
    def signpost(self):
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       print('You find yourself at a sign post at the center of Technovillage. Where\'d you like to go?')
-      print('Places to go: "as"(armour store), "ws"(weapon store), "am"(armour market, sell armours here), "wm"(weapon market, sell weapons here), "f"ileinn, "t"rashbin, "h"ome, or "quit" to exit the game')
+      print('Places to go: "as"(armour store), "ws"(weapon store), "am"(armour market, sell armours here), "wm"(weapon market, sell weapons here), "f"ileinn, "t"rashbin, "h"ome, "save" to save the game, or "quit" to exit the game')
 
       nav = input('^&: ')
       if nav == "as":
-         return technovillage().downloadstore_buy(armourdata)
+         return technovillage().downloadstore_buy()
       
       if nav == "ws":
-         return technovillage().downloadstore_buy(weapondata)
+         return technovillage().buyweapons()
 
       elif nav == "f":
          return technovillage().fileinn()
@@ -375,7 +375,7 @@ class technovillage:
          return technovillage().downloadstore_sell(armourdata)
       
       elif nav == "wm":
-         return technovillage().downloadstore_sell(weapondata)
+         return technovillage().sellweapons()
 
       elif nav == "stats":
          print(dp)
@@ -390,6 +390,13 @@ class technovillage:
             pickle.dump(player_profile, h) 
          print('Saving and quitting...')
          sys.exit()
+      
+      elif nav == "save":
+         with open('rpg-techno-game-data.pickle', 'wb') as h:
+            pickle.dump(player_profile, h) 
+         print('Saving...')
+         input('Saved.')
+         return technovillage().signpost()
 
       else:
          return technovillage().signpost()
@@ -428,20 +435,21 @@ class technovillage:
       else:
          return technovillage().fileinn()
 
-   def downloadstore_buy(self, data):
+   def downloadstore_buy(self):
       armourlist = []
       #This is where you buy and sell items
       print('Hey, welcome to the download store! Download any armour you like!')
       print('Or type "leave" to leave')
-      for i in data:
-         if i == 'none':
-            continue
-         print('{}: \tCost: {}, \tDamage: {}' .format(data[i]['name'], data[i]['bprice'], data[i]['damage']))
+      for i in armourdata:
+         for x in armourdata[i]:
+            if x == 'none':
+               continue
+            print('{}: \tCost: {}, \tArmour: {}' .format(armourdata[i][x]['name'], armourdata[i][x]['bprice'], armourdata[i][x]['armour']))
 
       action = input('What would you like to buy? ')
-      for i in data:
-         for x in data[i]:
-            armourlist.append(data[i]['name'])
+      for i in armourdata:
+         for x in armourdata[i]:
+            armourlist.append(armourdata[i][x]['name'])
 
       if action in armourlist:
          print('Would you like to buy the {}? ("yes" or "no")' .format(action))
@@ -449,22 +457,22 @@ class technovillage:
          item = action
 
          if answer == 'yes':
-            if dp.bit >= data[i]['bprice']:
-               dp.bit -= data[i]['bprice']
+            if dp.bit >= armourdata[i][x]['bprice']:
+               dp.bit -= armourdata[i][x]['bprice']
                #dp.inventory.append(item) Doubled the items I bought for the price of 1
                player_profile['inventory'].append(item)
                player_profile['bits'] = dp.bit
                print('Item purchased successfully!')
                input('<*Press ENTER to continue*>')
-               return technovillage().downloadstore_buy(data)
+               return technovillage().downloadstore_buy()
             else:
                print('I\'m sorry but you do not have enough money')
                input('<*Press ENTER to continue*>')
-               return technovillage().downloadstore_buy(data)
+               return technovillage().downloadstore_buy()
                            
 
          elif answer == 'no':
-            return technovillage().downloadstore_buy(data)
+            return technovillage().downloadstore_buy()
             input('<*Press ENTER to continue*>')
 
          elif answer == "leave":
@@ -480,9 +488,9 @@ class technovillage:
       if not action in armourlist:
          item = action
          print('We don\'t have {} here.' .format(item))
-         return technovillage().downloadstore_buy(data)
+         return technovillage().downloadstore_buy()
 
-      return technovillage().downloadstore_buy(data)
+      return technovillage().downloadstore_buy()
    
    
    
@@ -502,7 +510,7 @@ class technovillage:
          player_profile['bits'] += data[local][item]['sprice']
          player_profile['inventory'].remove(item)
          #dp.inventory.remove(item)
-         return technovillage().armourdownloadstore_sell(data)
+         return technovillage().downloadstore_sell(data)
       
       elif not item in dp.inventory:
          print('I\'m sorry, but you don\'t have {} in your inventory.' .format(item))
@@ -512,6 +520,93 @@ class technovillage:
          return technovillage().downloadstore_sell(data)
       
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+      
+      
+      
+   def buyweapons(self):
+      weaponlist = []
+      #This is where you buy and sell items
+      print('Hey, welcome to the download store! Download any armour you like!')
+      print('Or type "leave" to leave')
+      for i in weapondata:
+         if i == 'none':
+            continue
+         print('{}: \tCost: {}, \tArmour: {}' .format(weapondata[i]['name'], weapondata[i]['bprice'], weapondata[i]['damage']))
+
+      action = input('What would you like to buy? ')
+      for i in weapondata:
+         weaponlist.append(weapondata[i]['name'])
+
+      if action in weaponlist:
+         print('Would you like to buy the {}? ("yes" or "no")' .format(action))
+         answer = input('Answer: ')
+         item = action
+
+         if answer == 'yes':
+            if dp.bit >= weapondata[i]['bprice']:
+               dp.bit -= weapondata[i]['bprice']
+               #dp.inventory.append(item) Doubled the items I bought for the price of 1
+               player_profile['inventory'].append(item)
+               player_profile['bits'] = dp.bit
+               print('Item purchased successfully!')
+               input('<*Press ENTER to continue*>')
+               return technovillage().buyweapons()
+            else:
+               print('I\'m sorry but you do not have enough money')
+               input('<*Press ENTER to continue*>')
+               return technovillage().buyweapons()
+                           
+
+         elif answer == 'no':
+            return technovillage().buyweapons()
+            input('<*Press ENTER to continue*>')
+
+         elif answer == "leave":
+            print('You leave the armour shop')
+            input('<*Press ENTER to continue*>')
+            return technovillage().signpost()
+                     
+      if action == 'leave':
+         print('You leave the armour shop')
+         input('<*Press ENTER to continue*>')
+         return technovillage().signpost()
+                     
+      if not action in weaponlist:
+         item = action
+         print('We don\'t have {} here.' .format(item))
+         return technovillage().buyweapons()
+
+      return technovillage().buyweapons()
+   
+   
+   def sellweapons(self):
+      print('Please select a weapon in your inventory you would like to sell:')
+      for i in dp.inventory:
+         if 'sword' in i:
+            print(i)
+            
+      item = input('ITEM^^): ')
+      if item == "leave":
+         return technovillage().signpost()
+      
+      
+      if item in dp.inventory:
+         print('you sell the {} for {} bits.' .format(item, weapondata[item]['sprice']))
+         dp.bit += weapondata[item]['sprice']
+         player_profile['bits'] += weapondata[item]['sprice']
+         player_profile['inventory'].remove(item)
+         #dp.inventory.remove(item)
+         return technovillage().sellweapons()
+      
+      elif not item in dp.inventory:
+         print('I\'m sorry, but you don\'t have {} in your inventory.' .format(item))
+         return technovillage().sellweapons()
+      
+      else:
+         return technovillage().sellweapons()
+      
+      print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+      
             
       
 
@@ -540,6 +635,7 @@ class technovillage:
 
 
    def home(self):
+      print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       try:
          print('You go to your simple hut just outside town.')
          print('here you can equip and unequip armour and later, weapons.')
@@ -596,6 +692,13 @@ class technovillage:
          elif action == "c":
             print(dp)
             input('<Press enter to continue>')
+            return technovillage().home()
+         
+         elif nav == "save":
+            with open('rpg-techno-game-data.pickle', 'wb') as h:
+               pickle.dump(player_profile, h) 
+            print('Saving...')
+            input('Saved. :)')
             return technovillage().home()
 
          else:
