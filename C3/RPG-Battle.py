@@ -11,6 +11,19 @@ gold = random.randint( 0, 20 )
 
 ###############################################################################
 
+
+daggerp = 1gp
+shortswordp = 10gp
+longswordp = 50gp
+axep = 150gp
+spearp = 200gp
+halberdp = 500gp
+greatswordp = 2 000gp
+
+
+###############################################################################
+
+
 monsterHp = 0
 
 
@@ -21,7 +34,7 @@ monsterHp = 0
 print( 'Doctor Taydo: Welcome to the Cybernetic Testing Chamber. What is you name?' )
 name = input()
 
-print( 'Doctor Taydo: We are currently looking for a tester for our Project 23:967. Will you be our tester for this years project? (yes/no)' )
+print( 'Doctor Taydo: We are currently looking for a tester for our Project RB:34. Will you be our tester for this years project? (yes/no)' )
 choice = input()
 
 
@@ -160,7 +173,19 @@ if dest == "Healing":
 
 
 if dest == "Weapons Shop":
-    print( '' )
+    print( 'Welcome to the weapon shop! What would you like today?' )
+    print( gold )
+    print( '''
+dagger     1gp
+short sword     10gp
+long sword     50gp
+axe     150gp
+spear    200gp
+halberd    500gp
+great sword    2 000gp
+''' )
+    purchase = input()
+    if purchase == "":
 
 
 print( 'This is still work in progress. Stay tuned for more.!' )
