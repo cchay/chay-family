@@ -29,12 +29,12 @@ player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 armourdata = pickle.load(open('armourdata.pickle', 'rb'))
 
 
-weapons = {'bitnbyte sword': {'name': 'bitnbyte sword', 'damage': 10},
-           'kilobyte sword': {'name': 'kilobyte sword', 'damage': 25},
-           'megabyte sword': {'name': 'megabyte sword', 'damage': 63},
-           'gigabyte sword': {'name': 'gigabyte sword', 'damage': 156},
-           'terrabyte sword': {'name': 'terrabyte sword', 'damage': 391},
-           'technobyte sword': {'name': 'technobyte sword', 'damage': 977}}
+weapondata = {'bitnbyte sword': {'name': 'bitnbyte sword', 'damage': 10, 'sprice':50, 'bprice': 33},
+           'kilobyte sword': {'name': 'kilobyte sword', 'damage': 25, 'sprice':313, 'bprice': 207},
+           'megabyte sword': {'name': 'megabyte sword', 'damage': 63, 'sprice': 2812, 'bprice': 1856},
+           'gigabyte sword': {'name': 'gigabyte sword', 'damage': 156, 'sprice': 10594, 'bprice': 6992},
+           'terrabyte sword': {'name': 'terrabyte sword', 'damage': 391, 'sprice': 37079, 'bprice': 24472},
+           'technobyte sword': {'name': 'technobyte sword', 'damage': 977, 'sprice': 129777, 'bprice': 85652}}
 
 
 #armourdata = pickle.dump(armour, open('armourdata.pickle', 'wb'))
@@ -149,11 +149,32 @@ class player:
 
    def unequipArmour(self, local, item):
       self.resistance -= self.armour[local]['armour']
-      self.inventory.append(self.armour[local]['name'])
+      #self.inventory.append(self.armour[local]['name'])
       self.armour[local] = armourdata[local]['none']
       player_profile['resistance'] -= self.armour[local][item]['armour']
       player_profile['armour'][local] = armourdata[local]['none']
       player_profile['inventory'].append(self.armour[local]['name'])
+   
+   
+   def equipWeapon(self, item):
+      player_profile['inventory'].append(self.weapon) #stores the old weapon
+      self.weapon = item# Equips the weapon
+      self.wdamage = weapondata[item]['damage']
+      player_profile['wdamage'] = weapondata[item]['damage']
+      player_profile['weapon'] = item
+      player_profile['inventory'].remove(item)
+      if 'none' in player_profile['inventory']:
+         player_profile['inventory'].remove('none')
+      
+
+
+   def unequipWeapon(self, item):
+      self.wdamage = 0
+      #self.inventory.append(self.weapon)
+      self.weapon = 'none'
+      player_profile['wdamage'] = 0
+      player_profile['weapon'] = 'none'
+      player_profile['inventory'].append(item)
 
 
    def levelUp(self):
@@ -208,7 +229,7 @@ Armour:
       Hands: {}
 ''' .format(self.name, self.hp, self.level, self.xp, self.level_cost[self.level+1], self.bit, self.attributes['strength'],
             self.attributes['agility'], self.skills['dodge']['level'], self.skills['slash']['level'], self.weapon,
-            self.skills['slash']['damage'], self.resistance, self.armour['head']['name'], self.armour['torso']['name'],
+            self.skills['slash']['damage'] + self.wdamage, self.resistance, self.armour['head']['name'], self.armour['torso']['name'],
             self.armour['legs']['name'], self.armour['feet']['name'], self.armour['hands']['name'])
 
 
@@ -250,6 +271,7 @@ class virus():
       self.xp = 100
       self.bit = random.randint(5, 20)
       self.totdamage = 0
+      self.wdamage = 5
 
 
 
@@ -271,6 +293,7 @@ class hacker():
       self.xp = 100000
       self.bit = random.randint(5000, 200000)
       self.totdamage = 0
+      self.wdamage = 500
 
 
 
@@ -315,7 +338,7 @@ class battle:
       attackchance = random.randint(1, a.skills[skill]['level']) + random.randint(1, 6)
       defendchance = random.randint(1, a.skills['dodge']['level']) + random.randint(1, 6)
       if attackchance > defendchance:
-         damagedealt = random.randint(1, int(a.skills[skill]['damage']))
+         damagedealt = random.randint(1, int(a.skills[skill]['damage'])) + a.wdamage
          damagedealt += random.randint(0, 6)
          damagedealt -= d.resistance
          if damagedealt <= 0:
@@ -333,11 +356,14 @@ class technovillage:
    def signpost(self):
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
       print('You find yourself at a sign post at the center of Technovillage. Where\'d you like to go?')
-      print('Places to go: "s"tore(buy stuff), "m"arket(sell stuff), "f"ileinn, "t"rashbin, "h"ome, or "quit" to exit the game')
+      print('Places to go: "as"(armour store), "ws"(weapon store), "am"(armour market, sell armours here), "wm"(weapon market, sell weapons here), "f"ileinn, "t"rashbin, "h"ome, or "quit" to exit the game')
 
       nav = input('^&: ')
-      if nav == "s":
-         return technovillage().downloadstore_buy()
+      if nav == "as":
+         return technovillage().downloadstore_buy(armourdata)
+      
+      if nav == "ws":
+         return technovillage().downloadstore_buy(weapondata)
 
       elif nav == "f":
          return technovillage().fileinn()
@@ -345,8 +371,11 @@ class technovillage:
       elif nav == "t":
          return technovillage().trashbin()
       
-      elif nav == "m":
-         return technovillage().downloadstore_sell()
+      elif nav == "am":
+         return technovillage().downloadstore_sell(armourdata)
+      
+      elif nav == "wm":
+         return technovillage().downloadstore_sell(weapondata)
 
       elif nav == "stats":
          print(dp)
@@ -399,21 +428,20 @@ class technovillage:
       else:
          return technovillage().fileinn()
 
-   def downloadstore_buy(self):
+   def downloadstore_buy(self, data):
       armourlist = []
       #This is where you buy and sell items
       print('Hey, welcome to the download store! Download any armour you like!')
       print('Or type "leave" to leave')
-      for i in armourdata:
-         for x in armourdata[i]:
-            if x == 'none':
-               continue
-            print('{}: \tCost: {}, \tArmour: {}' .format(armourdata[i][x]['name'], armourdata[i][x]['bprice'], armourdata[i][x]['armour']))
+      for i in data:
+         if i == 'none':
+            continue
+         print('{}: \tCost: {}, \tDamage: {}' .format(data[i]['name'], data[i]['bprice'], data[i]['damage']))
 
       action = input('What would you like to buy? ')
-      for i in armourdata:
-         for x in armourdata[i]:
-            armourlist.append(armourdata[i][x]['name'])
+      for i in data:
+         for x in data[i]:
+            armourlist.append(data[i]['name'])
 
       if action in armourlist:
          print('Would you like to buy the {}? ("yes" or "no")' .format(action))
@@ -421,22 +449,22 @@ class technovillage:
          item = action
 
          if answer == 'yes':
-            if dp.bit >= armourdata[i][x]['bprice']:
-               dp.bit -= armourdata[i][x]['bprice']
+            if dp.bit >= data[i]['bprice']:
+               dp.bit -= data[i]['bprice']
                #dp.inventory.append(item) Doubled the items I bought for the price of 1
                player_profile['inventory'].append(item)
                player_profile['bits'] = dp.bit
                print('Item purchased successfully!')
                input('<*Press ENTER to continue*>')
-               return technovillage().downloadstore_buy()
+               return technovillage().downloadstore_buy(data)
             else:
                print('I\'m sorry but you do not have enough money')
                input('<*Press ENTER to continue*>')
-               return technovillage().downloadstore_buy()
+               return technovillage().downloadstore_buy(data)
                            
 
          elif answer == 'no':
-            return technovillage().downloadstore_buy()
+            return technovillage().downloadstore_buy(data)
             input('<*Press ENTER to continue*>')
 
          elif answer == "leave":
@@ -452,13 +480,13 @@ class technovillage:
       if not action in armourlist:
          item = action
          print('We don\'t have {} here.' .format(item))
-         return technovillage().downloadstore_buy()
+         return technovillage().downloadstore_buy(data)
 
-      return technovillage().downloadstore_buy()
+      return technovillage().downloadstore_buy(data)
    
    
    
-   def downloadstore_sell(self):
+   def downloadstore_sell(self, data):
       print('Please select an item in your inventory you would like to sell:')
       for i in dp.inventory:
          print(i)
@@ -469,19 +497,19 @@ class technovillage:
       local = input('Location^^): ')
       
       if item in dp.inventory:
-         print('you sell the {} for {} bits.' .format(item, armourdata[local][item]['sprice']))
-         dp.bit += armourdata[local][item]['sprice']
-         player_profile['bits'] += armourdata[local][item]['sprice']
+         print('you sell the {} for {} bits.' .format(item, data[local][item]['sprice']))
+         dp.bit += data[local][item]['sprice']
+         player_profile['bits'] += data[local][item]['sprice']
          player_profile['inventory'].remove(item)
          #dp.inventory.remove(item)
-         return technovillage().downloadstore_sell()
+         return technovillage().armourdownloadstore_sell(data)
       
       elif not item in dp.inventory:
          print('I\'m sorry, but you don\'t have {} in your inventory.' .format(item))
-         return technovillage().downloadstore_sell()
+         return technovillage().downloadstore_sell(data)
       
       else:
-         return technovillage().downloadstore_sell()
+         return technovillage().downloadstore_sell(data)
       
       print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
             
@@ -515,9 +543,9 @@ class technovillage:
       try:
          print('You go to your simple hut just outside town.')
          print('here you can equip and unequip armour and later, weapons.')
-         action = input('Actions: "u"nequip armour, "e"quip armour, "v"iew storage and gear, "c"heck stats, "b"ack to town')
+         action = input('Actions: "ua"nequip armour, "ea"quip armour, "v"iew storage and gear, "c"heck stats, "b"ack to town')
 
-         if action == "u":
+         if action == "ua":
             print('Which armour do you want to unequip?')
             unequip = input()
             local = input('Where?')
@@ -527,12 +555,26 @@ class technovillage:
             input('<Press enter to continue>')
             return technovillage().home()
 
-         elif action == "e":
+         elif action == "ea":
             armour = input('What would you like to equip?')
             local = input('Where? ')
             dp.equipArmour(local, armour)
             print('You equip the {} on your {}' .format(armour, local))
             input('<Press enter to continue>')
+            return technovillage().home()
+         
+         elif action == "ew":
+            weapon = input('What weapon would you like to equip?')
+            dp.equipWeapon(weapon)
+            print('You equip the {}' .format(weapon))
+            input('press <ENTER> to continue')
+            return technovillage().home()
+         
+         elif action == "uw":
+            weapon = input('What weapon would you like to unequip?')
+            dp.unequipWeapon(weapon)
+            print('You unequip the {}' .format(weapon))
+            input('press <ENTER> to continue')
             return technovillage().home()
 
          elif action == "v":
@@ -612,8 +654,14 @@ def updates():
 
 #updates()
 #input('Press <enter> to advance to the game!!')
-#print(dp)
-#technovillage().signpost()
+print(dp)
+technovillage().signpost()
 
-player_profile['weapon'] = weapons['technobyte sword']['name']
-player_profile['wdamage'] = weapons[player_profile['weapon']]['damage']
+#player_profile['weapon'] = 'technobyte sword'
+#player_profile['wdamage'] = weapons[player_profile['weapon']]['damage']
+#dp.wdamage = player_profile['wdamage']
+
+with open('rpg-techno-game-data.pickle', 'wb') as h:
+  pickle.dump(player_profile, h)
+
+
