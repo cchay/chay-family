@@ -27,14 +27,7 @@ import random, time, sys, pickle
 
 player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 armourdata = pickle.load(open('armourdata.pickle', 'rb'))
-
-
-weapondata = {'bitnbyte sword': {'name': 'bitnbyte sword', 'damage': 10, 'sprice':50, 'bprice': 33},
-           'kilobyte sword': {'name': 'kilobyte sword', 'damage': 25, 'sprice':313, 'bprice': 207},
-           'megabyte sword': {'name': 'megabyte sword', 'damage': 63, 'sprice': 2812, 'bprice': 1856},
-           'gigabyte sword': {'name': 'gigabyte sword', 'damage': 156, 'sprice': 10594, 'bprice': 6992},
-           'terrabyte sword': {'name': 'terrabyte sword', 'damage': 391, 'sprice': 37079, 'bprice': 24472},
-           'technobyte sword': {'name': 'technobyte sword', 'damage': 977, 'sprice': 129777, 'bprice': 85652}}
+weapondata = pickle.load(open('weapondata.pickle', 'rb'))
 
 
 #armourdata = pickle.dump(armour, open('armourdata.pickle', 'wb'))
@@ -766,5 +759,7 @@ technovillage().signpost()
 
 with open('rpg-techno-game-data.pickle', 'wb') as h:
   pickle.dump(player_profile, h)
-
+  
+with open('weapondata.pickle', 'wb') as h:
+  pickle.dump(weapondata, h)
 
