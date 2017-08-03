@@ -22,40 +22,9 @@ import random, time, sys, pickle
 
 
 
-#profiles = pickle.dump(, open('rpg-techno-game-data.pickle', 'wb'))
-
-
 player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 armourdata = pickle.load(open('armourdata.pickle', 'rb'))
 weapondata = pickle.load(open('weapondata.pickle', 'rb'))
-
-
-#armourdata = pickle.dump(armour, open('armourdata.pickle', 'wb'))
-
-'''
-player_profile = {'name': 'Super tester DiamondPython',
-						'maxhp': 75,
-						'hp': 75,
-						'level': 1,
-						'xp': 9900,
-						'bits': 1000000000000,
-						'attributes': {'strength': 1,
-                         			'agility': 1},
-						'skills': {'dodge': {'level': 1, 'cost': 5},
-                     			'slash': {'damage': 10, 'level': 1, 'cost': 5}},
-						'weapons': {'bothhands': 0, #nothing yetttt
-                      			'lefthand': 0,  #not yet
-                      			'right hand': 0},
-						'armour': {'head': armourdata['head']['technobyte helmet'],
-                     			'torso': armourdata['torso']['technobyte platemail'],
-                     			'legs': armourdata['legs']['technobyte pants'],
-                    				 'feet': armourdata['feet']['technobyte boots'],
-                    				 'hands': armourdata['hands']['technobyte gloves']},
-						'inventory': ['bitnbyte helmet'],
-						'weapon': 'bitnbyte sword'}
-
-'''
-#player_profile = pickle.dump(player_profile, open('rpg-techno-game-data.pickle', 'wb'))
 
 
 class player:
@@ -712,10 +681,14 @@ def updates():
 
  raising skill levels next on list
  Create login and signup page for multiple accounts so many people can play the game
- Create a weapon dictionary: spears, maces, swords, axes, bows **
+
+2017.8.1
+ Created a weapon dictionary: spears, maces, swords, axes, bows
+ Created a place to buy and sell weapons
+ Adjusted damage dealt to enemy
+ Created a save function so you don't have to quit the porgram
 
 2017.7.27
- 
 
 2017.7.26
  Created a pickle data file for armour dictionary 
@@ -727,9 +700,11 @@ def updates():
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 														         Game bugs and todos:
 
+2017.8.1
+ Fixed unequip armour bug
+
 2017.7.27
  Fixed a keyError alert bug in technovillage().home()
- 
 
 2107.7.26
  Fixed hp increase when level up (It dosen't do that right now)
@@ -753,9 +728,6 @@ def updates():
 print(dp)
 technovillage().signpost()
 
-#player_profile['weapon'] = 'technobyte sword'
-#player_profile['wdamage'] = weapons[player_profile['weapon']]['damage']
-#dp.wdamage = player_profile['wdamage']
 
 with open('rpg-techno-game-data.pickle', 'wb') as h:
   pickle.dump(player_profile, h)

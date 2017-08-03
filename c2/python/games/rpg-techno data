@@ -32,3 +32,30 @@ weapondata = {'bitnbyte sword': {'name': 'bitnbyte sword', 'damage': 10, 'sprice
            'gigabyte bow': {'name': 'gigabyte bow', 'damage': 156, 'sprice': 10594, 'bprice': 6992},
            'terrabyte bow': {'name': 'terrabyte bow', 'damage': 391, 'sprice': 37079, 'bprice': 24472},
            'technobyte bow': {'name': 'technobyte bow', 'damage': 977, 'sprice': 129777, 'bprice': 85652},}
+
+
+
+
+'''
+player_profile = {'name': 'Super tester DiamondPython',
+						'maxhp': 75,
+						'hp': 75,
+						'level': 1,
+						'xp': 9900,
+						'bits': 1000000000000,
+						'attributes': {'strength': 1,
+                         			'agility': 1},
+						'skills': {'dodge': {'level': 1, 'cost': 5},
+                     			'slash': {'damage': 10, 'level': 1, 'cost': 5}},
+						'weapons': {'bothhands': 0, #nothing yetttt
+                      			'lefthand': 0,  #not yet
+                      			'right hand': 0},
+						'armour': {'head': armourdata['head']['technobyte helmet'],
+                     			'torso': armourdata['torso']['technobyte platemail'],
+                     			'legs': armourdata['legs']['technobyte pants'],
+                    				 'feet': armourdata['feet']['technobyte boots'],
+                    				 'hands': armourdata['hands']['technobyte gloves']},
+						'inventory': ['bitnbyte helmet'],
+						'weapon': 'bitnbyte sword'}
+
+'''
