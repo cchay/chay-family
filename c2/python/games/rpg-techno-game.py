@@ -21,43 +21,69 @@ import random, time, sys, pickle
 ## @!FIXED!@ Alerts a keyError when there isn't one.
 
 
+class emptyProfile:
+   def __init__(self):
+      self.name = ''
+      self.password = ''
+
+profile = emptyProfile()
+
+empty_starterdict = {'bits': 100, 
+'weapons': {'right hand': 0, 'lefthand': 0, 'bothhands': 0}, 
+'xp': 0, 
+'name': '', 
+'maxhp': 75, 
+'attributes': {'strength': 1, 'agility': 1}, 
+'weapon': 'bitnbyte sword', 
+'inventory': [], 
+'level': 1, 
+'armour': {'legs': {'sprice': 12, 'name': 'bitnbyte pants', 'armour': 3, 'bprice': 15},
+           'torso': {'sprice': 100, 'name': 'bitnbyte platemail', 'armour': 4, 'bprice': 125},
+           'feet': {'sprice': 0, 'name': 'none', 'armour': 0, 'bprice': 0},
+           'head': {'sprice': 0, 'name': 'none', 'armour': 0, 'bprice': 0},
+           'hands': {'sprice': 0, 'name': 'none', 'armour': 0, 'bprice': 0}}, 'hp': 75, 'password': '', 'wdamage': 10, 'skills': {'dodge': {'cost': 5, 'level': 1}, 'slash': {'cost': 5, 'level': 1, 'damage': 10}}}
 
 player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
 armourdata = pickle.load(open('armourdata.pickle', 'rb'))
 weapondata = pickle.load(open('weapondata.pickle', 'rb'))
 
+#print(player_profile)
+
+      
+
+
 
 class player:
-   def __init__(self, player_profile):
-      self.name = player_profile['name']
-      self.maxhp = player_profile['maxhp']
-      self.hp = player_profile['hp']
-      self.level = player_profile['level']
-      self.xp = player_profile['xp']
-      self.bit = player_profile['bits']
-      self.inventory = player_profile['inventory']
-      self.wdamage = player_profile['wdamage']
+   def __init__(self, player_profile, username, password):
+      self.name = username
+      self.password = password
+      self.maxhp = player_profile[profile.name]['maxhp']
+      self.hp = player_profile[profile.name]['hp']
+      self.level = player_profile[profile.name]['level']
+      self.xp = player_profile[profile.name]['xp']
+      self.bit = player_profile[profile.name]['bits']
+      self.inventory = player_profile[profile.name]['inventory']
+      self.wdamage = player_profile[profile.name]['wdamage']
 
-      self.weapon = player_profile['weapon']
+      self.weapon = player_profile[profile.name]['weapon']
 
-      self.level_cost = {2: 10000,
+      self.level_cost = {2: 10000, #increase based on no algorithum
                          3: 50000,
                          4: 100000,
                          5: 200000,
                          6: 500000}
       
-      self.hpinc = {2: 131,
+      self.hpinc = {2: 131, # increase of 1.75
                     3: 229,
                     4: 401,
                     5: 702,
                     6: 1228}
 
-      self.attributes = player_profile['attributes']
+      self.attributes = player_profile[profile.name]['attributes']
                         # Player gets 2 skill points per level maybe 1
 
 
-      self.skills = {'dodge': {'level': 1, 'cost': 5},#{'level': 1, 'cost': 5},
-                     'slash': {'damage': 10, 'level': 1, 'cost': 5}}#{'damage': 10, 'level': 1, 'cost': 5}}
+      self.skills = player_profile[profile.name]['skills']
                      #Slash skill damage increases by 50% every level
                      #Dodge and slash skill cost increases by 75%
       
@@ -73,7 +99,7 @@ class player:
                      'feet': armour['feet']['none'], #armour['feet']['technobyte boots'],
                      'hands': armour['hands']['none']} #armour['hands']['technobyte gloves']}'''
 
-      self.armour = player_profile['armour']
+      self.armour = player_profile[profile.name]['armour']
 
       self.resistance  = self.armour['head']['armour'] + self.armour['torso']['armour'] + self.armour['legs']['armour']\
                          + self.armour['feet']['armour'] + self.armour['hands']['armour']
@@ -196,12 +222,65 @@ Armour:
 
 
 
+class login():
+   def welcome(self):
+      loginattempts = 0
+      print('Welcome to RTG')
+      print('Would you like to login or create a new account? (login/create)')
+      answer = input('*\: ')
+      
+      if answer == "login":
+         return login().login(loginattempts)
+      
+      elif answer == "create":
+         return login().create()
+      
+      else:
+         return login().welcome()
+      
+       
 
-
-
-
-dp = player(player_profile)
-
+   def login(self, loginattempts):
+      print('please type in your player name and password')
+      username = input('Username*\: ')
+      password = input('Password*\: ')
+      profile.name = username
+      profile.password = password
+      
+      if profile.name in player_profile:
+         if profile.password == player_profile[profile.name]['password']:
+            print(profile.name)
+            print('Welcome, {}.' .format(username))
+            time.sleep(2)
+         
+      else:
+         if loginattempts >= 3:
+            print('Would you like to go back to the welcome page? (yes/no)')
+            answer = input('*\: ')
+            if answer == "yes":
+               return login().welcome()
+            else:
+               return login().login(loginattempts)
+            
+         print('Your username or password is incorrect. Please try again.')
+         loginattempts += 1
+         print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+         return login().login(loginattempts)
+      
+      
+      
+   
+   def create(self):
+      print('Okay, Let\'s create your character.')
+      username = input('What is the name of your charcter?(it is the same as your username)*\: ')
+      password = input('What is the password? *\: ')
+      
+      profile.name = username
+      profile.password = password
+      
+      player_profile[profile.name] = empty_starterdict
+      player_profile[profile.name]['name'] = username
+      player_profile[profile.name]['password'] = password
 
 def winBattle(xp, bit):
    dp.xp += xp
@@ -725,9 +804,13 @@ def updates():
 
 #updates()
 #input('Press <enter> to advance to the game!!')
+
+#technovillage().signpost()
+
+login().welcome()
+dp = player(player_profile, player_profile[profile.name], player_profile[profile.name]['password'])
 print(dp)
 technovillage().signpost()
-
 
 with open('rpg-techno-game-data.pickle', 'wb') as h:
   pickle.dump(player_profile, h)

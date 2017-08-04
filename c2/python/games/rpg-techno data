@@ -38,6 +38,7 @@ weapondata = {'bitnbyte sword': {'name': 'bitnbyte sword', 'damage': 10, 'sprice
 
 '''
 player_profile = {'name': 'Super tester DiamondPython',
+                  'password'
 						'maxhp': 75,
 						'hp': 75,
 						'level': 1,
@@ -59,3 +60,6 @@ player_profile = {'name': 'Super tester DiamondPython',
 						'weapon': 'bitnbyte sword'}
 
 '''
+
+
+{'DiamondPython': {'bits': 999999490831, 'weapons': {'right hand': 0, 'lefthand': 0, 'bothhands': 0}, 'xp': 100, 'name': 'DiamondPython', 'maxhp': 131, 'attributes': {'strength': 1, 'agility': 1}, 'weapon': 'technobyte sword', 'inventory': ['', 'technobyte platemail', 'technobyte boots', 'bitnbyte platemail', 'bitnbyte boots'], 'level': 2, 'armour': {'legs': {'bprice': 46875, 'armour': 96, 'name': 'technobyte pants', 'sprice': 37500}, 'torso': {'bprice': 390620, 'armour': 128, 'name': 'technobyte platemail', 'sprice': 312500}, 'feet': {'bprice': 15625, 'armour': 32, 'name': 'technobyte boots', 'sprice': 12500}, 'head': {'bprice': 31250, 'armour': 64, 'name': 'technobyte helmet', 'sprice': 25000}, 'hands': {'bprice': 78125, 'armour': 32, 'name': 'technobyte gloves', 'sprice': 62500}}, 'hp': 131, 'password': 'backstabber', 'wdamage': 977, 'skills': {'dodge': {'cost': 5, 'level': 1}, 'slash': {'cost': 5, 'level': 1, 'damage': 10}}}}
