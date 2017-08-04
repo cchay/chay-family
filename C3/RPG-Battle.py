@@ -12,26 +12,26 @@ gold = random.randint( 0, 20 )
 ###############################################################################
 
 
-daggerp = 1gp
-shortswordp = 10gp
-longswordp = 50gp
-axep = 150gp
-spearp = 200gp
-halberdp = 500gp
-greatswordp = 2 000gp
+daggerp = 1
+shortswordp = 10
+longswordp = 50
+axep = 150
+spearp = 200
+halberdp = 500
+greatswordp = 2000
 
 
 ###############################################################################
 
 
-monsterHp = 0
+monsterHp = 25
 
 
 
 ###############################################################################
 
 
-print( 'Doctor Taydo: Welcome to the Cybernetic Testing Chamber. What is you name?' )
+print( 'Doctor Taydo: Welcome to the Cybernetic Testing Chamber. What is your name?' )
 name = input()
 
 print( 'Doctor Taydo: We are currently looking for a tester for our Project RB:34. Will you be our tester for this years project? (yes/no)' )
@@ -57,8 +57,8 @@ if choice == "yes":
     weapon = "long sword"
     gold = gold + 50
     print( 'Doctor Taydo: Excellent! Here, you\'ll need this.' )
-    print( 'You are handed a long sword and a bag of gold.' )
-    time.sleep(1)
+    print( 'You are handed a long sword and a bag of gold. <Press "enter" to continue>' )
+    input()
 elif choice == "no":
     print( 'Doctor Taydo: Hmm, that\'s a shame. I was looking forward to sending you to the world, but you, obviously, either aren\'t ready, or you don\'t have the nerve. I will see you another time.' )
     sys.exit()
@@ -79,22 +79,22 @@ print( 'Doctor Taydo: This will only take a moment! Hold fast! <Press "enter" to
 input()
 print( 'You feel a sort of fizzle spread across your body, from your brain to your bones. A knot is tied into your stomach. You black out...<Press "enter" to continue>' )
 input()
-time.sleep( 2.5 )
+print( '... <Press "enter" to continue>' )
+input()
 print( '...' )
-time.sleep( 2.5 )
+input()
 print( '...' )
-time.sleep( 2.5 )
-print( '...' )
-time.sleep( 2.5 )
+input()
 print( 'You feel...' )
-time.sleep( 2.5 )
+input()
 print( '...Heavy...' )
-time.sleep( 2.5 )
+input()
 print( '...But also light...' )
-time.sleep( 2.5 )
-print( '...At the same time...' )
-time.sleep( 2.5 )
-print( 'You find yourself in a large field, surrounded by the lush green grass and tall trees.' )
+input()
+print( '...At the same time.' )
+input()
+print( 'You find yourself in a large field, surrounded by the lush green grass and tall trees. <Press "enter" to continue>' )
+input()
 print( '''
 Name:''',name,'''
 Health:''',playerHp,'''
@@ -104,56 +104,48 @@ Gold:''',gold,'''
 ''' )
 
 
+input()
 
 
 print( 'While you are busy enjoying the fresh air of the outside, you hear a twig snap.  <Press "enter" to continue>' )
 input()
-print( 'You whip around and a small fox comes into view. You can attack, or flee.' )
-print( '(attack/flee)' )
+print( 'You whip around and a small fox comes into view. You have no other choice, but to engage.' )
 
-battle1 = input()
+input()
 
+print( 'You: Down with you, you pesky little fox!' )
+print( 'You ready your',weapon,'and prepare yourself for battle.' )
 
-while True:
-    if battle1 == "attack":
-        print( 'You: Down with you, you pesky little fox!' )
-        print( 'You ready your',weapon,'and prepare yourself for battle.' )
+while playerHp > 0 and monsterHp > 0:
+    if weapon == "fists":
+                p1Damage = random.randint( 0, 5 )
+    if weapon != "fists":
+                p1Damage = random.randint( 0, 10 )
+    monDamage = random.randint( 0, 3 )
+    monsterHp = monsterHp - p1Damage
+    playerHp = playerHp - monDamage
+    print( 'You swing your',weapon,'at the fox, causing',p1Damage,'damage!' )
+    print( 'Fox bites you, causing',monDamage,'damage!' )
+    print( name,'   Health:',playerHp, '    Weapon:',weapon )
+    print( 'Fox   Health:',monsterHp, '    Weapon: teeth ' )
+    input( '<Press "enter" to continue.>' )
+    print( '=========================================' )
 
-            while playerHp > 0 and monsterHp > 0:
-                if weapon == "fists":
-                            p1Damage = random.randint(0, 10)
-                if weapon != "fists":
-                            p1Damage = random.randint(0, 50)
-                monsterHp = monsterHp - p1Damage
-                playerHp = playerHp - monDamage
-                print( 'You swing your',weapon,'at the fox, causing',p1Damage,'damage!' )
-                print( 'Fox bites you, causing',monDamage,'damage!' )
-                print( name,'   Health:',playerHp, '    Weapon:',weapon )
-                print( 'Fox   Health:',monsterHp, '    Weapon: teeth ' )
-                input( '<Press "enter" to continue.>' )
-                print( '=========================================' )
+    if playerHp <= 0:
+        print( 'Too bad, you died.' )
+        sys.exit()
 
-                if playerHp <= 0:
-                    print( 'Too bad, you died.' )
-                    sys.exit()
-
-                if monsterHp <= 0:
-                    gold = gold + gold
-                    print( 'Congratulations! you have won against the fox! you recieve',gold,'gold!!' )
-                    print( '''
+    if monsterHp <= 0:
+        gold = gold + gold
+        print( 'Congratulations! you have won against the fox! you recieve',gold,'gold!!' )
+        print( '''
 Name:''',name,'''
 Health:''',playerHp,'''
 Weapon:''',weapon,'''
 Gold:''',gold,'''
 
 ''' )
-                    break
-
-
-    if battle1 == "flee":
-        print( 'You run from the animal, scared to your bones. That was close!' )
         break
-
 
 
 print( '''You arrive at a small village. You can visit one place for now. Please choose:
@@ -161,6 +153,7 @@ Weapons Shop
 Armour Shop
 Healing''' )
 
+dest = input()
 
 if dest == "Healing":
     print( '"Welcome to the Healing house. A drink from our fountain will restore your health, but at a cost. It is 5 gold. Would you like a drink?"' )
@@ -169,7 +162,7 @@ if dest == "Healing":
         playerHp = 50
         gold = gold - 5
         print( 'Health restored.' )
-        print( gold )
+        print( 'Gold:',gold )
 
 
 if dest == "Weapons Shop":
@@ -185,7 +178,30 @@ halberd    500gp
 great sword    2 000gp
 ''' )
     purchase = input()
-    if purchase == "":
+    if purchase == "dagger":
+        gold = gold - daggerp
+        print( 'You have sucessfully purchased a',purchase )
+    if purchase == "short sword":
+        gold = gold - shortswordp
+        print( 'You have sucessfully purchased a',purchase )
+    if purchase == "long sword":
+        gold = gold - longswordp
+        print( 'You have sucessfully purchased a',purchase )
+    if purchase == "axe":
+        gold = gold - axep
+        print( 'You have sucessfully purchased a',purchase )
+    if purchase == "spear":
+        gold = gold - spearp
+        print( 'You have sucessfully purchased a',purchase )
+    if purchase == "halberd":
+        gold = gold - halberdp
+        print( 'You have sucessfully purchased a',purchase )
+    if purchase == "great sword":
+        gold = gold - greatswordp
+        print( 'You have sucessfully purchased a',purchase )
+
+if gold <= 0:
+    print( 'You\'re in biiiiiig trouble, buster.' )
 
 
-print( 'This is still work in progress. Stay tuned for more.!' )
+print( 'This is still work in progress. Stay tuned for more!' )
