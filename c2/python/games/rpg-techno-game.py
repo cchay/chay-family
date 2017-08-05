@@ -1,26 +1,5 @@
 import random, time, sys, pickle
 
-
-##                                           Game goals:
-
-## raising skill levels next on list ****
-## @!DONE!@!Merge pickle with this to start having savesss *****!
-## Create login and signup page for multiple accounts so many people can play the game
-## Create a weapon dictionary: spears, maces, swords, axes, bows **
-## @!DONE!@Create a pickle data file for armour dictionary ****
-## Create a pickle data file for weapon dictionary
-## @!DONE!@Create a function to delete things in inventory or create a sell option in the store
-
-##															Game EM. Todos:
-
-## @!FIXED!@ Fix KeyError in technobyte_village().home(). equip gear
-## @!FIXED!@ Fix inventory append stuff 
-## @!FIXED!@ Fix hp increase when level up (It dosen't do that right now)
-## @!FIXED!@ Fix buy items and inventory glitch
-## @!FIXED!@ Fix Armour disappearance when armour is equipped
-## @!FIXED!@ Alerts a keyError when there isn't one.
-
-
 class emptyProfile:
    def __init__(self):
       self.name = ''
@@ -43,9 +22,9 @@ empty_starterdict = {'bits': 100,
            'head': {'sprice': 0, 'name': 'none', 'armour': 0, 'bprice': 0},
            'hands': {'sprice': 0, 'name': 'none', 'armour': 0, 'bprice': 0}}, 'hp': 75, 'password': '', 'wdamage': 10, 'skills': {'dodge': {'cost': 5, 'level': 1}, 'slash': {'cost': 5, 'level': 1, 'damage': 10}}}
 
-player_profile = pickle.load(open('rpg-techno-game-data.pickle', 'rb'))
-armourdata = pickle.load(open('armourdata.pickle', 'rb'))
-weapondata = pickle.load(open('weapondata.pickle', 'rb'))
+player_profile = pickle.load(open('data/rpg-techno-game-data.pickle', 'rb'))
+armourdata = pickle.load(open('data/armourdata.pickle', 'rb'))
+weapondata = pickle.load(open('data/weapondata.pickle', 'rb'))
 
 #print(player_profile)
 
