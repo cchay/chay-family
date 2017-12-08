@@ -55,8 +55,9 @@ class hacker():
       self.wdamage = 500
 
 
-player = login.login()
-player.welcome()
+
+
+login().welcome()
 #name = player.username
 print('Username: ', player.name)
 dp = playerprofile.player(player_profile, player.name, player.password)
