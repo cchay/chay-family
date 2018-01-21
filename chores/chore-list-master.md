@@ -8,7 +8,7 @@
    * Cat care (feed, water, clean waste)
    * Dog care (feed, water, clean waste)
    * Vacuum common floors
-   * Map common floors
+   * Mop common floors
    * Vacuum common surfaces (edge, corners, tables, estc)
    * Boy's bathroom
    * Main bathroom

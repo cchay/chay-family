@@ -8,7 +8,7 @@
    * c2-Cat care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
    * c3-Vacuum common floors
-   * c4-Map common floors
+   * c4-Mop common floors
    * c4-Vacuum common surfaces (edge, corners, tables, estc)
    * c2-Boy's bathroom
    * c4-Main bathroom
