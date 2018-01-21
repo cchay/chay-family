@@ -3,5 +3,5 @@
    * Dishes
    * Empty dishrack and dishwasher
    * Stove
-   * Cat care (feed, water, clean waste)
+   * c4-Cat care (feed, water, clean waste)
    * Dog care (feed, water, clean waste)
