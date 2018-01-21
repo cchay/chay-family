@@ -9,3 +9,4 @@
    * c4-Dog care (feed, water, clean waste, pet them)
    * c3-Dusting
    * c3-Playing!!!!
+   * c4-Eating Curry!!!!
