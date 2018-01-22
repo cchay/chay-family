@@ -1,7 +1,5 @@
-2018.01.20
-# Done
-
-# ToDo
+# Chore List
+# 2018.01.20
    * c2-Dishes
    * c4-Empty dishrack and dishwasher
    * c3-Stove
