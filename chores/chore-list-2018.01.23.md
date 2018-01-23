@@ -1,5 +1,5 @@
 # Chore List
-# 2018.01.22
+# 2018.01.23
    * Dishes
    * Empty dishrack and dishwasher
    * Stove
