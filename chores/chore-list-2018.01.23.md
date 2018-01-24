@@ -1,14 +1,10 @@
 # Chore List
 # 2018.01.23
-<<<<<<< HEAD
    * Dishes
    * c5-Empty dishrack and dishwasher
-   * Stove
-=======
    * c3-Dishes
    * c4-Empty dishrack and dishwasher
    * c3-Stove
->>>>>>> ac7913e26adea2152632500cb92fb7342820bcb8
    * Cat care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
    * c3-Vacuum common floors
