@@ -1,7 +1,7 @@
 # Chore List
 # 2018.01.23
    * Dishes
-   * Empty dishrack and dishwasher
+   * c5-Empty dishrack and dishwasher
    * Stove
    * Cat care (feed, water, clean waste)
    * Dog care (feed, water, clean waste)
@@ -15,7 +15,7 @@
    * Mater bedroom
    * Laundry (as needed)
    * Girl's bathroom
-   * Shoes
+   * c5-Shoes
    * 3 Porches
    * Wash Teddy
    * Backroom
