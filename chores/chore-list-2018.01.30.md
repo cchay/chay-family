@@ -4,6 +4,7 @@
    * c4-Empty dishrack and dishwasher
    * c3-Stove
    * Cat care (feed, water, clean waste)
+   * c4-Laundry (as needed)
    * c3-Dog care (feed, water, clean waste)
    * c3-Vacuum common floors
    * c4-Mop common floors
