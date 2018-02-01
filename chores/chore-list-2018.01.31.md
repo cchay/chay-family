@@ -2,17 +2,15 @@
 # 2018.00.00
    * Dishes
    * c4-Empty dishrack and dishwasher
-   * Stove
-   * Cat care (feed, water, clean waste)
-   * Dog care (feed, water, clean waste)
-   * Vacuum common floors
    * c4-Mop common floors
-   * Vacuum common surfaces (edge, corners, tables, estc)
    * Boy's bathroom
-   * Main bathroom
-   * Master bathroom
+   * c3-Stove
+   * Cat care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Vacuum common floors
+   * c3-Vacuum common surfaces (edge, corners, tables, estc)
+   * c3-Boy's bathroom
    * c4-Water duty (refill Berky water filter)
-   * Mater bedroom
    * c4-Laundry (as needed)
    * Girl's bathroom
    * Shoes
@@ -20,7 +18,7 @@
    * Wash Teddy
    * Backroom
    * Library
-   * Boy's room and closet
+   * c3-Boy's room and closet
    * Gir's room and closet
    * Trash duty: inside
    * Trash duty: outside
