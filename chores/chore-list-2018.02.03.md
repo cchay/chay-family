@@ -29,17 +29,18 @@
    * c4-Boy's room and closet
    * Gir's room and closet
    * c5-Mop common floors
-   * Boy's bathroom
+   * c5-Library
    * c5-Main bathroom
+   * c5-Shoes
+   * c5-Shoes
+   * c5-Gir's room and closet
+   * c5-3 Porches
    * Master bathroom
+   * Boy's bathroom
    * Water duty (refill Berky water filter)
    * Mater bedroom
    * Laundry (as needed)
    * Girl's bathroom
-   * c5-Shoes
-   * c5-3 Porches
    * Wash Teddy
-   * c5-Library
-   * c5-Gir's room and closet
    * Trash duty: inside
    * Trash duty: outside
