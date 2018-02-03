@@ -15,7 +15,7 @@
    * Mater bedroom
    * Laundry (as needed)
    * Girl's bathroom
-   * Shoes
+   * c5-Shoes
    * c3-3 Porches
    * Wash Teddy
    * Backroom
