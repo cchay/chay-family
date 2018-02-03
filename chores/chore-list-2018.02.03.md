@@ -1,31 +1,26 @@
 # Chore List
 # 2018.00.00
-   * c3-Dishes
+   * Dishes
    * Empty dishrack and dishwasher
-   * c3-Stove
+   * Stove
    * Cat care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Vacuum common floors
-   * c3-Mop common floors
-   * c3-Vacuum common surfaces (edge, corners, tables, estc)
-   * c3-Boy's bathroom
-   * Main bathroom
-   * c3-Master bathroom
+   * Dog care (feed, water, clean waste)
+   * Vacuum common floors
+   * c5-Mop common floors
+   * Vacuum common surfaces (edge, corners, tables, estc)
+   * Boy's bathroom
+   * c5-Main bathroom
+   * Master bathroom
    * Water duty (refill Berky water filter)
-   * c3-Mater bedroom
+   * Mater bedroom
    * Laundry (as needed)
    * Girl's bathroom
-   * Shoes
-   * 3 Porches
+   * c5-Shoes
+   * c5-3 Porches
    * Wash Teddy
    * Backroom
-   * c3-Library
-   * c3-Boy's room and closet
-   * Gir's room and closet
+   * c5-Library
+   * Boy's room and closet
+   * c5-Gir's room and closet
    * Trash duty: inside
    * Trash duty: outside
