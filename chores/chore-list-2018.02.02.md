@@ -1,12 +1,12 @@
 # Chore List
 # 2018.00.00
    * Dishes
-   * Empty dishrack and dishwasher
+   * c4-Empty dishrack and dishwasher
    * c3-Stove
    * Cat care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
    * c3-Vacuum common floors
-   * Mop common floors
+   * c4-Mop common floors
    * Vacuum common surfaces (edge, corners, tables, estc)
    * Boy's bathroom
    * Main bathroom
