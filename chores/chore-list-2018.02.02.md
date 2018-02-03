@@ -12,13 +12,13 @@
    * Main bathroom
    * Master bathroom
    * Water duty (refill Berky water filter)
-   * Mater bedroom
+   * Master bedroom
    * Laundry (as needed)
    * Girl's bathroom
    * Shoes
    * c3-3 Porches
    * Wash Teddy
-   * Backroom
+   * c4-Backroom
    * c3-Library
    * c3-Boy's room and closet
    * Gir's room and closet
