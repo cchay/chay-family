@@ -17,7 +17,7 @@ Daily Chores:
    * Mater bedroom
    * c4-Laundry (as needed)
    * Girl's bathroom
-   * Laundry (as needed)
+   * c4- Laundry (as needed)
    * Shoes
    * 3 Porches
    * Library
