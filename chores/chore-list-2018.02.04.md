@@ -8,7 +8,10 @@ Daily Chores:
    * Empty dishrack and dishwasher
    * Stove
    * Cat care (feed, water, clean waste)
-   * Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
    * Vacuum common floors
    * Mop common floors
    * Vacuum common surfaces (edge, corners, tables, estc)
