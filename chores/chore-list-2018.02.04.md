@@ -5,7 +5,8 @@
 
 Daily Chores:
    * Dishes
-   * Empty dishrack and dishwasher
+   * c4-Empty dishrack and dishwasher
+   * c4-Empty dishrack and dishwasher
    * Stove
    * Cat care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
@@ -13,10 +14,13 @@ Daily Chores:
    * c3-Dog care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
    * Vacuum common floors
-   * Mop common floors
+   * c4-Mop common floors
    * Vacuum common surfaces (edge, corners, tables, estc)
    * Water duty (refill Berky water filter)
-   * Laundry (as needed)
+   * Mater bedroom
+   * c4-Laundry (as needed)
+   * Girl's bathroom
+   * c4- Laundry (as needed)
    * Shoes
    * 3 Porches
    * Library
