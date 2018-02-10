@@ -5,12 +5,13 @@
 
 Daily Chores:
    * Dishes
-   * Empty dishrack and dishwasher
+   * c4-Empty dishrack and dishwasher
+   * c4-Empty dishrack and dishwasher
    * Stove
    * Cat care (feed, water, clean waste)
    * Dog care (feed, water, clean waste)
    * Vacuum common floors
-   * Mop common floors
+   * c4-Mop common floors
    * Vacuum common surfaces (edge, corners, tables, estc)
    * Water duty (refill Berky water filter)
    * Laundry (as needed)
@@ -38,4 +39,4 @@ Weekly chores:
 
 
 Bi-weekly chores:
-   * Wash Teddy
+   * W`ash Teddy
