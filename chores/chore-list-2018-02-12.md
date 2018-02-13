@@ -5,7 +5,7 @@
 
 Daily Chores:
    * Dishes
-   * Empty dishrack and dishwasher
+   * c4-Empty dishrack and dishwasher
    * Stove
    * Cat care (feed, water, clean waste)
    * Dog care (feed, water, clean waste)
@@ -17,6 +17,9 @@ Daily Chores:
    * Shoes
    * 3 Porches
    * Library
+   * c4-Give appa lemon-stawberry-ade
+   * c4-Give appa lemon-stawberry-ade
+
 
 
 
