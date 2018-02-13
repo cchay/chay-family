@@ -39,7 +39,7 @@ Weekly chores:
    * Trash duty: outside
    * Backroom
    * Master bedroom
-   * c3-Boy's bathroom
+   * Boy's bathroom
    * Main bathroom
    * Master bathroom
    * Girl's bathroom
