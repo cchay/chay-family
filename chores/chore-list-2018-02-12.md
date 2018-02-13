@@ -4,31 +4,48 @@
 
 
 Daily Chores:
-   * Dishes
-   * Empty dishrack and dishwasher
-   * Stove
+   * c3-Dishes
+   * c3-Dishes
+   * c3-Empty dishrack and dishwasher
+   * c3-Stove
    * Cat care (feed, water, clean waste)
-   * Dog care (feed, water, clean waste)
-   * Vacuum common floors
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Vacuum common floors
    * Mop common floors
-   * Vacuum common surfaces (edge, corners, tables, estc)
-   * Water duty (refill Berky water filter)
-   * Laundry (as needed)
+   * c3-Vacuum common surfaces (edge, corners, tables, estc)
+   * c3-Water duty (refill Berky water filter)
+   * c3-Laundry (as needed)
+   * c3-Laundry (as needed)
    * Shoes
    * 3 Porches
-   * Library
+   * c3-Library
+   * c3-Library
 
 
 
 
 Weekly chores:
-   * Boy's room and closet
+   * c3-Boy's room and closet
    * Girl's room and closet
    * Trash duty: inside
    * Trash duty: outside
    * Backroom
    * Master bedroom
-   * Boy's bathroom
+   * c3-Boy's bathroom
    * Main bathroom
    * Master bathroom
    * Girl's bathroom
