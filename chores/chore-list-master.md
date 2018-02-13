@@ -15,6 +15,9 @@ Daily Chores:
    * Water duty (refill Berky water filter)
    * Laundry (as needed)
    * Shoes
+   * Boy's room and closet
+   * Boy's bathroom
+   * Girl's room and closet
    * 3 Porches
    * Library
 
@@ -22,13 +25,10 @@ Daily Chores:
 
 
 Weekly chores:
-   * Boy's room and closet
-   * Girl's room and closet
    * Trash duty: inside
    * Trash duty: outside
    * Backroom
    * Master bedroom
-   * Boy's bathroom
    * Main bathroom
    * Master bathroom
    * Girl's bathroom
