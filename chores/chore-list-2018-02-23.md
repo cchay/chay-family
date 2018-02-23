@@ -14,7 +14,7 @@ Daily Chores:
    * Vacuum common surfaces (edge, corners, tables, estc)
    * Water duty (refill Berky water filter)
    * Laundry (as needed)
-   * Shoes
+   * c5-Shoes
    * Boy's room and closet
    * Boy's bathroom
    * Girl's room and closet
