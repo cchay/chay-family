@@ -15,15 +15,6 @@ Daily Chores:
    * c3-Dog care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
    * c3-Vacuum common floors
    * c4-Mop common floors
    * c3-Vacuum common surfaces (edge, corners, tables, estc)
@@ -31,11 +22,8 @@ Daily Chores:
    * c3-Laundry (as needed)
    * c3-Laundry (as needed)
    * Shoes
-   * Library
    * c4-Give appa lemon-stawberry-ade
    * c4-Give appa lemon-stawberry-ade
-
-=======
    * c3-Library
    * c3-Library
 

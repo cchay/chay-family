@@ -13,11 +13,6 @@ Daily Chores:
    * c3-Dog care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
    * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
-   * c3-Dog care (feed, water, clean waste)
    * c3-Vacuum common floors
    * Mop common floors
    * c3-Vacuum common surfaces (edge, corners, tables, estc)
