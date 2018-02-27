@@ -8,11 +8,15 @@ Daily Chores:
    * Empty dishrack and dishwasher
    * Stove
    * Cat care (feed, water, clean waste)
-   * Dog care (feed, water, clean waste)
-   * Vacuum common floors
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Dog care (feed, water, clean waste)
+   * c3-Vacuum common floors
    * Mop common floors
-   * Vacuum common surfaces (edge, corners, tables, estc)
-   * Water duty (refill Berky water filter)
+   * c3-Vacuum common surfaces (edge, corners, tables, estc)
+   * c3-Water duty (refill Berky water filter)
    * Laundry (as needed)
    * Shoes
    * Boy's room and closet
