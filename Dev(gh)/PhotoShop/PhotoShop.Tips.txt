@@ -1,0 +1,36 @@
+http://www.youtube.com/watch?v=Zd2wOEnTNU8 
+
+http://www.youtube.com/watch?v=Zd2wOEnTNU8 
+
+http://www.youtube.com/watch?v=8eCmJgLzyQc
+
+FavIcon:
+<link rel="shortcuticon" href="images/favicon.ico" />
+
+#container {
+width: 980px;
+border: 1px solid #a9c8cc;
+background: white;
+margin: 2em auto;
+}
+
+#header img {
+float: left;
+margin: 10px 10px 0px 20px;
+}
+
+#header ul#social {
+float: right;
+position: relative;
+}
+
+
+#footer li {
+display: inline;
+}
+
+
+float, position
+margin vs padding
+
+-------------

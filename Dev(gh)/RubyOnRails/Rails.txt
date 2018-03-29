@@ -1,0 +1,82 @@
+To make an app:
+rails new NOApp -d mysql
+---------------
+Default db support:
+-sqlite3 (default)
+-mysql
+-postgresql
+---------------
+Bundler, a gem
+bundle install
+
+rake db:migrate 
+instead, use:
+bundle exec rake db:migrate
+---------------
+Start server:
+rails server
+or
+rails s
+
+http://localhost:3000 (for webrick)
+--------------
+rails generate controller NOController [NOView]
+--------------
+Routes:
+-Simple/Match Route
+get "demo/index"
+==
+match "demo/index", :to => "demo#index", :via => :get
+
+-Default Route
+:controller/:action/:id
+match ':controller(/:action(/:id))', :via =>:get
+
+-Root Route
+root :to => "demo#index"
+or
+root "demo#index"
+--------------
+To Show different view in a controller:
+render( :template => 'demo/hello' )
+or 
+render( 'demo/hello' )
+render( 'hello' )
+--------------
+redirect_to( 'http://www.google.com' )
+redirect_to( :controller => 'demo', :action=>'index' )
+--------------
+ERB:
+<% Ruby Code %>
+<%= Ruby Code %>
+--------------
+Instance Variable:
+@q
+--------------
+Links:
+<%= link_to( text, target) %>
+
+<%= link_to( 'demo hello', {:action => 'hello'}) %>
+<%= link_to( 'demo hello', {:controller=> 'demo', :action => 'hello'}) %>
+<%= link_to( 'hello with parameters', {:action => 'index', :id=> 1, :state=> 'md', :dogbreed=> 'dalmation', :dogsound=> 'arfarf' }) %>
+<%= link_to( 'demo hello', 'hello') %>
+<%= link_to( 'google', 'http://www.google.com') %>
+--------------
+URL Parameter:
+Controller/Action/ID?queryString
+--------------
+HashWithIndifferentAccess
+params[:id]
+params['id']
+params.inspect
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------
+--------------

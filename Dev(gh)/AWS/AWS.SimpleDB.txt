@@ -1,0 +1,3 @@
+AWS: SimpleDB: interface
+sdbNavigator (Chrome extension)
+sdbTool (FF plugin)

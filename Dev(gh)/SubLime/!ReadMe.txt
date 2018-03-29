@@ -1,0 +1,1 @@
+Put "ColdFusion" folder in the "package" folder of Sublime.

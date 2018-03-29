@@ -1,0 +1,16 @@
+
+var ftGUID_471013="1864AA8D3D0602";
+var ftConfID_471013="0";
+var ftParams_471013="click=http://r.turn.com/r/formclick/id/AzWtXpJ0cjlrjwQABAIBAA/url/&ftx=&fty=&ftadz=&ftscw=&ft_custom=&ftOBA=1&cachebuster=283338.68365734816";
+var ftKeyword_471013="";
+var ftCustom_471013="";
+var ftSection_471013="";
+var ftSegment_471013="";
+var ftSegmentList_471013=[];
+var ftRuleMatch_471013="0";
+var ftTimestamp_471013="1360266694";
+var ftImp471013 = {};
+ftImp471013.privacy = "x";
+
+document.write('<scr'+'ipt src="http://cdn.flashtalking.com/xre/47/471013/414179/js/j-471013-414179.js" id="ftscript_m471013" name="ftscript_m471013"></scr'+'ipt>');
+                    

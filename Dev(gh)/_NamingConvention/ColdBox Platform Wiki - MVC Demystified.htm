@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Robots" content="index,follow">
+<meta name="description" content="Analysis of the MVC design pattern for ColdFusion and ColdBox applications">
+<meta name="keywords" content="mvc, coldbox mvc, coldfusion mvc, mvc framework, model view controller">
+<!-- base href="http://wiki.coldbox.org/" -->
+<link rel="stylesheet" type="text/css" href="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/style.css">
+<link rel="stylesheet" type="text/css" href="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/cool.css">
+<script src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/jquery-1.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/codex.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/jquery_002.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/simplemodal.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/jquery.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/confirm.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/formvalidation.js"></script>
+<title>
+ColdBox Platform Wiki
+- MVC Demystified
+</title>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-1472628-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<link href="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/css.css" rel="stylesheet" type="text/css">
+<style>
+.body, body{ font: normal 13px 'Ubuntu', 'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 300;}
+.body_bg p {line-height: 20px; }
+pre, code { font-family: Monaco, Menlo, Consolas, "Courier New", monospace; }
+h3{color:gray;}
+</style>
+
+
+<script type="text/javascript">
+function onLoginForm(){
+	$('#_buttonbar_login').slideUp("fast");
+	$('#_loader_login').fadeIn("slow");
+}
+function toggleItems(it){
+	$("#"+it).slideToggle('fast');
+}
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#deletePageButton").click(function(){
+		var _this = this;
+		return confirm("Are you sure you wish to delete the page '<strong>MVC</strong>'?<br/>This cannot be undone!", function(){
+			gotoLink(_this)
+		});
+	});
+});
+</script>
+
+
+
+<script type="text/javascript">
+function addComment(){
+	var data = {pageID: 'A47ABBBA-FF6E-E829-9A5D369C4F2C1CF5'};
+	openModal("http://wiki.coldbox.org/comments/add.cfm",data,550,650);
+}
+function deleteComment(commentID){
+	var data = {commentID:commentID, ajax:true}
+	confirm("Are you sure you wish to delete the selected comment. This cannot be undone!", function(e){
+		$("#comment_action_delete_"+commentID).attr("src","includes/images/ajax-spinner.gif");
+		$.post("http://wiki.coldbox.org/comments/delete.cfm",data,function(results){
+			if( results ){
+				$("#pageComment_"+commentID).fadeOut();
+				$("#pageComment_"+commentID).remove();
+				$("#pageCommentCount").text($("#pageCommentCount").text()-1);
+			}
+			else{
+				$("#pageCommentMessages_"+commentID).html('<strong>Oops! Something went wrong</strong><br/>' + results);
+				$("#comment_action_delete_"+commentID).attr("src","includes/images/bin_closed.png");
+			}
+		},"json");
+	});
+	
+}
+function approveComment(commentID){
+	var data = {commentID : commentID, ajax:true}
+	$("#comment_action_status_"+commentID).attr("src","includes/images/ajax-spinner.gif");
+	$.post("http://wiki.coldbox.org/comments/approve.cfm",data,function(results){
+		if( results ){
+			$("#pageComment_"+commentID).removeClass('pageCommentUnapproved');
+			$("#pageCommentModeration_"+commentID).fadeOut();
+			$("#pageCommentModeration_"+commentID).remove();
+		}
+		else{
+			$("#pageCommentMessages_"+commentID).html('<strong>Oops! Something went wrong</strong><br/>' + results);
+			$("#comment_action_status_"+commentID).attr("src","includes/images/thumb_up.png");
+		}
+	},"json");
+}
+</script>
+
+<style type="text/css">.atlwdg-blanket {background: black;height: 100%;left: 0;opacity: .5;position: fixed;top: 0;width: 100%;z-index: 1000000;}.atlwdg-popup {background: white;border: 1px solid #666;position: fixed;top: 50%;left: 50%;z-index: 10000011;}.atlwdg-popup.atlwdg-box-shadow {-moz-box-shadow: 10px 10px 20px rgba(0,0,0,0.5);-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,0.5);box-shadow: 10px 10px 20px rgba(0,0,0,0.5);background-color: white;}.atlwdg-hidden {display: none;}.atlwdg-trigger {position: fixed;background: #013466;padding: 5px;border: 2px solid white;border-top: none;font-weight: bold;color: white !important;display: block;white-space: nowrap;text-decoration: none !important;font-family: arial, FreeSans, Helvetica, sans-serif;font-size: 12px;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);-moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;}.atlwdg-trigger.atlwdg-TOP {left: 45%;top: 0;}.atlwdg-trigger.atlwdg-RIGHT {left: 100%;top: 40%;-webkit-transform-origin: top left;-webkit-transform: rotate(90deg);-moz-transform: rotate(90deg);-moz-transform-origin: top left;-ms-transform: rotate(90deg);-ms-transform-origin: top left;}.atlwdg-trigger.atlwdg-SUBTLE {right: 0;bottom: 0;border: 1px solid #ccc;border-bottom: none;border-right: none;background-color: #f5f5f5;color: #444 !important;font-size: 11px;padding: 6px;box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);border-radius: 2px 0 0 0;}.atlwdg-loading {position: absolute;top: 220px;left: 295px;}@media print {.atlwdg-trigger { display: none; }}</style></head>
+<body>
+<div class="main">
+<div class="blok_header">
+<div class="header">
+<div class="menu">
+<ul>
+<li><a href="http://www.coldbox.org/" style="color: orange">coldbox.org &gt;&gt;</a></li>
+<li><a href="http://www.coldbox.org/about">About</a></li>
+<li><a href="http://www.coldbox.org/download">Downloads </a></li>
+<li><a href="https://github.com/coldbox/coldbox-platform">Code</a></li>
+<li><a href="http://www.coldbox.org/forgebox"> ForgeBox</a></li>
+<li><a href="http://www.coldbox.org/support">Support</a></li>
+<li><a href="http://www.coldbox.org/training">Training</a></li>
+<li><a href="http://www.coldbox.org/media">Media</a></li>
+<li><a href="http://www.coldbox.org/api">API</a></li>
+<li><a href="http://blog.coldbox.org/">Blog</a></li>
+<li><a href="http://jobs.coldbox.org/">Jobs</a></li>
+</ul>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+<div class="logo">
+<a href="http://wiki.coldbox.org/wiki/Dashboard.cfm" style="text-decoration:none;">
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/ColdBoxLogoSquare_125.png" alt="logo" border="0">
+<div id="logoTitle">
+Docs
+</div>
+</a>
+<div id="wikiNav">
+<ul>
+<li>
+<a href="http://wiki.coldbox.org/wiki/Dashboard.cfm">Home</a>
+</li>
+<li class="index">
+<a href="javascript:toggleIndex()" style="padding-bottom:5px">Quick Index <img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/arrow_out.png" alt="arrow" style="float:none;margin-left:2px;padding-bottom:5px" border="0"></a>
+<div id="indexguide">
+<br>
+<hr>
+<dl class="L">
+<dt>Introduction</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/Coldbox.cfm">ColdBox Overview</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/DirectoryStructure-Conventions.cfm">Directory Layout &amp; Conventions</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/RequestLifecycles.cfm">Request Life Cycles</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Bootstrapper.cfm">Application Bootstrapper</a></dd>
+<dt>Configuring</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/ConfigurationCFC.cfm">Application Configuration</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Interacting-With-Settings.cfm">Using configuration settings</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/LogBox.cfm">Fun Logging with LogBox</a></dd>
+<dt>Models</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/Models.cfm">ColdBox Models</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/WireBox.cfm">Dependency Injection via WireBox</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:ActiveEntity.cfm">Active Entity</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:BaseORMService.cfm">Built-in ORM Services</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:CriteriaBuilder.cfm">Hibernate Criteria Builder</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:ORMEventHandler.cfm">ORM Event Handling</a></dd>
+<dt>Views</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/layouts-views.cfm">Layouts and Rendering in ColdBox</a></dd>
+<dt>Controllers</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/EventHandlers.cfm">Event Handlers</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/URLMappings.cfm">ColdBox SES URL Mappings</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Validation.cfm">Object and Form Validation</a></dd>
+<dt>Request Context</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/RequestContext.cfm">Request Context</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/RequestContextDecorator.cfm">Extending the Request Context</a></dd>
+</dl>
+<dl class="R">
+<dt>Tumble Down The Rabbit Hole...</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/ExceptionHandling.cfm">Handling Exceptions</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/FlashRam.cfm">Flash RAM &amp; Webflows</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/AjaxIntegration.cfm">Ajax Integration</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ColdboxProxy.cfm">Powering Flex/Air/SOAP/REST Apps</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/CacheBox.cfm">Caching with CacheBox</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/i18n.cfm">Localization &amp; i18n</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Security.cfm">ColdBox Security</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/WireBox-AOP.cfm">Aspect Oriented Programming</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Recipes.cfm">ColdBox Recipes</a></dd>
+<dt>Extending ColdBox</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/Modules.cfm">ColdBox Modules &amp; Architecture</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Plugins.cfm">ColdBox Plugins</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Plugins.cfm">Core Plugins Browser</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Interceptors.cfm">ColdBox Interceptors</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Interceptors.cfm">Core Interceptors Browser</a></dd>
+<dt>Testing</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/TestBox.cfm">TestBox Testing Framework</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/TestBox-BDD-Primer.cfm">TestBox BDD Primer</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/TestBox-Unit-Primer.cfm">TestBox xUnit Primer</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Testing.cfm">Testing ColdBox Applications</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/MockBox.cfm">Mocking-Stubbing with MockBox</a></dd>
+<dt>Tools, IDE Extras</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/CFBuilderExtensions.cfm">ColdBox Platform Utilities</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/SyntaxDictionaries.cfm">IDE Syntax Dictionaries</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Projects.cfm">Standalone Projects</a></dd>
+<dd><a href="http://www.coldbox.org/downloads/ColdboxCheatSheet.pdf">ColdBox Cheatsheet</a></dd>
+<dd><a href="http://apidocs.coldbox.org/">API Docs</a></dd>
+</dl>
+</div>
+</li>
+<li>
+<a href="http://wiki.coldbox.org/page/directory.cfm">Directory</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="search">
+<form id="form1" name="form1" method="post" action="http://wiki.coldbox.org/page/search.cfm">
+<label><span>
+<input kl_virtual_keyboard_secure_input="on" name="search_query" class="keywords" id="textfield" maxlength="50" value="Search..." onclick="if(this.value=='Search...'){this.value=''}" type="text">
+</span>
+<input name="b" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/search.gif" class="button" type="image">
+</label>
+</form>
+</div>
+<div class="toptools">
+<div id="sidebar">
+<h1 onclick="toggleItems('sb_wikimenu')"> <img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/home.png" alt="home"> SideBar</h1>
+<div class="left-box" id="sb_wikimenu">
+<ul class="sidemenu">
+<li><a href="http://wiki.coldbox.org/wiki/Dashboard.cfm">My Dashboard</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Help:Contents.cfm">Help</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Special:Feeds.cfm">Rss Feeds</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Special:Categories.cfm">Category Listing</a></li>
+<li><a href="http://wiki.coldbox.org/page/directory.cfm">Page Directory</a></li>
+<li><a href="http://wiki.coldbox.org/spaces.cfm">Namespace Directory</a></li>
+</ul>
+</div>
+<h1 onclick="toggleItems('sb_userinfo')"> <img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/key.png" alt="login"> User Login </h1>
+<div class="left-box" id="sb_userinfo">
+<form name="loginform" id="loginform" method="post" action="http://wiki.coldbox.org/user/doLogin.cfm" onsubmit="onLoginForm()">
+<input name="_securedURL" value="/wiki/MVC.cfm" type="hidden">
+<p>
+<label for="username">Username</label>
+<input kl_virtual_keyboard_secure_input="on" name="username" id="username" size="20" maxlength="50" type="text">
+<label for="username">Password</label>
+<input kl_virtual_keyboard_secure_input="on" name="password" id="password" size="20" maxlength="50" type="password">
+<br>
+</p><div id="_loader_login" class="align-center formloader">
+<p>
+Submitting...<br>
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/ajax-loader-horizontal.gif" alt="loader">
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/ajax-loader-horizontal.gif" alt="loader">
+</p>
+</div>
+<div id="_buttonbar_login" align="center">
+<a href="http://wiki.coldbox.org/user/reminder.cfm">Forgot Password?</a>
+<br><br>
+<input class="submitButton" value="Log In" name="loginbutton" id="loginbutton" type="submit">
+</div>
+<br>
+<p></p>
+</form>
+</div>
+<div align="center">
+<script type="text/javascript"><!--
+google_ad_client = "pub-0884459722343463";
+/* 120x240, created 1/5/10 */
+google_ad_slot = "5820081202";
+google_ad_width = 120;
+google_ad_height = 240;
+//-->
+</script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/show_ads.gif">
+</script>
+</div>
+</div>
+<a href="javascript:toggleSidebar()"><img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/sidebar.png" alt="help" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/spaces.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/namespace.png" alt="namespaces" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/wiki/Special:Categories.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/tag_blue.png" alt="categories" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/wiki/Help:Contents.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/help.png" alt="help" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/wiki/Special:Feeds.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/feed.png" alt="rss feeds" border="0"></a><a>
+</a></div><a>
+<div class="clr"></div>
+</a></div><a>
+<div class="clr"></div>
+</a></div><a>
+</a><div class="body_resize"><a>
+</a><div class="body"><a>
+</a><div class="body_bg"><a>
+<h1 class="wikiPageTitle">MVC 
+</h1>
+</a><div id="wikiTopToolbar"><a>
+<div id="wikiLastEditby">
+last edited by<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/user_icon.gif" alt="usericon"><strong>lmajano</strong> 
+on 19-Dec-2009
+</div>
+</a><div id="wikiTopToolbarActions"><a>
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/history.png" alt="history" border="0">
+</a><a href="http://wiki.coldbox.org/page/showHistory/MVC.cfm">History</a>&nbsp;
+</div>
+</div>
+<p id="wikiContent">
+</p><p><a href="http://wiki.coldbox.org/wiki/Dashboard.cfm">&lt;&lt; Back to Dashboard</a>
+</p>
+<div style="page-break-inside:	avoid;">
+<table align="right">
+<tbody><tr>
+<td><table id="toc" class="toc" summary="Contents">
+<tbody><tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1"><a href="http://wiki.coldbox.org/wiki/MVC.cfm#Model-View-Controller">Model-View-Controller</a>
+</li>
+<ul>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/MVC.cfm#Introduction">Introduction</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/MVC.cfm#MVC_Layers">MVC Layers</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/MVC.cfm#Summary">Summary</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/MVC.cfm#Resources">Resources</a>
+</li>
+</ul>
+</ul></td></tr></tbody></table>
+</td></tr></tbody></table></div>
+<a id="Model-View-Controller" name="Model-View-Controller"></a><h1>Model-View-Controller</h1>
+<a id="Introduction" name="Introduction"></a><h2>Introduction</h2>
+<p>ColdBox is based on the Model-View-Controller development pattern for web applications. <b>MVC</b> is a software approach that separates application logic from presentation. Read below as wikipedia states it:</p><blockquote>
+<p>"A developer often wishes to separate <i>data (model)</i> and <i>user interface (view)</i>
+ concerns, so that changes to the user interface will not affect data 
+handling, and that the data can be reorganized without changing the user
+ interface. The model-view-controller solves this problem by decoupling 
+data access and business logic from data presentation and user 
+interaction, by introducing an intermediate component: <i>the controller</i>." <a class="externallink" href="http://en.wikipedia.org/wiki/Model-view-controller" rel="nofollow">Wikipedia</a>
+</p></blockquote>
+<p>In its most basic form, a ColdBox application can be layered/divided 
+into three layers: Model, View, Controller. The most important lesson in
+ creating sustainable and object oriented applications using the MVC 
+design pattern, is understanding that there are separations of concerns;
+ separation of code, business logic, data and presentation data (or 
+more). This separation is key to a succesful transition into an object 
+oriented framework and applying object oriented design &amp; analysis. 
+This separation brings in turn a decoupling or interdependency between 
+layers/objects that help in creating more maintainable software. Your 
+layers/objects become in fancy terms <b>cohesive</b> or tight, they do 
+one thing and one thing right. I hope you are not shivering with fear by
+ this point. Relax, object oriented analysis and design takes years to 
+master and the best recipe is to learn and practice. So I will repeat 
+this again, separation is key. You don't have to understand all the 
+concepts like design patterns, MVC, domain model or all the fancy words 
+all at once, I encourage you to keep reading, practicing and enjoying 
+how to build better software. That is why you are here, to take it a 
+step further.</p>
+<div align="center"><img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/mvc.png" style="border: 1px outset #eaeaea"></div>
+<a id="MVC_Layers" name="MVC_Layers"></a><h2>MVC Layers</h2>
+<ul>
+<li><b>The Model</b> represents your data structures and business logic. The <i>domain-specific</i>
+ representation of the information that the application operates on. 
+Many applications also use a persistent storage mechanism (such as a 
+database) to store and retrieve data. MVC does not specifically mention 
+the data access layer because it is understood to be underneath or 
+encapsulated by the Model. This is the most important part of your 
+application and it is usually modeled by coldfusion components. You can 
+even do the entire model in another language or physical location (web 
+services). All you need to understand is that its the layer that runs 
+the logic show!</li></ul>
+<ul>
+<li><b>The View</b> is the information that is being presented to a 
+user, in our case it can be HTML/XML/Raw data. It can be used to build 
+various views, composite views, layouts-view combinations, etc. ColdBox 
+even has a layout manager to help you create easy to use 
+applicaton/website layouts and render single or composite views. This 
+layer uses the model data to present itself or change itself.</li></ul>
+<ul>
+<li><b>The Controller</b> serves as an intermediary between the Model, 
+the View, and any other resources needed to process a request. In 
+ColdBox, it processes and responds to events, typically user actions, 
+and may invoke changes on the model or any other external feature of the
+ web application. In ColdBox, a Controller is called an <b>Event Handler</b></li></ul>
+<a id="Summary" name="Summary"></a><h2>Summary</h2>
+<p>An important but uknown fact about these definitions, is the fact 
+that data gets passed around from each of the three layers. How? 
+Frameworks or patters never explain this, it is just assumed. Well, this
+ data object in ColdBox terms is called the <b>Request Collection</b>. 
+It is a data structure that lives in the request scope, so it is unique 
+per request, and it models a user's request. It is available to all 
+parts of the running framework application and it is contained inside of
+ an object called the <b>request context</b>. This object has tons of 
+utilities and methods that you can use to get/set values that are shared
+ amongst all layers. You will learn more about the layers in all the 
+provided guides in this wiki.</p>
+<p>If you don't need or understand the added separation of business 
+logic into a model layer or find that maintaining models requires more 
+complexity than you want or have experienced before, you can ignore them
+ and build your application minimally using Event Handlers and Views. 
+However, you should know that this is <b>highly discouraged</b> and if 
+you will be mastering object oriented web applications, you should 
+develop and separate logic into a domain model. The choice is yours.</p>
+<a id="Resources" name="Resources"></a><h2>Resources</h2>
+<ul>
+<li><a class="externallink" href="http://en.wikipedia.org/wiki/Domain_model" rel="nofollow">http://en.wikipedia.org/wiki/Domain_model</a></li>
+<li><a class="externallink" href="http://domaindrivendesign.org/" rel="nofollow">Domain Drive Design</a></li>
+<li><a class="externallink" href="http://martinfowler.com/eaaCatalog/domainModel.html" rel="nofollow">Martin Fowler's Domain Model</a></li></ul>
+<p></p>
+<div id="categories">
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/tag_blue_002.png" alt="category"> 
+Categories:
+<ul>
+<li>
+<a href="http://wiki.coldbox.org/wiki/Category%3Atheory.cfm">theory</a>
+</li>
+</ul>
+</div>
+<div id="wikiPageActionBar">
+&nbsp;
+</div>
+<div id="downloadFormatsBar">
+<strong>Download in other Formats:</strong><br>
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/code.png" alt="markup" border="0">
+<a href="http://wiki.coldbox.org/wiki/MVC/markup.cfm" target="_blank">Markup</a> |
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/html_16x16.png" alt="html" border="0">
+<a href="http://wiki.coldbox.org/wiki/MVC/HTML.cfm" target="_blank">HTML</a> |
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/word.png" alt="word" border="0">
+<a href="http://wiki.coldbox.org/wiki/MVC/word.cfm" target="_blank">Word</a>
+</div>
+<div id="pageComments">
+<div id="pageCommentHeader">
+<a name="pageComments"></a>
+<p>
+<img src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/comments.png" alt="comments"> 
+Comments (<span id="pageCommentCount">0</span>)
+</p>
+</div>
+<div id="pageCommentButtonBar">
+<a href="javascript:addComment()" class="buttonLinks">
+<span>Add Comment</span>
+</a>
+</div>
+<a name="pageCommentsEnd"></a>
+</div>
+<br>
+<div class="clr"></div>
+</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<div class="FBG">
+<div class="FBG_resize">
+<div class="left">
+<h2>ColdBox Books</h2>
+<div>
+<div class="textCenter margin10">
+<a href="http://wiki.coldbox.org/wiki/Books.cfm">
+<img alt="book" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/ColdBoxBookThumbnail.jpg" border="0" height="100">
+</a>
+</div>
+</div>
+</div>
+<div class="left">
+<h2>Purchase Books</h2>
+<ul>
+<li><a href="https://www.createspace.com/3411525">Buy Book!</a></li>
+<li><a href="http://www.amazon.com/Definitive-Guide-ColdBox-Platform-ebook/dp/B002ZG8S0G/ref=sr_1_3?">Buy Kindle!</a></li>
+<li><a href="http://www.lulu.com/content/e-book/the-definitive-guide-to-the-coldbox-platform/8063957">Buy eBook!</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Books.cfm">See all books!</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Media</h2>
+<ul>
+<li><a href="http://www.coldbox.org/media">ColdBox TV</a></li>
+<li> <a href="http://www.coldbox.org/media/connection">ColdBox Connection</a></li>
+<li> <a href="http://www.coldbox.org/media/videos">Video Feeds</a></li>
+<li> <a href="http://www.coldbox.org/cbdw">Developer Week</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Social Media</h2>
+<ul>
+<li><a href="http://www.twitter.com/coldbox">twitter.com/coldbox</a></li>
+<li><a href="http://www.twitter.com/ortussolutions">twitter.com/ortussolutions</a></li>
+<li><a href="http://www.twitter.com/lmajano">twitter.com/lmajano</a></li>
+<li><a href="http://www.twitter.com/gocontentbox">twitter.com/gocontentbox</a></li>
+<li> <a href="http://www.facebook.com/coldbox.platform">facebook.com/coldbox</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Ortus Services</h2>
+<ul>
+<li><a href="http://ortussolutions.com/services/support">Support &amp; Mentoring</a></li>
+<li> <a href="http://ortussolutions.com/services/architecture">Architecture &amp; Design</a></li>
+<li> <a href="http://ortussolutions.com/services/training">Expert Training</a></li>
+<li> <a href="http://ortussolutions.com/services/servers">Server Setup &amp; Tuning</a></li>
+<li> <a href="http://ortussolutions.com/services/consulting">Consulting</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Contact Us</h2>
+<ul>
+<li><a href="mailto:info@coldbox.org">info@coldbox.org</a></li>
+<li><a href="mailto:info@ortussolutions.com">info@ortussolutions.com</a></li>
+<li><a href="http://www.ortussolutions.com/">www.ortussolutions.com</a></li>
+</ul>
+</div>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<div class="footer">
+<div class="footer_resize">
+<p class="leftt">Copyright <a href="http://www.ortussolutions.com/">Ortus Solutions, Corp</a> &gt;&gt;
+<a href="http://www.gocontentbox.org/">ContentBox</a> v0.5 Beta 2
+</p>
+<p class="right"><a href="http://www.dreamtemplate.com/"><strong>Design By DT</strong></a></p>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+// Tooltip settings
+var toolTipSettings	= {	//will make a tooltip of all elements having a title property
+opacity: 0.8,
+effect: 'slide',
+predelay: 200,
+delay: 10,
+offset:[5, 0]
+};
+//Tooltip
+$("[title]").tooltip(toolTipSettings).dynamic({bottom: { direction: 'down', bounce: true} });
+});
+function toggleIndex(){
+$("#indexguide").toggle();
+}
+function toggleSidebar(){
+$("#sidebar").slideToggle();
+}
+</script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20MVC%20Demystified_files/com.js"></script>
+
+
+<a class="atlwdg-trigger atlwdg-RIGHT" href="#" id="atlwdg-trigger">Provide Feedback</a><div style="display: none;" id="atlwdg-blanket" class="atlwdg-blanket"></div><div class="atlwdg-popup atlwdg-box-shadow atlwdg-hidden" id="atlwdg-container"></div></body></html>

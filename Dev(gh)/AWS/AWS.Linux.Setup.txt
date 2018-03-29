@@ -1,0 +1,41 @@
+AWS Linix Setup:
+# update packages
+sudo yum update
+
+# install web server, php, image magic
+sudo yum install gcc make httpd php-common php-cli php-pear php-devel git ImageMigick-devel
+
+sudo pecl channel-update pecl.php.net
+
+# allow pear config to be set
+sudo pear config-set php_ini /etc/php.ini
+
+# allow pelc to set config
+sudo pecl config-set php_ini /etc/php.ini
+
+# install pecl for imageMagic
+sudo pecl install imagick
+hit enter for prefix
+
+#show error to screen
+sudo pecl install xdebug
+sudo nano -w /etc/php.ini
+# change first line to
+zend_extension="/usr/lib64/php/modules/xdebug.so"
+
+hit ctrl + w, then search for error_reporting = 
+then change error_reporting = E_ALL | E_STRICT
+
+then search for display_errors
+then change to On
+hit ctrl + x, 
+then y
+
+# to have webserver auto run
+sudo chkconfig httpd on
+
+# then start the service
+sudo service httpd start
+
+copy and past dns to a browser, should see amazon linux ami test page
+

@@ -1,0 +1,17 @@
+Gem:
+gem -v
+gem list
+gem --help
+To update gem: gem --update --system
+
+How to install a gem: gem install rails --version 4.2.0 --no-ri --no-rdoc
+How to install Mysql2 gem:
+gem install mysql2 --no-rdoc --no-ri
+copy libmysql.dll  from mysql installation either lib or bin to ruby's bin dir
+install mysql-connector-c-6.1.5-win32.msi
+C:\>gem install mysql2 --platform=ruby -- --with-mysql-dir="C:\path\to\where\you\extracted\my\sql\c\connector"
+================
+RAILS:
+To create rails app with mysql db: rails new simple_cms -d mysql
+
+================

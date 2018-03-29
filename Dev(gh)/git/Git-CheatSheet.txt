@@ -1,0 +1,63 @@
+
+-------------
+git status
+
+git log
+git log | more
+git log --oneline -all
+
+DIff of working set and repository: git diff
+git diff index.cfm
+
+*** get comit and changed files: git log --name-status
+------------
+Basic workflow:
+Checkout older/any version: git checkout qqqq index.cfm
+Restore to latest checkin: git checkout HEAD index.cfm
+
+------------
+Start and create a local repository, go into the folder for the local repository:git init
+
+Track files: git add index.cfm
+Track all files: git add -all
+
+Mod the  files
+
+Add to local: git commit -a -m "release build: comment"
+
+Push: git push origin nameOfBranch
+
+-----------------
+Tags:
+Get list of tags: git tag
+Tag a code set: git tag -a nameOfTag -m "comment"
+
+Change to tag: git checkout nameOfTag
+Switch back to latest: git checkout HEAD
+
+Push tags to remote repository: git push --tags
+
+-------------
+Branch:
+Get list of branches: git branch
+Create a branch: git branch nameOfBranch
+
+Switch branches: git checkout nameOfBranch
+
+----------------
+Merging:
+
+Commit a feature branch
+switch to master: git checkout master
+
+Update the master branch
+
+Merge the feature branch to master: git merge nameOfBranch
+
+Push master to remote: git push origin master
+
+----------------
+Pulling down code:
+go to the folder: git clone git@gitlab.uscis.dhs.gov:jdorsey/cf_bcps.git
+
+Pull down latest code : git pull 

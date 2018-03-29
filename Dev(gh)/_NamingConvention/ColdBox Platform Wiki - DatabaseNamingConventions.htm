@@ -1,0 +1,665 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Robots" content="index,follow">
+<meta name="description" content="A guide on database naming conventions and database best practices">
+<meta name="keywords" content="database best practices, database naming conventions">
+<!-- base href="http://wiki.coldbox.org/" -->
+<link rel="stylesheet" type="text/css" href="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/style.css">
+<link rel="stylesheet" type="text/css" href="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/cool.css">
+<script src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/jquery-1.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/codex.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/jquery_002.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/simplemodal.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/jquery.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/confirm.js"></script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/formvalidation.js"></script>
+<title>
+ColdBox Platform Wiki
+- DatabaseNamingConventions
+</title>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-1472628-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<link href="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/css.css" rel="stylesheet" type="text/css">
+<style>
+.body, body{ font: normal 13px 'Ubuntu', 'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: 300;}
+.body_bg p {line-height: 20px; }
+pre, code { font-family: Monaco, Menlo, Consolas, "Courier New", monospace; }
+h3{color:gray;}
+</style>
+
+
+<script type="text/javascript">
+function onLoginForm(){
+	$('#_buttonbar_login').slideUp("fast");
+	$('#_loader_login').fadeIn("slow");
+}
+function toggleItems(it){
+	$("#"+it).slideToggle('fast');
+}
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#deletePageButton").click(function(){
+		var _this = this;
+		return confirm("Are you sure you wish to delete the page '<strong>DatabaseNamingConventions</strong>'?<br/>This cannot be undone!", function(){
+			gotoLink(_this)
+		});
+	});
+});
+</script>
+
+
+
+<script type="text/javascript">
+function addComment(){
+	var data = {pageID: 'A6094BE7-FF6E-E829-9AD9AC584507F433'};
+	openModal("http://wiki.coldbox.org/comments/add.cfm",data,550,650);
+}
+function deleteComment(commentID){
+	var data = {commentID:commentID, ajax:true}
+	confirm("Are you sure you wish to delete the selected comment. This cannot be undone!", function(e){
+		$("#comment_action_delete_"+commentID).attr("src","includes/images/ajax-spinner.gif");
+		$.post("http://wiki.coldbox.org/comments/delete.cfm",data,function(results){
+			if( results ){
+				$("#pageComment_"+commentID).fadeOut();
+				$("#pageComment_"+commentID).remove();
+				$("#pageCommentCount").text($("#pageCommentCount").text()-1);
+			}
+			else{
+				$("#pageCommentMessages_"+commentID).html('<strong>Oops! Something went wrong</strong><br/>' + results);
+				$("#comment_action_delete_"+commentID).attr("src","includes/images/bin_closed.png");
+			}
+		},"json");
+	});
+	
+}
+function approveComment(commentID){
+	var data = {commentID : commentID, ajax:true}
+	$("#comment_action_status_"+commentID).attr("src","includes/images/ajax-spinner.gif");
+	$.post("http://wiki.coldbox.org/comments/approve.cfm",data,function(results){
+		if( results ){
+			$("#pageComment_"+commentID).removeClass('pageCommentUnapproved');
+			$("#pageCommentModeration_"+commentID).fadeOut();
+			$("#pageCommentModeration_"+commentID).remove();
+		}
+		else{
+			$("#pageCommentMessages_"+commentID).html('<strong>Oops! Something went wrong</strong><br/>' + results);
+			$("#comment_action_status_"+commentID).attr("src","includes/images/thumb_up.png");
+		}
+	},"json");
+}
+</script>
+
+<style type="text/css">.atlwdg-blanket {background: black;height: 100%;left: 0;opacity: .5;position: fixed;top: 0;width: 100%;z-index: 1000000;}.atlwdg-popup {background: white;border: 1px solid #666;position: fixed;top: 50%;left: 50%;z-index: 10000011;}.atlwdg-popup.atlwdg-box-shadow {-moz-box-shadow: 10px 10px 20px rgba(0,0,0,0.5);-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,0.5);box-shadow: 10px 10px 20px rgba(0,0,0,0.5);background-color: white;}.atlwdg-hidden {display: none;}.atlwdg-trigger {position: fixed;background: #013466;padding: 5px;border: 2px solid white;border-top: none;font-weight: bold;color: white !important;display: block;white-space: nowrap;text-decoration: none !important;font-family: arial, FreeSans, Helvetica, sans-serif;font-size: 12px;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);-moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;}.atlwdg-trigger.atlwdg-TOP {left: 45%;top: 0;}.atlwdg-trigger.atlwdg-RIGHT {left: 100%;top: 40%;-webkit-transform-origin: top left;-webkit-transform: rotate(90deg);-moz-transform: rotate(90deg);-moz-transform-origin: top left;-ms-transform: rotate(90deg);-ms-transform-origin: top left;}.atlwdg-trigger.atlwdg-SUBTLE {right: 0;bottom: 0;border: 1px solid #ccc;border-bottom: none;border-right: none;background-color: #f5f5f5;color: #444 !important;font-size: 11px;padding: 6px;box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);border-radius: 2px 0 0 0;}.atlwdg-loading {position: absolute;top: 220px;left: 295px;}@media print {.atlwdg-trigger { display: none; }}</style></head>
+<body>
+<div class="main">
+<div class="blok_header">
+<div class="header">
+<div class="menu">
+<ul>
+<li><a href="http://www.coldbox.org/" style="color: orange">coldbox.org &gt;&gt;</a></li>
+<li><a href="http://www.coldbox.org/about">About</a></li>
+<li><a href="http://www.coldbox.org/download">Downloads </a></li>
+<li><a href="https://github.com/coldbox/coldbox-platform">Code</a></li>
+<li><a href="http://www.coldbox.org/forgebox"> ForgeBox</a></li>
+<li><a href="http://www.coldbox.org/support">Support</a></li>
+<li><a href="http://www.coldbox.org/training">Training</a></li>
+<li><a href="http://www.coldbox.org/media">Media</a></li>
+<li><a href="http://www.coldbox.org/api">API</a></li>
+<li><a href="http://blog.coldbox.org/">Blog</a></li>
+<li><a href="http://jobs.coldbox.org/">Jobs</a></li>
+</ul>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+<div class="logo">
+<a href="http://wiki.coldbox.org/wiki/Dashboard.cfm" style="text-decoration:none;">
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/ColdBoxLogoSquare_125.png" alt="logo" border="0">
+<div id="logoTitle">
+Docs
+</div>
+</a>
+<div id="wikiNav">
+<ul>
+<li>
+<a href="http://wiki.coldbox.org/wiki/Dashboard.cfm">Home</a>
+</li>
+<li class="index">
+<a href="javascript:toggleIndex()" style="padding-bottom:5px">Quick Index <img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/arrow_out.png" alt="arrow" style="float:none;margin-left:2px;padding-bottom:5px" border="0"></a>
+<div id="indexguide">
+<br>
+<hr>
+<dl class="L">
+<dt>Introduction</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/Coldbox.cfm">ColdBox Overview</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/DirectoryStructure-Conventions.cfm">Directory Layout &amp; Conventions</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/RequestLifecycles.cfm">Request Life Cycles</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Bootstrapper.cfm">Application Bootstrapper</a></dd>
+<dt>Configuring</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/ConfigurationCFC.cfm">Application Configuration</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Interacting-With-Settings.cfm">Using configuration settings</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/LogBox.cfm">Fun Logging with LogBox</a></dd>
+<dt>Models</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/Models.cfm">ColdBox Models</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/WireBox.cfm">Dependency Injection via WireBox</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:ActiveEntity.cfm">Active Entity</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:BaseORMService.cfm">Built-in ORM Services</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:CriteriaBuilder.cfm">Hibernate Criteria Builder</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ORM:ORMEventHandler.cfm">ORM Event Handling</a></dd>
+<dt>Views</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/layouts-views.cfm">Layouts and Rendering in ColdBox</a></dd>
+<dt>Controllers</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/EventHandlers.cfm">Event Handlers</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/URLMappings.cfm">ColdBox SES URL Mappings</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Validation.cfm">Object and Form Validation</a></dd>
+<dt>Request Context</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/RequestContext.cfm">Request Context</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/RequestContextDecorator.cfm">Extending the Request Context</a></dd>
+</dl>
+<dl class="R">
+<dt>Tumble Down The Rabbit Hole...</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/ExceptionHandling.cfm">Handling Exceptions</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/FlashRam.cfm">Flash RAM &amp; Webflows</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/AjaxIntegration.cfm">Ajax Integration</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/ColdboxProxy.cfm">Powering Flex/Air/SOAP/REST Apps</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/CacheBox.cfm">Caching with CacheBox</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/i18n.cfm">Localization &amp; i18n</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Security.cfm">ColdBox Security</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/WireBox-AOP.cfm">Aspect Oriented Programming</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Recipes.cfm">ColdBox Recipes</a></dd>
+<dt>Extending ColdBox</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/Modules.cfm">ColdBox Modules &amp; Architecture</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Plugins.cfm">ColdBox Plugins</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Plugins.cfm">Core Plugins Browser</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Interceptors.cfm">ColdBox Interceptors</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Interceptors.cfm">Core Interceptors Browser</a></dd>
+<dt>Testing</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/TestBox.cfm">TestBox Testing Framework</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/TestBox-BDD-Primer.cfm">TestBox BDD Primer</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/TestBox-Unit-Primer.cfm">TestBox xUnit Primer</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/Testing.cfm">Testing ColdBox Applications</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/MockBox.cfm">Mocking-Stubbing with MockBox</a></dd>
+<dt>Tools, IDE Extras</dt>
+<dd><a href="http://wiki.coldbox.org/wiki/CFBuilderExtensions.cfm">ColdBox Platform Utilities</a></dd>
+<dd><a href="http://wiki.coldbox.org/wiki/SyntaxDictionaries.cfm">IDE Syntax Dictionaries</a></dd>
+<dd><a href="http://wiki.coldbox.org/space/Projects.cfm">Standalone Projects</a></dd>
+<dd><a href="http://www.coldbox.org/downloads/ColdboxCheatSheet.pdf">ColdBox Cheatsheet</a></dd>
+<dd><a href="http://apidocs.coldbox.org/">API Docs</a></dd>
+</dl>
+</div>
+</li>
+<li>
+<a href="http://wiki.coldbox.org/page/directory.cfm">Directory</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="search">
+<form id="form1" name="form1" method="post" action="http://wiki.coldbox.org/page/search.cfm">
+<label><span>
+<input kl_virtual_keyboard_secure_input="on" name="search_query" class="keywords" id="textfield" maxlength="50" value="Search..." onclick="if(this.value=='Search...'){this.value=''}" type="text">
+</span>
+<input name="b" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/search.gif" class="button" type="image">
+</label>
+</form>
+</div>
+<div class="toptools">
+<div id="sidebar">
+<h1 onclick="toggleItems('sb_wikimenu')"> <img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/home.png" alt="home"> SideBar</h1>
+<div class="left-box" id="sb_wikimenu">
+<ul class="sidemenu">
+<li><a href="http://wiki.coldbox.org/wiki/Dashboard.cfm">My Dashboard</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Help:Contents.cfm">Help</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Special:Feeds.cfm">Rss Feeds</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Special:Categories.cfm">Category Listing</a></li>
+<li><a href="http://wiki.coldbox.org/page/directory.cfm">Page Directory</a></li>
+<li><a href="http://wiki.coldbox.org/spaces.cfm">Namespace Directory</a></li>
+</ul>
+</div>
+<h1 onclick="toggleItems('sb_userinfo')"> <img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/key.png" alt="login"> User Login </h1>
+<div class="left-box" id="sb_userinfo">
+<form name="loginform" id="loginform" method="post" action="http://wiki.coldbox.org/user/doLogin.cfm" onsubmit="onLoginForm()">
+<input name="_securedURL" value="/wiki/DatabaseNamingConventions.cfm" type="hidden">
+<p>
+<label for="username">Username</label>
+<input kl_virtual_keyboard_secure_input="on" name="username" id="username" size="20" maxlength="50" type="text">
+<label for="username">Password</label>
+<input kl_virtual_keyboard_secure_input="on" name="password" id="password" size="20" maxlength="50" type="password">
+<br>
+</p><div id="_loader_login" class="align-center formloader">
+<p>
+Submitting...<br>
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/ajax-loader-horizontal.gif" alt="loader">
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/ajax-loader-horizontal.gif" alt="loader">
+</p>
+</div>
+<div id="_buttonbar_login" align="center">
+<a href="http://wiki.coldbox.org/user/reminder.cfm">Forgot Password?</a>
+<br><br>
+<input class="submitButton" value="Log In" name="loginbutton" id="loginbutton" type="submit">
+</div>
+<br>
+<p></p>
+</form>
+</div>
+<div align="center">
+<script type="text/javascript"><!--
+google_ad_client = "pub-0884459722343463";
+/* 120x240, created 1/5/10 */
+google_ad_slot = "5820081202";
+google_ad_width = 120;
+google_ad_height = 240;
+//-->
+</script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/show_ads.gif">
+</script>
+</div>
+</div>
+<a href="javascript:toggleSidebar()"><img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/sidebar.png" alt="help" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/spaces.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/namespace.png" alt="namespaces" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/wiki/Special:Categories.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/tag_blue.png" alt="categories" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/wiki/Help:Contents.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/help.png" alt="help" border="0"></a><a>&nbsp;
+</a><a href="http://wiki.coldbox.org/wiki/Special:Feeds.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/feed.png" alt="rss feeds" border="0"></a><a>
+</a></div><a>
+<div class="clr"></div>
+</a></div><a>
+<div class="clr"></div>
+</a></div><a>
+</a><div class="body_resize"><a>
+</a><div class="body"><a>
+</a><div class="body_bg"><a>
+<h1 class="wikiPageTitle">DatabaseNamingConventions 
+</h1>
+</a><div id="wikiTopToolbar"><a>
+<div id="wikiLastEditby">
+last edited by<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/user_icon.gif" alt="usericon"><strong>bdw429s</strong> 
+on 23-Sep-2013
+</div>
+</a><div id="wikiTopToolbarActions"><a>
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/history.png" alt="history" border="0">
+</a><a href="http://wiki.coldbox.org/page/showHistory/DatabaseNamingConventions.cfm">History</a>&nbsp;
+</div>
+</div>
+<p id="wikiContent">
+</p><p><a href="http://wiki.coldbox.org/wiki/Dashboard.cfm">&lt;&lt; Back to Dashboard</a></p>
+<div style="page-break-inside:	avoid;">
+<table align="right">
+<tbody><tr>
+<td><table id="toc" class="toc" summary="Contents">
+<tbody><tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#Database_Naming_Conventions">Database Naming Conventions</a>
+</li>
+<ul>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#General_Conventions">General Conventions</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#Table_Conventions">Table Conventions</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#Column_Conventions">Column Conventions</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#Index_Conventions">Index Conventions</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#Views_Convention">Views Convention</a>
+</li>
+<li class="toclevel-2"><a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm#Related_Guides">Related Guides</a>
+</li>
+</ul>
+</ul></td></tr></tbody></table>
+</td></tr></tbody></table></div>
+<a id="Database_Naming_Conventions" name="Database_Naming_Conventions"></a><h1>Database Naming Conventions</h1>
+<p>A naming convention is important when working with databases in order
+ to provide a clear structure and format; especially in team 
+environments. By using these conventions the database can be understood 
+by anyone applying these conventions; thus increasing maintainability. 
+These are not rules but guidelines that can be adapted to any working 
+environment.</p>
+<a id="General_Conventions" name="General_Conventions"></a><h2>General Conventions</h2>
+<ul>
+<li>All names should be in camelcase with the first letter in lower case.</li></ul>
+<pre>-- DO THIS --
+user
+permision
+userPermission
+
+-- NOT THIS --
+User
+Permission
+User_Permission
+user_permission
+</pre>
+<ul>
+<li>Separate name parts by using camel case and NOT underscores or 
+spaces. This provides better readibility and you will not have to use 
+quotes when doing SQL statements. Look at example in the previous point.</li>
+<li>Prefixes or namespaces are the ONLY parts of names that should be 
+separated by underscores. This defines a clear separation between names 
+and areas.</li></ul>
+<pre> -- DO THIS --
+ blog_user
+ blog_userPermission
+ 
+ -- NOT THIS --
+ BlogUser
+ BlogUserPermission
+ Blog_UserPermission
+</pre>
+<ul>
+<li>Do not use numbers in names. This is poor design, indicating divided table structures.</li>
+<li>Do not use dot (.) separator between names, remember use camel 
+casing. This way you will avoid problems whend doing SQL statements as 
+fields are accessed using dot notation.</li>
+<li>It goes without saying, do not use reserved database words in any name.</li>
+<li>Always try to use names that make sense and are descriptive of their purpose.</li>
+<li>Avoid abbreviations whenever possible. ONLY use abbreviations that are well known and documented.</li>
+<li>Avoid acronyms whenever possible. Only use acronyms that are well 
+known and documented. Also, they should all be in uppercase if used.</li></ul>
+<pre>-- DO THIS --
+HTTPRequests
+savedURL
+
+-- NOT THIS --
+http_requests
+httprequests
+savedurl
+saved_url
+</pre> 
+<a id="Table_Conventions" name="Table_Conventions"></a><h2>Table Conventions</h2>
+<ul>
+<li>Tables are usually entity you are modeling for persistence. So make 
+sure the names are in proper English and carry natural meanings. These 
+names should make sense and should be descriptive.</li>
+<li>Avoid acronyms and abbreviations if at all possible. If acronyms are
+ used, then make sure to capitalize them. Abbreviations used should be 
+well known abbreviations and should be camel cased.</li>
+<li>Avoid using plural names for tables, use singular forms. This will 
+avoid errors due to pluralization of words and also when moving table 
+design to objects or entities. The name should map to the entity it is 
+modeling.</li></ul>
+<pre>-- DO THIS --
+blog_user
+blog_page
+person
+box
+activity
+
+-- NOT THIS --
+blog_users
+blog_pages
+people
+boxes
+activities
+</pre>
+<ul>
+<li>Use namespaces for tables whenever grouping is needed. This grouping
+ is a clear separation when working with the tables and can also provide
+ a good basis for security, as you could secure via the namespace. 
+Namespaces should be separated by an underscore and then the name should
+ be camel cased.</li></ul>
+<pre>-- DO THIS --
+lookups_country
+lookups_state
+lookups_regionalOffice
+hr_employee
+hr_salary
+is_employee
+is_vacationDay
+
+-- NOT THIS --
+LookupsCountry
+lookupsState
+LOOKUPS_RegionalOffice
+HREmployee
+ISEmployee
+ISVacationDay
+</pre>
+<ul>
+<li>Do not use prefixes like <i>tbl,db</i> as they are EXTREMELY redundant and useless.</li>
+<li>All tables should have at least ONE primary key.</li></ul>
+<a id="Column_Conventions" name="Column_Conventions"></a><h2>Column Conventions</h2>
+<ul>
+<li>Columns are usually attributes of an entity you are modeling via a 
+table. So make sure the names are in proper English and carry natural 
+meanings. These names should make sense and should be descriptive.</li>
+<li>Avoid acronyms and abbreviations if at all possible. If acronyms are
+ used, then make sure to capitalize them. Abbreviations used should be 
+well known abbreviations and should be camel cased.</li>
+<li>Get used to naming primary or foreign keys with an <i>ID</i> identifier suffix. DO NOT use the column name <i>id</i> to identify a primary key. Be more descriptive, usually looking at the table name.</li></ul>
+<pre>-- DO THIS --
+userID
+userPermissionID
+
+-- NOT THIS --
+id
+userid
+upid
+</pre>
+<ul>
+<li>Foreign keys should be prefixed with a capitalized <i>FK_</i> in order to visually denote relationships and also to avoid ambigous table selects. After the <i>FK_</i> the name of the column must comply with our naming conventions.</li></ul>
+<pre>-- DO THIS --
+FK_userID
+
+-- NOT THIS --
+fkuserid
+userID
+</pre>
+<ul>
+<li>Boolean columns should use the <i>is</i> prefix.</li></ul>
+<pre>-- DO THIS --
+isActive
+isSold
+
+-- NOT THIS --
+active
+sold
+</pre>
+<ul>
+<li>Date columns should be suffixed in camel case with the word <i>Date</i>.</li></ul>
+<pre>-- DO THIS --
+createdDate
+updatedDate
+
+-- NOT THIS --
+date_created
+date_updated
+</pre>
+<ul>
+<li>Try to make </li></ul>
+<a id="Index_Conventions" name="Index_Conventions"></a><h2>Index Conventions</h2>
+<ul>
+<li>Always prefix all index names with <i>idx_</i> to distinguish it as an index.</li>
+<li>The names of the index should at least convey the columns it reaches or at least the purpose of the index.</li></ul>
+<a id="Views_Convention" name="Views_Convention"></a><h2>Views Convention</h2>
+<ul>
+<li>Always try to use names that make sense and are descriptive for the 
+views. Avoid acronyms and abbreviations if at all possible. If acronyms 
+are used, then make sure to capitalize them. Abbreviations used should 
+be well known abbreviations and should be camel cased. </li>
+<li>All views should be prefixed with <i>vw_</i> in order to distinguish them in SQL statements from regular database tables.</li></ul>
+<a id="Related_Guides" name="Related_Guides"></a><h2>Related Guides</h2>
+<ul>
+<li><a href="http://wiki.coldbox.org/wiki/MVC.cfm">Model-View-Controller Demystified</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/DevelopmentBestPractices.cfm">ColdFusion Development Best Practices</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/SQLInjectionBestPractices.cfm">ColdFusion SQL Injection Protection Best Practices</a></li></ul>
+<p></p>
+<div id="wikiPageActionBar">
+&nbsp;
+</div>
+<div id="downloadFormatsBar">
+<strong>Download in other Formats:</strong><br>
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/code.png" alt="markup" border="0">
+<a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions/markup.cfm" target="_blank">Markup</a> |
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/html_16x16.png" alt="html" border="0">
+<a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions/HTML.cfm" target="_blank">HTML</a> |
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/word.png" alt="word" border="0">
+<a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions/word.cfm" target="_blank">Word</a>
+</div>
+<div id="pageComments">
+<div id="pageCommentHeader">
+<a name="pageComments"></a>
+<p>
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/comments.png" alt="comments"> 
+Comments (<span id="pageCommentCount">2</span>)
+</p>
+</div>
+<div id="pageCommentButtonBar">
+<a href="javascript:addComment()" class="buttonLinks">
+<span>Add Comment</span>
+</a>
+</div>
+<div id="pageComment_79779380-FCB0-40A8-9EF379B0EB7DE67B" class="pageComment">
+<a name="comment-79779380-FCB0-40A8-9EF379B0EB7DE67B"></a>
+<div id="pageCommentMessages_79779380-FCB0-40A8-9EF379B0EB7DE67B"></div>
+<div class="pageCommentPicture">
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/avatar.jpg" alt="robby.bankston@gmail.com's Gravatar" align="middle">
+</div>
+<h4>
+<a href="http://wiki.coldbox.org/wiki/DatabaseNamingConventions.cfm"><img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/link.png" alt="url" border="0"></a>
+<strong>Robby</strong> said
+</h4>
+<p>at 02:58:50 PM 20-Sep-2013</p>
+<div class="pageCommentContent">
+The database guidelines under General Conventions say:
+All names should be in camelcase with the first letter in lower case.
+-- DO THIS --
+users
+permisions
+userPermissions
+but in "Table Conventions" you indicate "Avoid using plural names for tables, use singular forms."
+These seem to be contradictory.
+</div>
+</div>
+<div id="pageComment_23E5DE56-C4EA-4D37-B7D13FD84C24751B" class="pageComment">
+<a name="comment-23E5DE56-C4EA-4D37-B7D13FD84C24751B"></a>
+<div id="pageCommentMessages_23E5DE56-C4EA-4D37-B7D13FD84C24751B"></div>
+<div class="pageCommentPicture">
+<img src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/avatar.png" alt="brad@bradwood.com's Gravatar" align="middle">
+</div>
+<h4>
+<strong>Brad Wood</strong> said
+</h4>
+<p>at 03:14:05 PM 23-Sep-2013</p>
+<div class="pageCommentContent">
+Good catch, Robby. We updated the page.
+</div>
+</div>
+<a name="pageCommentsEnd"></a>
+</div>
+<br>
+<div class="clr"></div>
+</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<div class="FBG">
+<div class="FBG_resize">
+<div class="left">
+<h2>ColdBox Books</h2>
+<div>
+<div class="textCenter margin10">
+<a href="http://wiki.coldbox.org/wiki/Books.cfm">
+<img alt="book" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/ColdBoxBookThumbnail.jpg" border="0" height="100">
+</a>
+</div>
+</div>
+</div>
+<div class="left">
+<h2>Purchase Books</h2>
+<ul>
+<li><a href="https://www.createspace.com/3411525">Buy Book!</a></li>
+<li><a href="http://www.amazon.com/Definitive-Guide-ColdBox-Platform-ebook/dp/B002ZG8S0G/ref=sr_1_3?">Buy Kindle!</a></li>
+<li><a href="http://www.lulu.com/content/e-book/the-definitive-guide-to-the-coldbox-platform/8063957">Buy eBook!</a></li>
+<li><a href="http://wiki.coldbox.org/wiki/Books.cfm">See all books!</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Media</h2>
+<ul>
+<li><a href="http://www.coldbox.org/media">ColdBox TV</a></li>
+<li> <a href="http://www.coldbox.org/media/connection">ColdBox Connection</a></li>
+<li> <a href="http://www.coldbox.org/media/videos">Video Feeds</a></li>
+<li> <a href="http://www.coldbox.org/cbdw">Developer Week</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Social Media</h2>
+<ul>
+<li><a href="http://www.twitter.com/coldbox">twitter.com/coldbox</a></li>
+<li><a href="http://www.twitter.com/ortussolutions">twitter.com/ortussolutions</a></li>
+<li><a href="http://www.twitter.com/lmajano">twitter.com/lmajano</a></li>
+<li><a href="http://www.twitter.com/gocontentbox">twitter.com/gocontentbox</a></li>
+<li> <a href="http://www.facebook.com/coldbox.platform">facebook.com/coldbox</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Ortus Services</h2>
+<ul>
+<li><a href="http://ortussolutions.com/services/support">Support &amp; Mentoring</a></li>
+<li> <a href="http://ortussolutions.com/services/architecture">Architecture &amp; Design</a></li>
+<li> <a href="http://ortussolutions.com/services/training">Expert Training</a></li>
+<li> <a href="http://ortussolutions.com/services/servers">Server Setup &amp; Tuning</a></li>
+<li> <a href="http://ortussolutions.com/services/consulting">Consulting</a></li>
+</ul>
+</div>
+<div class="left">
+<h2>Contact Us</h2>
+<ul>
+<li><a href="mailto:info@coldbox.org">info@coldbox.org</a></li>
+<li><a href="mailto:info@ortussolutions.com">info@ortussolutions.com</a></li>
+<li><a href="http://www.ortussolutions.com/">www.ortussolutions.com</a></li>
+</ul>
+</div>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<div class="footer">
+<div class="footer_resize">
+<p class="leftt">Copyright <a href="http://www.ortussolutions.com/">Ortus Solutions, Corp</a> &gt;&gt;
+<a href="http://www.gocontentbox.org/">ContentBox</a> v0.5 Beta 2
+</p>
+<p class="right"><a href="http://www.dreamtemplate.com/"><strong>Design By DT</strong></a></p>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+// Tooltip settings
+var toolTipSettings	= {	//will make a tooltip of all elements having a title property
+opacity: 0.8,
+effect: 'slide',
+predelay: 200,
+delay: 10,
+offset:[5, 0]
+};
+//Tooltip
+$("[title]").tooltip(toolTipSettings).dynamic({bottom: { direction: 'down', bounce: true} });
+});
+function toggleIndex(){
+$("#indexguide").toggle();
+}
+function toggleSidebar(){
+$("#sidebar").slideToggle();
+}
+</script>
+<script type="text/javascript" src="ColdBox%20Platform%20Wiki%20-%20DatabaseNamingConventions_files/com.js"></script>
+
+
+<a class="atlwdg-trigger atlwdg-RIGHT" href="#" id="atlwdg-trigger">Provide Feedback</a><div style="display: none;" id="atlwdg-blanket" class="atlwdg-blanket"></div><div class="atlwdg-popup atlwdg-box-shadow atlwdg-hidden" id="atlwdg-container"></div></body></html>

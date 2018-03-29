@@ -1,0 +1,72 @@
+* csszengarden.com
+* cssvault.com
+########################
+basic syntax:
+selector { property: value }
+
+external: <link rel="StyleSheet" href="xx.css" type="text/css"> 
+or internal:<style type="text/css> p { color: white; } </style>
+or in-line: <td style="{ color: red; }">
+########################
+by class: .blue { font-weight: bold; }
+or: p.blue { color: white; }
+
+by id: #white { color: white; }
+or h1#white { color: white; }
+
+descendent selector: h3 em { color: blue; }
+
+grouping: h3,p,h2, p.navigation { color: blue; }
+########################
+display: inline|block
+########################
+<div> is vertical element
+<span> is an inline element
+########################
+Color & background-color:
+
+keyword:		color:	red;
+*16 colors in html4: aqua, black, blue, fuchsia, gray, lime, maroon, navy, olive,
+purple, red, silver, teal, white, yellow
+
+hex:			color:	#rrggbb;
+				color:	#ff0000;
+				color:	#f00;
+rgb functional notation in number ( 0-255 ):
+		color:	rgb( rrr, ggg, bbb )
+		color:	rgb( 255, 0, 0 );
+or percent:		color:	rgb( rrr%,ggg%,bbb% )
+		color:	rgb( 100%, 5%, 33% );
+
+inherit:		color:	inherit
+* links ( or anchor tag) do not inherit parent's properties
+########################
+Position: 
+static
+relative
+absolute
+fixed
+
+use with top and left
+div#left{
+	position:	absolute;
+	top:			125px;
+	left:			25px;
+}
+########################
+float: none or right or left
+########################
+border: thin red solid;
+########################
+Layers:
+z-index: 20;
+or instead of number, use "auto", which means to inherit the parent's property
+* higher the number, the closer it seems to the user
+* 0 is default
+########################
+links:
+a:link, a:visited, a:active, a:hover, a:focus
+########################
+########################
+########################
+########################

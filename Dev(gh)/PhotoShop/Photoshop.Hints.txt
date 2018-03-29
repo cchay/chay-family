@@ -1,0 +1,9 @@
+ROT:
+1) Rulers: Set ruler to pixels
+2) Clors: Edit/Color Settings/N Amer Gen Purpose 2
+
+Slices:
+1) Turn on View/show/Slices
+2) Turn on SNap
+3) preferences/guides grid & slices/Slices/Line color (optionally change color of slices)
+
