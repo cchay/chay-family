@@ -34,7 +34,8 @@ esc, :wq to save file
 
 Push branch to remote repository: git push origin nameOfBranch
 
-=================
+-------------
+
 git status
 
 git log
@@ -64,13 +65,25 @@ git diff --name-only HEAD~10 HEAD~5
 git diff-tree --no-commit-id --name-only -r bd61ad98
 git show --pretty="format:" --name-only bd61ad98
 
-=================
+-------------
+
 Basic workflow:
 
 Checkout older/any version: git checkout qqqq index.cfm
 Restore to latest checkin: git checkout HEAD index.cfm
+------------
+Start and create a local repository, go into the folder for the local repository:git init
 
-=================
+Track files: git add index.cfm
+Track all files: git add -all
+
+Mod the  files
+
+Add to local: git commit -a -m "release build: comment"
+
+Push: git push origin nameOfBranch
+-------------
+
 Tags:
 
 Get list of tags: git tag
@@ -87,7 +100,7 @@ Delete remote tag: git push --delete origin RemoteTagName
 Push tags to remote repository: git push --tags
 Get tags from remote repository: git pull --tags
 
-=================
+-------------
 Branch:
 
 Get list of local branches: git branch
@@ -104,7 +117,7 @@ Switch branches: git checkout nameOfBranch
 Rename current lcoal branch: git branch -m NewBranchName
 Rename another branch: git branch -m OldBranchName NewBranchName
 
-=================
+-------------
 Merging:
 
 Merging featureBranch to Master:
@@ -118,22 +131,22 @@ Merging featureBranch to Master:
 	Push master to remote: git push origin master
 
 git log -p zz..origin/zz
-=========================
+-------------
 Rebasing (reapply changes of featureBranch to another branch)
 	git checkout featureBranch
 	git rebase release
 	git checkout release
 	git merge featureBranch
-=========================
+-------------
 
 git diff --color-words x..y
 Check if branch has another branch in it: git branch --merged
 
-====================
+-------------
 Configuration:
 Show branch name in prompt: git config
 
-====================
+-------------
 Merging (FF):
 Go to master: git merge FBN
 
@@ -144,7 +157,7 @@ Abort merge: git merge --abort
 
 *** git log --graph --oneline --all --decorate
 
-====================
+-------------
 Stashing:
 
 Stash: git stash save "comment"
@@ -160,14 +173,14 @@ Remove a stash: git stash drop stash@{0}
 Remove all stash: git stash clear
 
 To unapply: git stash show -p stash@{0} | git apply -R
-====================
+-------------
 Remote:
 git branch -r
 git branch -a
-====================
+-------------
 Self Hosting:
 gitolite
-=================
+-------------
 Pulling down code:
 
 Pull down code set to another project location initially:
@@ -176,7 +189,7 @@ go to the folder: git clone git@gitlab.uscis.dhs.gov:did-it/cf_bcps.git
 Pull down latest code (e.g., from TEST): git pull origin NameOfBranch
 * (If there are files changed in that working copy: git checkout -- .
 
-=================
+-------------
 Mistakes:
 
 Fix uncomitted mistakes (revert to last commit): git reset --hard HEAD
@@ -191,7 +204,7 @@ Undo last commit: git commit --amend -m "comment"
 Checkout old version of file to stage (!working directory): git checkout COMMITSHA -- abc.html
 
 Move Head: git reset --soft | --mixed | --hard 
-=================
+-------------
 .gitignore
 
 # all files in specific dir
@@ -202,7 +215,7 @@ assets/
 
 Ignore already tracked file: git rm --cached x.txt
 
-=================
+-------------
 Misc:
 
 Insert in Git Bash: "INSERT" key
