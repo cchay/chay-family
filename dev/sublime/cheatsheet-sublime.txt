@@ -1,3 +1,0 @@
-{
-	"caret_extra_width": 5
-}
